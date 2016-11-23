@@ -37,7 +37,15 @@
                     <li ui-sref-active="active"><a ui-sref="index.profile"><i class="fa fa-user"></i> <span class="nav-label">Perfile</span> </a></li> 
                     <li ui-sref-active="active"><a ui-sref="index.settings"><i class="fa fa-user"></i> <span class="nav-label">Settings</span> </a></li> 
                 </ul>
-            </li>  
+            </li>
+            <li ng-class="{active: $state.includes('index')}">
+                <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Administracion</span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('index')}">
+                    <li ui-sref-active="active"><a ui-sref="index.user"><i class="fa fa-user"></i> <span class="nav-label">User</span> </a></li> 
+                    <!-- <li ui-sref-active="active"><a ui-sref="index.roles"><i class="fa fa-user"></i> <span class="nav-label">Roles</span> </a></li>  -->
+                    <!-- <li ui-sref-active="active"><a ui-sref="index.permission"><i class="fa fa-user"></i> <span class="nav-label">Permiso</span> </a></li>  -->
+                </ul>
+            </li>   
                      
         </ul>
     </div>

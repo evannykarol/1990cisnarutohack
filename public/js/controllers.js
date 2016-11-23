@@ -95,7 +95,7 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         .withOption('processing', true);
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).notSortable()
-            .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '100px'),
+            .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
         DTColumnBuilder.newColumn('Photo')
         .notSortable()
         .withOption('className', 'text-center')
@@ -149,12 +149,7 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         vm.user[data.Id] = data;
         return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
                '<span class="fa fa-edit"></span>'+
-               '</button>'+
-               '<a ui-sref="index.permission({id_user: '+data.Id+'})">'+
-               '<button type="button" class="btn btn-success">'+
-               '<span class="fa fa-lock"></span>'+
-               '</button>'+
-               '</a>';
+               '</button>';
     }
 };
 function NewUserController($scope, table, $http, $uibModalInstance){
@@ -443,6 +438,9 @@ function DataUserCtrl($scope, editId, table, $http, $uibModalInstance) {
         $scope.user.Name              = response.Name;
         $scope.user.Email             = response.Email;
         $scope.user.Area              = response.Area;
+        $scope.user.Roles             = response.Roles;
+        $scope.user.Language
+                  = response.Language;
     });
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');

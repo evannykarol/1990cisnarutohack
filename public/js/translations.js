@@ -89,7 +89,9 @@ function config($translateProvider) {
             Main_Language:'Main Language',
             Date_Format:'Date Format',
             Backend_Logo:'Backend Logo',
-            Example:'Example',  
+            Example:'Example',
+            ROLES:'ROLES',
+            LANGUAJE:'LANGUAJE',  
 
         })
         .translations('es', {
@@ -181,7 +183,9 @@ function config($translateProvider) {
             Main_Language:'Lenguaje principal',
             Date_Format:'Formato de fecha',
             Backend_Logo:'Logotipo del backend',
-            Example:'Ejemplo',               
+            Example:'Ejemplo',
+            ROLES:'ROLES',
+            LANGUAJE:'LENGUAJE',               
 
             
         });

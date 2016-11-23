@@ -30,12 +30,31 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ 'AREA' | translate }}:</label>
                 <div class="col-sm-7"><input type="text" class="form-control" ng-model='user.Area' required></div>
-            </div> 
+            </div>  
+         </div>
+         <div class="col-lg-12">            
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{{ 'ROLES' | translate }}:</label>
+                <div class="col-sm-7"><input type="text" class="form-control" ng-model='user.Roles' required></div>
+            </div>  
+         </div>
+         <div class="col-lg-12">            
+            <div class="form-group">
+                <label class="col-sm-3 control-label">{{ 'LANGUAJE' | translate }}:</label>
+                <div class="col-sm-7">
+                    <select class="form-control" ng-model='user.Language' required>
+                        <option value="es">Español</option>
+                        <option value="en">Ingles</option>
+                    </select>
+                </div>
+            </div>  
+         </div>                  
+         <div class="col-lg-12">            
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ 'PASSWORD' | translate }}:</label>
                 <div class="col-sm-7"><input type="text" class="form-control" ng-model='user.Password'></div>
             </div>  
-         </div>
+         </div>         
         </div>  
     </div>
     <div class="modal-footer">

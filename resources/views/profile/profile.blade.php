@@ -67,7 +67,7 @@
                                     <label class="col-sm-3 control-label">Roles:</label>
                                     <div class="col-sm-7">
                                         <select class="form-control" ng-model='user.Roles' required>
-                                            <option value="1>Administrador</option>
+                                            <option value="1">Administrador</option>
                                             <option value="2">ingles</option>
                                         </select>
                                     </div>
