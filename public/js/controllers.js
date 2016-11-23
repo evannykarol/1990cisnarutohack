@@ -254,7 +254,7 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
 
     $scope.edit = function (id) {
         var modalInstance = $uibModal.open({
-            templateUrl: 'modalusers',            
+            templateUrl: 'roles/modal',            
             controller: DataRolesCtrl,
             windowClass: "animated fadeIn",
             resolve: {
@@ -269,7 +269,7 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
     };
     $scope.add = function () {
         var modalInstance = $uibModal.open({
-            templateUrl: 'modalusers',            
+            templateUrl: 'roles/modal',            
             controller: NewRolesController,
             windowClass: "animated fadeIn",
             resolve: {
@@ -291,6 +291,65 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
                '<span class="fa fa-edit"></span>'+
                '</button>';
     }
+};
+function NewRolesController($scope, table, $http, $uibModalInstance){
+  $scope.roles = {};
+  $scope.delete ='no';
+  $scope.view ='yes';
+  $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+      };
+    $scope.submit = function() {
+         $scope.btnload = true;      
+         $http({
+          method  : 'POST',
+          url     : 'modalusers',
+          data    : $scope.roles,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+              $scope.btnload = false;
+                table.reloadData();
+              sweetAlert('Correctamente', "", "success");
+              $uibModalInstance.dismiss('cancel');
+          }, function errorCallback(response) {
+              $scope.btnload = false;
+              sweetAlert("Oops...", "Something went wrong!", "error");
+          });          
+    };
+}
+function DataRolesCtrl($scope, editId, table, $http, $uibModalInstance) {
+    $scope.roles = {};
+    $scope.delete = 'yes';
+    $scope.load = 'yes';
+    $scope.view='no';
+    $http.get('roles/edit/'+editId)
+    .success(function(response){
+        $scope.load = 'no';
+        $scope.view='yes';
+        $scope.roles.Id                = response.Id;
+        $scope.roles.Name              = response.Name;
+    });
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.btndelete = function () {
+        alert('elminado');
+    };    
+    $scope.submit = function() {
+         $scope.btnload = true;       
+         $http({
+          method  : 'POST',
+          url     : '/roles/update/'+ $scope.roles.Id,
+          data    : $scope.roles,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+                table.reloadData();
+                $scope.btnload = false;
+                // alert('actualizado');
+          }, function errorCallback(response) {
+                $scope.btnload = false; 
+          });          
+    };
 };
 function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
 
@@ -592,7 +651,6 @@ function DomainCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
     }
 };
 function datatablesCtrl($scope,DTOptionsBuilder){
-
     $scope.dtOptions = DTOptionsBuilder.newOptions()
         .withDOM('<"html5buttons"B>lTfgitp')
         .withButtons([

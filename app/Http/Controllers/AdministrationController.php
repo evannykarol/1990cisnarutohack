@@ -42,8 +42,46 @@ class AdministrationController extends Controller
                       ];
         }
         return response()->json($data);
-    }        
-
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function modalroles()
+    {
+        return view('administration.modalroles');
+    }             
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editroles($id)
+    {
+        $Roles = Roles::where('id','=',$id)->first();
+        $data = [
+                "Id"=>$Roles->id,
+                "Name"=>$Roles->name,
+              ];
+        return response()->json($data);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateroles(Request $request, $id)
+    {
+            $data = (object) $request->json()->all();   
+            $Roles = Roles::find($id);
+            $Roles->name = $data->Name;
+            $Roles->save();
+        return "Actualizacion"; 
+    }    
     /**
      * Show the form for creating a new resource.
      *
