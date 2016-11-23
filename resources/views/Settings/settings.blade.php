@@ -83,7 +83,7 @@
 
                             <div class="row">
                              <div class="col-lg-12 text-right">
-                                <button type="submit" class="btn btn-primary">{{ 'SAVE' | translate }}</button>
+                                <button type="submit" class="ladda-button btn btn-success" ladda="btnloading">{{ 'SAVE' | translate }}</button>
                              </div> 
                             </div>
                         </form>

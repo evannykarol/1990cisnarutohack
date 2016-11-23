@@ -728,15 +728,18 @@ function SettingsCtrl($scope,$http){
         $scope.settings.DateFormat      =  response[5].DateFormat;
         $scope.view = 'yes';      
     });
-    $scope.submit = function() {      
+    $scope.submit = function() {
+         $scope.btnloading= true;      
          $http({
           method  : 'POST',
           url     : 'settings/update',
           data    : $scope.settings,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
+                $scope.btnloading= false;
                 sweetAlert('Correctamente', "", "success");
           }, function errorCallback(response) {
+                $scope.btnloading= false;
                 sweetAlert("Oops...", "Something went wrong!", "error");
           });          
     };
