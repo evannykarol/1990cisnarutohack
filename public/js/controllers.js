@@ -580,6 +580,7 @@ function PerfilCtrl($scope,$http){
         $scope.user.Email             = response.Email;
         $scope.user.Area              = response.Area;
         $scope.user.Language          = response.Language;
+        $scope.user.Roles             = response.Roles;
         $scope.Name                   = response.Name;
         $scope.Area                   = response.Area;
         $scope.Photo                  = response.Photo;        

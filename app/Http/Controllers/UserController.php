@@ -36,6 +36,7 @@ class UserController extends Controller
 				"Area"=>$User->area,
 				"Photo"=>$User->photo,
                 "Languaje"=>$User->language,
+                "Roles"=>$User->id_roles,
 			  ];
 		return response()->json($data);
     }
@@ -67,6 +68,7 @@ class UserController extends Controller
                 "Area"=>$User->area,
                 "Photo"=>$User->photo,
                 "Language"=>$User->language,
+                "Roles"=>$User->id_roles,
               ];
         return response()->json($data);
     }
@@ -77,7 +79,8 @@ class UserController extends Controller
             $User->name         = $data->Name;
             $User->email        = $data->Email;
             $User->area         = $data->Area;
-            $User->language     = $data->Language;            
+            $User->language     = $data->Language;
+            $User->id_roles     = $data->Roles;            
             if(@$data->Password){
                $User->password          = Hash::make($data->Password); 
             }
