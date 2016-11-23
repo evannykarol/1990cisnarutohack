@@ -55,6 +55,13 @@ Route::get('/panelcontrol', function(){
 	return view('view.ControlPanel');
 });
 
+
+
+Route::get('roles', 'AdministrationController@roles');
+Route::get('roles/show', 'AdministrationController@showroles');
+
+
+
 ///Soporte Ticket Clientes
 Route::get('/common/top_navigation', function () {
     return view('common.top_navigation');

@@ -112,14 +112,14 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         DTColumnBuilder.newColumn('Area')   
     ];
 
-    $scope.edit = function (idaccessremote) {
+    $scope.edit = function (id) {
         var modalInstance = $uibModal.open({
             templateUrl: 'modalusers',            
             controller: DataUserCtrl,
             windowClass: "animated fadeIn",
             resolve: {
                  editId: function () {
-                   return idaccessremote;
+                   return id;
                  },
                  table: function () {
                    return vm.dtInstance;
@@ -234,6 +234,63 @@ function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuild
                 return "<small class='label label-danger'><i class='fa fa-lock'></i></small>";
             }          
         }
+};
+function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
+    var vm = this;
+    vm.delete = deleteRow;
+    vm.dtInstance = {};
+    vm.user = {};
+    vm.dtOptions = DTOptionsBuilder.fromSource('/roles/show')
+        .withPaginationType('full_numbers')
+        .withOption('createdRow', createdRow)      
+        .withOption('processing', true);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn(null).notSortable()
+        .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px').withTitle('Actions'),
+        DTColumnBuilder.newColumn('Name').withTitle('Name'),
+        DTColumnBuilder.newColumn('Create').withTitle('Create'),
+        DTColumnBuilder.newColumn('Update').withTitle('Update')   
+    ];
+
+    $scope.edit = function (id) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'modalusers',            
+            controller: DataRolesCtrl,
+            windowClass: "animated fadeIn",
+            resolve: {
+                 editId: function () {
+                   return id;
+                 },
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+        });
+    };
+    $scope.add = function () {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'modalusers',            
+            controller: NewRolesController,
+            windowClass: "animated fadeIn",
+            resolve: {
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+            });
+    };
+    function deleteRow(id) {
+        vm.dtInstance.reloadData();
+    };
+    function createdRow(row, data, dataIndex) {
+        $compile(angular.element(row).contents())($scope);
+    };
+    function actionsHtml(data, type, full, meta) {
+        vm.user[data.Id] = data;
+        return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
+               '<span class="fa fa-edit"></span>'+
+               '</button>';
+    }
 };
 function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
 
@@ -825,6 +882,7 @@ angular
     .controller('OptCtrl', OptCtrl)
     .controller('TicketCtrl', TicketCtrl)
     .controller('UsersCtrl',UsersCtrl)
+    .controller('RolesCtrl', RolesCtrl)
     .controller('hostingCtrl', hostingCtrl)
     .controller('AccessRemoteCtrl', AccessRemoteCtrl)
     .controller('DomainCtrl', DomainCtrl)
