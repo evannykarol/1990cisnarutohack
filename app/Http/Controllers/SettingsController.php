@@ -12,6 +12,7 @@ class SettingsController extends Controller
     {
     	return view('Settings.settings');
     }
+    
     public function show()
     {
     	$Settings = Settings::get();
@@ -23,6 +24,7 @@ class SettingsController extends Controller
 		}
 		return response()->json($data);
     } 
+
     public function update(Request $request)
     {
         
@@ -33,6 +35,7 @@ class SettingsController extends Controller
          // return $datas;
         return response()->json($data);
     }
+
     public function clearcache()
     {
         $dir = base_path()."/storage/logs"; 

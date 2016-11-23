@@ -64,6 +64,8 @@ Route::get('roles/show', 'AdministrationController@showroles');
 Route::get('roles/modal', 'AdministrationController@modalroles');
 Route::get('roles/edit/{id}', 'AdministrationController@editroles');
 Route::post('roles/update/{id}', 'AdministrationController@updateroles');
+Route::get('permisionroles', 'AdministrationController@permissionroles');
+
 
 
 

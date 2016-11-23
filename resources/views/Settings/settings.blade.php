@@ -15,16 +15,24 @@
     </div>
 </div>
 <div class="wrapper wrapper-content" ng-controller="SettingsCtrl">
-        <div class="row">
+        <div class="row" ng-if="'yes'==load">
+            <div class="spiner-example">
+                <div class="sk-spinner sk-spinner-chasing-dots">
+                    <div class="sk-dot1"></div>
+                    <div class="sk-dot2"></div>
+                </div>
+            </div>
+        </div> 
+        <div class="row" ng-if="'yes' == view">
         <div class="col-lg-12">
-            <div class="tabs-container">
+            <div class="tabs-container" >
 
                 <uib-tabset>
                     <uib-tab>
                         <uib-tab-heading>
                             <i class="fa fa-laptop"></i> {{'General_Settings' | translate}} 
                         </uib-tab-heading>
-                        <div class="panel-body" ng-if="'yes' == view">
+                        <div class="panel-body">
 
                         <form  class="form-horizontal" ng-submit="submit()">
                             <div class="row">                            

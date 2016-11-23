@@ -291,6 +291,9 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         vm.user[data.Id] = data;
         return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
                '<span class="fa fa-edit"></span>'+
+               '</button>'+
+               '<button type="button" class="btn btn-warning" ui-sref="index.permisionroles">'+
+               '<span class="fa fa-edit"></span>'+
                '</button>';
     }
 };
@@ -718,6 +721,7 @@ function PerfilCtrl($scope,$http){
 } 
 function SettingsCtrl($scope,$http){
     $scope.settings = {};
+    $scope.load= 'yes'; 
     $http.get('settings/show')
     .success(function(response){
         $scope.settings.ApplicationName =  response[0].ApplicationName;
@@ -726,6 +730,7 @@ function SettingsCtrl($scope,$http){
         $scope.settings.EmailSystem     =  response[3].EmailSystem;
         $scope.settings.MainLanguaje    =  response[4].MainLanguaje;
         $scope.settings.DateFormat      =  response[5].DateFormat;
+        $scope.load= 'no';
         $scope.view = 'yes';      
     });
     $scope.submit = function() {

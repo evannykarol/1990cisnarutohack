@@ -236,6 +236,34 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 }
             }              
         })         
+        .state('index.permisionroles', {
+            url: "/permisionroles",
+            templateUrl: "/permisionroles",
+            data: { pageTitle: 'permisionroles' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        },
+                        {
+                            files: ['js/plugins/blueimp/jquery.blueimp-gallery.min.js','css/plugins/blueimp/css/blueimp-gallery.min.css']
+                        }
+                    ]);
+                }
+            }              
+        })
         .state('index.settings', {
             url: "/settings",
             templateUrl: "/settings",

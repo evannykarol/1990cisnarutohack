@@ -94,7 +94,17 @@ class AdministrationController extends Controller
                 $Roles->name = $data->Name;
                 $Roles->save();
         return "insertado"; 
-    } 
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function permissionroles()
+    {
+        return view('administration.permissionroles');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
