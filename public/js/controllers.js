@@ -109,7 +109,9 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         }),
         DTColumnBuilder.newColumn('Name'),
         DTColumnBuilder.newColumn('Email'),  
-        DTColumnBuilder.newColumn('Area')   
+        DTColumnBuilder.newColumn('Area'), 
+        DTColumnBuilder.newColumn('Language'), 
+        DTColumnBuilder.newColumn('Roles')   
     ];
 
     $scope.edit = function (id) {
@@ -303,7 +305,7 @@ function NewRolesController($scope, table, $http, $uibModalInstance){
          $scope.btnload = true;      
          $http({
           method  : 'POST',
-          url     : 'modalusers',
+          url     : 'roles',
           data    : $scope.roles,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {

@@ -64,7 +64,7 @@
                                     <div class="col-sm-7"><input type="text" class="form-control" ng-model='user.Area' required></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Roles:</label>
+                                    <label class="col-sm-3 control-label">{{ 'ROLES' | translate }}:</label>
                                     <div class="col-sm-7">
                                         <select class="form-control" ng-model='user.Roles' required>
                                             <option value="1">Administrador</option>
@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{'Main_Language' | translate}}:</label>
+                                    <label class="col-sm-3 control-label">{{'LANGUAJE' | translate}}:</label>
                                     <div class="col-sm-7">
                                         <select class="form-control" ng-model='user.Language' required>
                                             <option value="es">español</option>

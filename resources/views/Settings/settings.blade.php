@@ -60,19 +60,19 @@
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label">{{'Date_Format' | translate}}:</label>
                                     <div class="col-sm-7">
-                                        <select class="form-control" ng-model='configuration.DateFormat' required>
+                                        <select class="form-control" ng-model='settings.DateFormat' required>
                                         <option value="Y-m-d"> ( Y-m-d ) . {{'Example' | translate}} : 2016-11-23</option>
                                         <option value="Y/m/d"> ( Y/m/d ) . {{'Example' | translate}} : 2016/11/23</option>
                                         <option value="d-m-y"> ( D-M-Y ) . {{'Example' | translate}} : 23-11-16</option>
                                         <option value="d/m/y"> ( D/M/Y ) . {{'Example' | translate}} : 23/11/16</option>
                                         <option value="m-d-y"> ( m-d-Y ) . {{'Example' | translate}} : 11-23-2016</option>
-                                        <option value="m/d/y" selected=""> ( m/d/Y ) . {{'Example' | translate}} : 11/23/2016</option>
+                                        <option value="m/d/y"> ( m/d/Y ) . {{'Example' | translate}} : 11/23/2016</option>
                                         </select>
                                     </div>
                                 </div> 
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label">{{'Backend_Logo' | translate}}:</label>
-                                    <div class="col-sm-7"><input type="file" class="form-control" ng-model='configuration.file'></div>
+                                    <div class="col-sm-7"><input type="file" class="form-control" ng-model='settings.Logotipo'></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label"></label>

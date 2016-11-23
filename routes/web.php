@@ -58,10 +58,12 @@ Route::get('/panelcontrol', function(){
 
 
 Route::get('roles', 'AdministrationController@roles');
+Route::post('roles', 'AdministrationController@storeroles');
 Route::get('roles/show', 'AdministrationController@showroles');
 Route::get('roles/modal', 'AdministrationController@modalroles');
 Route::get('roles/edit/{id}', 'AdministrationController@editroles');
 Route::post('roles/update/{id}', 'AdministrationController@updateroles');
+
 
 
 
@@ -121,7 +123,7 @@ Route::post('profileupdate','UserController@profileupdate');
 
 Route::get('settings','SettingsController@index');
 Route::get('settings/show','SettingsController@show');
-Route::get('settings/update','SettingsController@update');
+Route::post('settings/update','SettingsController@update');
 Route::get('settings/clearcache','SettingsController@clearcache');
 
 

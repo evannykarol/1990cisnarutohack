@@ -87,6 +87,19 @@ class AdministrationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function storeroles(Request $request)
+    {
+        $data = (object) $request->json()->all();
+        $Roles = new Roles();
+                $Roles->name = $data->Name;
+                $Roles->save();
+        return "insertado"; 
+    } 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         //

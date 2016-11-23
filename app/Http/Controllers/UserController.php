@@ -23,6 +23,8 @@ class UserController extends Controller
 						"Email"=>$Users->email,
 						"Area"=>$Users->area,
 						"Photo"=>$Users->photo,
+                        "Language"=>$Users->language,
+                        "Roles"=>$Users->id_roles,
 					  ];
 		}
 		return response()->json($data);

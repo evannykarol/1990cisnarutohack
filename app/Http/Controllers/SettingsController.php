@@ -23,9 +23,15 @@ class SettingsController extends Controller
 		}
 		return response()->json($data);
     } 
-    public function update()
+    public function update(Request $request)
     {
-
+        
+        $data = (object) $request->json()->all();
+        foreach ($data as $datas => $key) {
+             Settings::where('name','=',$datas)->update(['value'=>$key]);
+         } 
+         // return $datas;
+        return response()->json($data);
     }
     public function clearcache()
     {

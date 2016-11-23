@@ -34,7 +34,9 @@
 	                            <th>{{ 'PHOTO' | translate }}</th>
 	                            <th>{{ 'NAME' | translate }}</th>                            
 	                            <th>{{ 'EMAIL' | translate }}</th>	
-	                            <th>{{ 'AREA' | translate }}</th>                      
+	                            <th>{{ 'AREA' | translate }}</th>
+                                <th>{{ 'LANGUAJE' | translate }}</th>
+                                <th>{{ 'ROLES' | translate }}</th>                      
 	                        </tr>
                         </thead>
                     </table>
