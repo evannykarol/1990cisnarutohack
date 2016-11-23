@@ -40,9 +40,19 @@ class CrudController extends Controller
             unset($datatables[0]);
             $colums[]= [$table=>$datatables];
         }
-        // return response()->json($colums);
         return view('template.generatecrud',compact('tables','colums'));
     }
+    public function edit()
+    {
+        $tables = App\Crud\Database\DatabaseManager::tableNames();
+        foreach ($tables as $table) 
+        {
+            $datatables = Schema::getColumnListing($table);
+            unset($datatables[0]);
+            $colums[]= [$table=>$datatables];
+        }
+        return view('template.crudedit',compact('tables','colums'));
+    }    
     public function store(Request $request, $spec='v')
     {
         app()->make('Respuesta')->setRequest($request->json()->all());

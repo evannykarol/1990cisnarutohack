@@ -32,6 +32,7 @@ Route::get('/common/content', function () {
 Route::get('crud', 'CrudController@index');
 Route::get('crud/show','CrudController@show');
 Route::get('crud/create','CrudController@create');
+Route::get('crud/edit','CrudController@edit');
 
 Route::get('/common/navigation', function () {
 	// $catalog = App\PermissionCatalogs::join('catalogs', 'catalogs.id_catalogs', '=', 'permission_catalogs.id_catalogs')->where('permission_catalogs.id_users','=','1')->get();

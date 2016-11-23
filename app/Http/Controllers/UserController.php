@@ -10,10 +10,12 @@ use Hash;
 use Auth;
 class UserController extends Controller
 {
-	public function index(){
+	public function index()
+    {
     	return view('catalogs.user');
     }
-    public function show(){
+    public function show()
+    {
     	$User = User::get();
 		$data = [];
 		foreach ($User as $Users) {
@@ -29,7 +31,8 @@ class UserController extends Controller
 		}
 		return response()->json($data);
     }
-    public function edit($id){
+    public function edit($id)
+    {
     	$User = User::where('id','=',$id)->first();
 		$data = [
 				"Id"=>$User->id,
@@ -42,7 +45,8 @@ class UserController extends Controller
 			  ];
 		return response()->json($data);
     }
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
             $data = (object) $request->json()->all();   
             $User = User::find($id);
             $User->name         = $data->Name;
@@ -54,13 +58,16 @@ class UserController extends Controller
             $User->save();
         return "Actualizacion";    	
     }
-    public function lenguaje(){
+    public function lenguaje()
+    {
     	return 'es';
     }
-    public function profile(){
+    public function profile()
+    {
     	return view('profile.profile');
     }
-    public function profileshow(){
+    public function profileshow()
+    {
         $id = Auth::id();
         $User = User::where('id','=',$id)->first();
         $data = [
@@ -74,7 +81,8 @@ class UserController extends Controller
               ];
         return response()->json($data);
     }
-    public function profileupdate(Request $request){
+    public function profileupdate(Request $request)
+    {
             $data = (object) $request->json()->all();
             $id = Auth::id();   
             $User = User::find($id);
@@ -89,7 +97,8 @@ class UserController extends Controller
             $User->save();
         return "Actualizacion"; 
     }
-    public function permission($id_users){
+    public function permission($id_users)
+    {
         function create($id_users, $id_catalogs){
             $contar = PermissionCatalogs::where("id_users","=",$id_users)->where("id","=",$id_catalogs)->where("create","=",1)->get();
             return $contar->Count();
@@ -172,7 +181,8 @@ class UserController extends Controller
 
       return response()->json($data);
     }
-    public function addpermission(){
+    public function addpermission()
+    {
 
     }       
 }

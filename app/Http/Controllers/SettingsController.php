@@ -35,6 +35,34 @@ class SettingsController extends Controller
     }
     public function clearcache()
     {
+        $dir = base_path()."/storage/logs"; 
+        foreach(glob($dir . '/*') as $file) {
+            if(is_dir($file))
+            {
+
+            } else {
+                unlink($file);
+            }
+        }
+
+        $dir = base_path()."/storage/framework/views";  
+        foreach(glob($dir . '/*') as $file) {
+            if(is_dir($file))
+            {
+
+            } else {               
+                unlink($file);
+            }
+        }       
         Cache::flush();
+
+        return response()->json(array(
+            'status'    =>'success',
+            'message'   => 'Cache has been cleared !'
+        ));
+
+
+
+        
     }         
 }
