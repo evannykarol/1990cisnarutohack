@@ -179,6 +179,77 @@ function NewUserController($scope, table, $http, $uibModalInstance){
           });          
     };
 }
+function ClientCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
+    var vm = this;
+    vm.delete = deleteRow;
+    vm.dtInstance = {};
+    vm.user = {};
+    vm.dtOptions = DTOptionsBuilder.fromSource('/user/show')
+        .withPaginationType('full_numbers')
+        .withOption('createdRow', createdRow)
+        // .withOption('responsive', true)         
+        .withOption('processing', true);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn(null).notSortable()
+            .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
+        DTColumnBuilder.newColumn('Photo')
+        .notSortable()
+        .withOption('className', 'text-center')
+        .renderWith(function(data, type, full) {
+            if(data){
+              return '<div class="lightBoxGallery">'+
+              '<a href="img/perfil/'+full.Photo+'" data-gallery=""><img src="img/perfil/'+full.Photo+'" width="40px"></a></div>';
+            }else{
+                return '<img src="/img/perfil/default.jpg" class="img-thumbnail" width="40px">';
+            }          
+        }),
+        DTColumnBuilder.newColumn('Name'),
+        DTColumnBuilder.newColumn('Email'),  
+        DTColumnBuilder.newColumn('Area'), 
+        DTColumnBuilder.newColumn('Language'), 
+        DTColumnBuilder.newColumn('Roles')   
+    ];
+
+    $scope.edit = function (id) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'modalusers',            
+            controller: DataUserCtrl,
+            windowClass: "animated fadeIn",
+            resolve: {
+                 editId: function () {
+                   return id;
+                 },
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+        });
+    };
+    $scope.add = function () {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'modalusers',            
+            controller: NewUserController,
+            windowClass: "animated fadeIn",
+            resolve: {
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+            });
+    };
+    function deleteRow(id) {
+        vm.dtInstance.reloadData();
+    };
+    function createdRow(row, data, dataIndex) {
+        $compile(angular.element(row).contents())($scope);
+    };
+    function actionsHtml(data, type, full, meta) {
+        vm.user[data.Id] = data;
+        return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
+               '<span class="fa fa-edit"></span>'+
+               '</button>';
+    }
+};
 function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuilder, DTColumnBuilder){
 
     var vm = this;
@@ -292,8 +363,8 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
                '<span class="fa fa-edit"></span>'+
                '</button>'+
-               '<button type="button" class="btn btn-warning" ui-sref="index.permisionroles">'+
-               '<span class="fa fa-edit"></span>'+
+               '<button type="button" class="btn btn-primary" ui-sref="index.permisionroles">'+
+               '<span class="fa fa-lock"></span>'+
                '</button>';
     }
 };
@@ -961,6 +1032,7 @@ angular
     .controller('CrudCtrl', CrudCtrl)
     .controller('SettingsCtrl', SettingsCtrl)
     .controller('NotificationCtrl', NotificationCtrl)
+    .controller('ClientCtrl', ClientCtrl)
     
     
     

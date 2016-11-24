@@ -91,7 +91,8 @@ function config($translateProvider) {
             Backend_Logo:'Backend Logo',
             Example:'Example',
             ROLES:'ROLES',
-            LANGUAJE:'LANGUAJE',  
+            LANGUAJE:'LANGUAJE', 
+            CLIENT:'CLIENT',  
 
         })
         .translations('es', {
@@ -185,7 +186,8 @@ function config($translateProvider) {
             Backend_Logo:'Logotipo del backend',
             Example:'Ejemplo',
             ROLES:'ROLES',
-            LANGUAJE:'LENGUAJE',               
+            LANGUAJE:'LENGUAJE',
+            CLIENT:'CLIENTE',               
 
             
         });

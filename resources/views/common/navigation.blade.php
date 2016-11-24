@@ -41,9 +41,11 @@
             <li ng-class="{active: $state.includes('index')}">
                 <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Administracion</span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('index')}">
-                    <li ui-sref-active="active"><a ui-sref="index.user"><i class="fa fa-user"></i> <span class="nav-label">User</span> </a></li> 
-                    <li ui-sref-active="active"><a ui-sref="index.roles"><i class="fa fa-user"></i> <span class="nav-label">Roles and permision</span> </a></li> 
-                    <!-- <li ui-sref-active="active"><a ui-sref="index.permission"><i class="fa fa-user"></i> <span class="nav-label">Permiso</span> </a></li>  -->
+                    <li ui-sref-active="active"><a ui-sref="index.user"><i class="fa fa-user"></i> <span class="nav-label">User</span> </a></li>                     
+                    <li ui-sref-active="active"><a ui-sref="index.client"><i class="fa fa-user"></i> <span class="nav-label">Client</span> </a></li>
+                    <li ui-sref-active="active"><a ui-sref="index.roles"><i class="fa fa-user"></i> <span class="nav-label">Roles and permision</span></a></li> 
+                    <li ui-sref-active="active"><a ui-sref="index.catalog"><i class="fa fa-user"></i> <span class="nav-label">Catalogs</span></a></li> 
+                    <li ui-sref-active="active"><a ui-sref="index.crud"><i class="fa fa-users"></i> <span class="nav-label">Generar CRUD</span></a></li> 
                 </ul>
             </li>   
                      

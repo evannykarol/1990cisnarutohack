@@ -26,6 +26,21 @@
       </a>
     </div>
     <div class="col-lg-3">
+      <a ui-sref="index.user">
+        <div class="widget style1 navy-bg">
+            <div class="row">
+                <div class="col-xs-4">
+                    <i class="fa fa-user fa-5x"></i>
+                </div>
+                <div class="col-xs-8 text-right">
+                    <span>CLIENT</span>
+                    <h2 class="font-bold">26</h2>
+                </div>
+            </div>
+        </div>
+      </a>
+    </div>    
+    <div class="col-lg-3">
         <div class="widget style1 navy-bg">
             <div class="row">
                 <div class="col-xs-4">

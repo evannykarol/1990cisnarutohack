@@ -276,7 +276,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         })
         .state('index.client', {
             url: "/Client",
-            templateUrl: "/catalog/client",
+            templateUrl: "client",
             data: { pageTitle: 'Clientes' }
         })
         .state('index.permission', {

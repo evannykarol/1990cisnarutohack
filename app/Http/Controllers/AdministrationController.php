@@ -105,6 +105,35 @@ class AdministrationController extends Controller
         return view('administration.permissionroles');
     }
 
+    public function permissionrolescatalog()
+    {
+        $Roles = Roles::get();
+        $data = [];
+        foreach ($Roles as $Role) {
+            $data[] = [
+                        "Id"=>$Role->id,
+                        "Name"=>$Role->name,
+                        "Create"=>$Role->created_at,
+                        "Update"=>$Role->updated_at,
+                      ];
+        }
+        return response()->json($data);
+    }  
+    public function permissionrolescrud()
+    {
+        $Roles = Roles::get();
+        $data = [];
+        foreach ($Roles as $Role) {
+            $data[] = [
+                        "Id"=>$Role->id,
+                        "Name"=>$Role->name,
+                        "Create"=>$Role->created_at,
+                        "Update"=>$Role->updated_at,
+                      ];
+        }
+        return response()->json($data);
+    }        
+
     /**
      * Show the form for creating a new resource.
      *

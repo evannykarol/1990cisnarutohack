@@ -51,7 +51,14 @@ Route::get('/catalog', 'CatalogsController@index');
 Route::get('/catalog/show', 'CatalogsController@show');
 Route::get('/catalog/edit/{id}', 'CatalogsController@edit');
 Route::post('/catalog/update/{id}', 'CatalogsController@update');
-Route::get('/catalog/client', 'ClientController@index');
+
+//clientes
+
+Route::get('client', 'ClientController@index');
+Route::get('client/show', 'ClientController@show');
+
+//clientes
+
 Route::get('/panelcontrol', function(){
 	return view('view.ControlPanel');
 });
