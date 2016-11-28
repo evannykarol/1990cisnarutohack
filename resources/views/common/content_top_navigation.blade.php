@@ -2,7 +2,7 @@
 <div id="wrapper" class="top-navigation">
 
     <!-- Navigation -->
-    <div ng-include="'/common/top_navigation'"></div>
+    <div ng-include="'common/top_navigation'"></div>
 
     <!-- Page wraper -->
     <!-- ng-class with current state name give you the ability to extended customization your view -->

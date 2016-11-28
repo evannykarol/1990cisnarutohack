@@ -96,6 +96,8 @@ function config($translateProvider) {
             FIRST_NAME:'FIRST NAME',
             NEW_PASSWORD:'NEW PASSWORD',
             CONFIRM_PASSWORD:'CONFIRM PASSWORD',  
+            Module_Generator:'Module Generator',
+            IS_GROUP:'IS GROUP',     
 
         })
         .translations('es', {
@@ -193,7 +195,9 @@ function config($translateProvider) {
             CLIENT:'CLIENTE',
             FIRST_NAME:'APELLIDO',
             NEW_PASSWORD:'NUEVO CONTRASEÑA',
-            CONFIRM_PASSWORD:'CONFIR. CONTRASEÑA',                
+            CONFIRM_PASSWORD:'CONFIR. CONTRASEÑA',
+            Module_Generator:'Generador de módulos',
+            IS_GROUP:'ES GRUPO',                  
 
             
         });

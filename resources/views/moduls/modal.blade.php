@@ -15,20 +15,20 @@
         <div class="row" ng-if="'yes'==view">
          <div class="col-lg-12">            
             <div class="form-group">
-                <input type="hidden" ng-model='catalog.Id'>
-                <label class="col-sm-3 control-label">{{ 'Name' | translate }}:</label>
+                <input type="hidden" ng-model='moduls.Id'>
+                <label class="col-sm-3 control-label">{{ 'NAME' | translate }}:</label>
                 <div class="col-sm-7"><input type="text" class="form-control" ng-model='moduls.Name' required></div>
             </div>  
          </div>
          <div class="col-lg-12">            
             <div class="form-group">
-                <label class="col-sm-3 control-label">{{ 'Icon' | translate }}:</label>
+                <label class="col-sm-3 control-label">{{ 'ICON' | translate }}:</label>
                 <div class="col-sm-7"><input type="text" class="form-control" ng-model='moduls.Icon'></div>
             </div>  
          </div> 
          <div class="col-lg-12">            
             <div class="form-group">
-                <label class="col-sm-3 control-label">{{ 'Is_Group' | translate }}:</label>
+                <label class="col-sm-3 control-label">{{ 'IS_GROUP' | translate }}:</label>
                 <div class="col-sm-7"><input type="text" class="form-control" ng-model='moduls.Is_Group'></div>
                 <!-- Button tag -->
                 <button type="button" class="btn btn-default" role="iconpicker"></button>
@@ -40,7 +40,7 @@
     </div>
     <div class="modal-footer">
         <button type="submit" class="ladda-button btn btn-primary" ladda="btnload" data-style="expand-right">{{ 'SAVE' | translate }}</button>
-        <button type="button" class="btn btn-danger" ng-if="'yes' == catalog.delete" ng-click="this.delete(datas.id)">{{ 'DELETE' | translate }}</button>      
+        <button type="button" class="btn btn-danger" ng-if="'yes' == delete" ng-click="this.delete(moduls.id)">{{ 'DELETE' | translate }}</button>      
         <button type="button" class="btn btn-white" ng-click="this.cancel()">{{ 'CLOSE' | translate }}</button>        
     </div>
 </div>

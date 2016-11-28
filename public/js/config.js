@@ -9,7 +9,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         .state('index', {
             abstract: true,
             url: "/index",
-            templateUrl: "/common/content",
+            templateUrl: "common/content",
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -26,7 +26,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         })
         .state('index.crud', {
             url: "/crud",
-            templateUrl: "/crud",
+            templateUrl: "crud",
             data: { pageTitle: 'crud' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
@@ -61,7 +61,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         }) 
         .state('index.productos', {
-            url: "/producto",
+            url: "producto",
             templateUrl: "/producto",
             data: { pageTitle: 'producto' },
             resolve: {
@@ -97,7 +97,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })            
         .state('index.user', {
-            url: "/user",
+            url: "user",
             templateUrl: "/user",
             data: { pageTitle: 'user' },
             resolve: {
@@ -125,27 +125,27 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })        
         .state('index.profile', {
-            url: "/profile",
+            url: "profile",
             templateUrl: "/profile",
             data: { pageTitle: 'Perfiles' }
         })
         .state('index.settings', {
-            url: "/settings",
+            url: "settings",
             templateUrl: "/settings",
             data: { pageTitle: 'settings' }
         })
         .state('index.main', {
-            url: "/main",
+            url: "main",
             templateUrl: "/panelcontrol",
             data: { pageTitle: 'Example view' }
         })
         .state('index.client', {
-            url: "/Client",
+            url: "Client",
             templateUrl: "/catalog/client",
             data: { pageTitle: 'Clientes' }
         })
         .state('index.permission', {
-            url: "/Permission/{id_user:[0-9]{1,8}}",
+            url: "Permission/{id_user:[0-9]{1,8}}",
             templateUrl: "/permission",
             data: { pageTitle: 'Permiso' },
             resolve: {
@@ -173,7 +173,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })
         .state('index.email', {
-            url: "/email",
+            url: "email",
             templateUrl: "/email",
             data: { pageTitle: 'email' },
             resolve: {
@@ -198,7 +198,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })
         .state('index.catalog', {
-            url: "/catalog",
+            url: "catalog",
             templateUrl: "/catalog",
             data: { pageTitle: 'catalog' },
             resolve: {
@@ -223,7 +223,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })
         .state('index.hosting', {
-            url: "/hosting",
+            url: "hosting",
             templateUrl: "/hosting",
             data: { pageTitle: 'hosting' },
             resolve: {
@@ -248,7 +248,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })
         .state('index.servicehosting', {
-            url: "/servicehosting",
+            url: "servicehosting",
             templateUrl: "/servicehosting",
             data: { pageTitle: 'servicehosting' },
             resolve: {
@@ -273,7 +273,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })
         .state('index.hostingedit', {
-            url: "/hosting/edit/1",
+            url: "hosting/edit/1",
             templateUrl: "/hosting/edit/1",
             data: { pageTitle: 'hosting' },
             resolve: {
@@ -315,11 +315,11 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         /////////////////////
         .state('support', {
             abstract: true,
-            url: "/support",
+            url: "support",
             templateUrl: "/common/content_top_navigation",
         })
         .state('support.hometicket', {
-            url: "/home",
+            url: "home",
             templateUrl: "support/home",
             data: { pageTitle: 'Soporte Ticket' },
             resolve: {
@@ -344,7 +344,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }          
         }) 
         .state('support.tickets', {
-            url: "/tickets",
+            url: "tickets",
             templateUrl: "support/detalletickets",
             data: { pageTitle: 'Soporte Ticket' },
             resolve: {
@@ -359,7 +359,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }                       
         }) 
         .state('support.newticket', {
-            url: "/Newticket",
+            url: "Newticket",
             templateUrl: "support/tickets/new",
             data: { pageTitle: 'Soporte Ticket' },
             resolve: {
@@ -374,7 +374,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }            
         }) 
         .state('login', {
-            url: "/login",
+            url: "login",
             templateUrl: "/session",
             data: { pageTitle: 'Login two columns', specialClass: 'gray-bg' },
             resolve: {

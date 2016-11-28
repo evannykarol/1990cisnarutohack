@@ -37,9 +37,10 @@ class ModuleGroupController extends Controller
         $data = [];
         foreach ($groups as $group) {
             $data[] = [
-                        "Id"=>$group->id,
-                        "Name"=>$group->name_group,
-                        "Is_group"=>$group->is_group,                        
+                        "Id"            =>$group->id,
+                        "Name"          =>$group->name_group,
+                        "Is_group"      =>$group->is_group,
+                        "Icon_group"    =>$group->icon_group,                        
                       ];
         }
         return response()->json($data);
@@ -94,9 +95,16 @@ class ModuleGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('moduls.edit');
+        $group = ModulsGroup::where('id','=',$id)->firt();
+            $data = [
+                        "Id"            =>$group->id,
+                        "Name"          =>$group->name_group,
+                        "Is_group"      =>$group->is_group,
+                        "Icon_group"    =>$group->icon_group,                        
+                      ];
+        return response()->json($data);
     }
 
     /**

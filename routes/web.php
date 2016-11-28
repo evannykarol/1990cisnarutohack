@@ -43,9 +43,10 @@ Route::get('crud/edit','CrudController@edit');
 
 Route::get('common/navigation', 'ModuleGroupController@index');
 Route::get('moduls', 'ModuleGroupController@moduls');
+Route::post('moduls', 'ModuleGroupController@store');
 Route::get('moduls/query', 'ModuleGroupController@query');
 Route::get('moduls/modal', 'ModuleGroupController@modal');
-Route::get('moduls/edit', 'ModuleGroupController@edit');
+Route::get('moduls/{id}/edit', 'ModuleGroupController@edit');
 Route::get('moduls/create', 'ModuleGroupController@create');
 
 

@@ -87,7 +87,7 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.user = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/user/query')
+    vm.dtOptions = DTOptionsBuilder.fromSource('user/query')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)        
         .withOption('processing', true);
@@ -165,7 +165,7 @@ function EditUserCtrl($scope, editId, table, $http, $uibModalInstance)
       $scope.RolesList      = response.roles; 
       $scope.LanguajeList   = response.languages;        
     });
-    $http.get('/user/'+editId+'/edit')
+    $http.get('user/'+editId+'/edit')
     .success(function(response){
         $scope.load = 'no';
         $scope.view='yes';
@@ -211,7 +211,7 @@ function EditUserCtrl($scope, editId, table, $http, $uibModalInstance)
          $scope.btnload = true;       
          $http({
           method  : 'POST',
-          url     : '/user/'+$scope.user.Id+'/update',
+          url     : 'user/'+$scope.user.Id+'/update',
           data    : $scope.user,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
@@ -440,7 +440,7 @@ function PerfilCtrl($scope,$http){
          $scope.btnloading = true;      
          $http({
           method  : 'POST',
-          url     : '/profile/update',
+          url     : 'profile/update',
           data    : $scope.user,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {                              
@@ -503,7 +503,7 @@ function LoginCtrl($scope,$http,$location) {
     $scope.submit = function() {      
          $http({
           method  : 'POST',
-          url     : '/signin',
+          url     : 'signin',
           data    : $scope.login,
           dataObj : true,
           headers : { 'Content-Type': 'application/json'} 
@@ -536,7 +536,7 @@ function OptCtrl($scope) {
 function TicketCtrl($scope, $http) {
       $http({
         method : "GET",
-        url : "/support/Num_tickets/1"
+        url : "support/Num_tickets/1"
       }).then(function mySucces(response) {
             $('#detalleticket').html(response.data);
           // $scope.detalleticket = response.data;
@@ -565,7 +565,7 @@ function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuild
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.permission = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/userpermission/'+$stateParams.id_user)
+    vm.dtOptions = DTOptionsBuilder.fromSource('userpermission/'+$stateParams.id_user)
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
         .withOption('processing', true);
@@ -685,7 +685,7 @@ function hostingCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.hosting = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/hosting/show')
+    vm.dtOptions = DTOptionsBuilder.fromSource('hosting/show')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow);
     vm.dtColumns = [
@@ -721,7 +721,7 @@ function emailCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.email = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/email/show')
+    vm.dtOptions = DTOptionsBuilder.fromSource('email/show')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow);
     vm.dtColumns = [
@@ -754,7 +754,7 @@ function AccessRemoteCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColum
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.accessremote = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/hosting/showacessremote')
+    vm.dtOptions = DTOptionsBuilder.fromSource('hosting/showacessremote')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow);
     vm.dtColumns = [
@@ -793,7 +793,7 @@ function ModalInstanceCtrl ($scope, $uibModalInstance,$http) {
     $scope.submit = function() {
         $http({
           method  : 'POST',
-          url     : '/Customers/store',
+          url     : 'Customers/store',
           data    : $scope.Customer,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
@@ -814,7 +814,7 @@ function ModalInstanceCtrl ($scope, $uibModalInstance,$http) {
 function DataCatalogsCtrl($scope, editId, table, $http, $uibModalInstance) {
     $scope.catalog = {};
     $scope.load = 'yes';
-    $http.get('/catalog/edit/'+editId)
+    $http.get('catalog/edit/'+editId)
     .success(function(response){
         $scope.catalog.Id                = response.Id;
         $scope.catalog.Catalog           = response.Catalog;
@@ -832,7 +832,7 @@ function DataCatalogsCtrl($scope, editId, table, $http, $uibModalInstance) {
          $scope.btnload = true;      
          $http({
           method  : 'POST',
-          url     : '/catalog/update/'+ $scope.catalog.Id,
+          url     : 'catalog/update/'+ $scope.catalog.Id,
           data    : $scope.catalog,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
@@ -852,7 +852,7 @@ function DomainCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.hosting = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/hosting/showacessremote')
+    vm.dtOptions = DTOptionsBuilder.fromSource('hosting/showacessremote')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow);
     vm.dtColumns = [
@@ -968,7 +968,7 @@ function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTCol
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.catalog = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/servicehosting/show')
+    vm.dtOptions = DTOptionsBuilder.fromSource('servicehosting/show')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
         .withOption('processing', true);
@@ -1016,7 +1016,7 @@ function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTCol
 };
 function DataServicehostingCtrl($scope, editId, table, $http, $uibModalInstance) {
     $scope.servicehosting = {};
-    $http.get('/servicehosting/edit/'+editId)
+    $http.get('servicehosting/edit/'+editId)
     .success(function(response){
         $scope.servicehosting.Id                = response.Id;
         $scope.servicehosting.Administrator     = response.Administrator;
@@ -1030,7 +1030,7 @@ function DataServicehostingCtrl($scope, editId, table, $http, $uibModalInstance)
     $scope.submit = function() {      
          $http({
           method  : 'POST',
-          url     : '/servicehosting/update/'+ $scope.servicehosting.Id,
+          url     : 'servicehosting/update/'+ $scope.servicehosting.Id,
           data    : $scope.servicehosting,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
@@ -1055,7 +1055,7 @@ function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnB
         $scope.btnload = true;
          $http({
           method  : 'POST',
-          url     : '/enviar/',
+          url     : 'enviar',
           data    : $scope.generate,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
@@ -1133,21 +1133,22 @@ function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnB
 };
 
 
-function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) { 
-   $scope.generate = {'template':'bootstrap'};
-   $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
-   $scope.colum =[];
-  $scope.increment = function () {
+function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) 
+{ 
+    $scope.generate = {'template':'bootstrap'};
+    $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
+    $scope.colum =[];
+    $scope.increment = function () {
         $scope.generate.items.push({'id':$scope.generate.items.length,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null});
     };
-  $scope.remove = function( row ) {
+    $scope.remove = function( row ) {
         $scope.generate.items.splice( $scope.generate.items.indexOf( row ), 1 );
     };
-  $scope.submit = function() {
+    $scope.submit = function() {
         $scope.btnload = true;
          $http({
           method  : 'POST',
-          url     : '/enviar/',
+          url     : 'enviar',
           data    : $scope.generate,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
@@ -1158,7 +1159,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
                 // alert('error');
           });          
         };
-  $scope.sortableOptions = {
+    $scope.sortableOptions = {
         cursor: "move",
         revert: 'invalid',
         handle: ".handle",
@@ -1181,13 +1182,16 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         .renderWith(actionsHtml).withOption('width','10px')
         .withOption('className', 'text-center').withTitle('ACTION'),
         DTColumnBuilder.newColumn('Name').withTitle('name'),
+        DTColumnBuilder.newColumn('Is_group').withTitle('Is_group'),
+        DTColumnBuilder.newColumn('Icon_group').withTitle('Icon_group'),
+        
       
     ];
 
     $scope.edit = function (datas) {
         var modalInstance = $uibModal.open({
-            templateUrl: 'producto/modal',            
-            controller: DataCrudCrud,
+            templateUrl: 'moduls/modal',            
+            controller: EditGroupModulsCtrl,
             windowClass: "animated fadeIn",
             resolve: {
                  editId: function () {
@@ -1202,7 +1206,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     $scope.add = function () {
         var modalInstance = $uibModal.open({
             templateUrl: 'moduls/modal',            
-            controller: NewUserController,
+            controller: NewGroupModulsCtrl,
             windowClass: "animated fadeIn",
             resolve: {
                  table: function () {
@@ -1225,6 +1229,92 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     }
   
 };
+function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance) 
+{
+    $scope.roles = {};
+    $scope.roles.Permission = {};
+    $scope.delete = 'yes';
+    $scope.load = 'yes';
+    $scope.view='no';
+    $http.get('moduls/'+editId+'/edit')
+    .success(function(response){
+        $scope.load = 'no';
+        $scope.view='yes';
+        $scope.moduls.Id          = response;
+        $scope.moduls.Name        = response;
+        $scope.moduls.Icon        = response;
+        $scope.moduls.Is_Group    = response;
+    });
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.btndelete = function (Id) {
+        swal({
+        title: "¿Esta seguro sea Eliminar?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        closeOnCancel: true
+        },
+        function(isConfirm){
+          if(isConfirm){
+          $http.get('roles/'+Id+'/destroy')
+            .then(function successCallback(response) {
+                    table.reloadData();
+                    sweetAlert('Correctamente', "", "success");
+                    $uibModalInstance.dismiss('cancel');
+              }, function errorCallback(response) {
+                    sweetAlert("Oops...", "", "error");
+              });
+            }
+        });
+    };    
+    $scope.submit = function() {
+         $scope.btnload = true;       
+         $http({
+          method  : 'POST',
+          url     : 'roles/'+$scope.roles.Id+'/update',
+          data    : $scope.roles,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+                table.reloadData();
+                $scope.btnload = false;
+                sweetAlert('Correctamente', "", "success");
+          }, function errorCallback(response) {
+                $scope.btnload = false;
+                sweetAlert("Oops...", "Something went wrong!", "error"); 
+          });          
+    };
+};
+function NewGroupModulsCtrl($scope, table, $http, $uibModalInstance)
+{
+    $scope.moduls = {};
+    $scope.delete ='no';
+    $scope.view ='yes';
+    $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+      };
+    $scope.submit = function() {
+         $scope.btnload = true;      
+         $http({
+          method  : 'POST',
+          url     : 'moduls',
+          data    : $scope.moduls,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+              $scope.btnload = false;
+                table.reloadData();
+              sweetAlert('Correctamente', "", "success");
+              $uibModalInstance.dismiss('cancel');
+          }, function errorCallback(response) {
+              $scope.btnload = false;
+              sweetAlert("Oops...", "Something went wrong!", "error");
+          });          
+    };
+}
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
