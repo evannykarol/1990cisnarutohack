@@ -23,17 +23,13 @@
          <div class="col-lg-12">            
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ 'ICON' | translate }}:</label>
-                <div class="col-sm-7"><input type="text" class="form-control" ng-model='moduls.Icon'></div>
+                <div class="col-sm-7"><input type="text" class="form-control" ng-model='moduls.Icon' required></div>
             </div>  
          </div> 
          <div class="col-lg-12">            
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ 'IS_GROUP' | translate }}:</label>
-                <div class="col-sm-7"><input type="text" class="form-control" ng-model='moduls.Is_Group'></div>
-                <!-- Button tag -->
-                <button type="button" class="btn btn-default" role="iconpicker"></button>
-                <!-- Div tag -->
-                <div role="iconpicker"></div>
+                <div class="col-sm-7"><input type="text" class="form-control" ng-model='moduls.Group' required></div>
             </div>  
          </div>                  
         </div>  

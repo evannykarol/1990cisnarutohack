@@ -20,11 +20,9 @@ class ModuleGroupController extends Controller
      */
     public function index()
     {
-
         $groups = ModulsGroup::get();
         $Moduls = Moduls::get();
-        $catalog = Catalogs::where('status','=','s')->get();
-       
+        $catalog = Catalogs::where('status','=','s')->get();      
         return view('common.navigation', ['catalog' => $catalog,'groups'=>$groups]);
     }
     public function moduls()
@@ -39,8 +37,8 @@ class ModuleGroupController extends Controller
             $data[] = [
                         "Id"            =>$group->id,
                         "Name"          =>$group->name_group,
-                        "Is_group"      =>$group->is_group,
-                        "Icon_group"    =>$group->icon_group,                        
+                        "Isgroup"      =>$group->is_group,
+                        "Icongroup"    =>$group->icon_group,                        
                       ];
         }
         return response()->json($data);
@@ -97,12 +95,12 @@ class ModuleGroupController extends Controller
      */
     public function edit($id)
     {
-        $group = ModulsGroup::where('id','=',$id)->firt();
+        $group = ModulsGroup::where('id','=',$id)->first();
             $data = [
                         "Id"            =>$group->id,
                         "Name"          =>$group->name_group,
-                        "Is_group"      =>$group->is_group,
-                        "Icon_group"    =>$group->icon_group,                        
+                        "Isgroup"       =>$group->is_group,
+                        "Icongroup"     =>$group->icon_group,                        
                       ];
         return response()->json($data);
     }

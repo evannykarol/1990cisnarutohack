@@ -1182,8 +1182,8 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         .renderWith(actionsHtml).withOption('width','10px')
         .withOption('className', 'text-center').withTitle('ACTION'),
         DTColumnBuilder.newColumn('Name').withTitle('name'),
-        DTColumnBuilder.newColumn('Is_group').withTitle('Is_group'),
-        DTColumnBuilder.newColumn('Icon_group').withTitle('Icon_group'),
+        DTColumnBuilder.newColumn('Isgroup').withTitle('Is group'),
+        DTColumnBuilder.newColumn('Icongroup').withTitle('Icon group'),
         
       
     ];
@@ -1223,7 +1223,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     }
     function actionsHtml(data, type, full, meta) {
         vm.datas[data.id] = data;
-        return '<button type="button" class="btn btn-success" ng-click="edit('+data.id+')">'+
+        return '<button type="button" class="btn btn-success" ng-click="edit('+data.Id+')">'+
                '<span class="fa fa-edit"></span>'+
                '</button>';
     }
@@ -1231,8 +1231,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
 };
 function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance) 
 {
-    $scope.roles = {};
-    $scope.roles.Permission = {};
+    $scope.moduls = {};
     $scope.delete = 'yes';
     $scope.load = 'yes';
     $scope.view='no';
@@ -1240,10 +1239,10 @@ function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance)
     .success(function(response){
         $scope.load = 'no';
         $scope.view='yes';
-        $scope.moduls.Id          = response;
-        $scope.moduls.Name        = response;
-        $scope.moduls.Icon        = response;
-        $scope.moduls.Is_Group    = response;
+        $scope.moduls.Id          = response.Id;
+        $scope.moduls.Name        = response.Name;
+        $scope.moduls.Icon        = response.Icongroup;
+        $scope.moduls.Group       = response.Isgroup;
     });
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
@@ -1261,7 +1260,7 @@ function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance)
         },
         function(isConfirm){
           if(isConfirm){
-          $http.get('roles/'+Id+'/destroy')
+          $http.get('moduls/'+Id+'/destroy')
             .then(function successCallback(response) {
                     table.reloadData();
                     sweetAlert('Correctamente', "", "success");
@@ -1276,8 +1275,8 @@ function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance)
          $scope.btnload = true;       
          $http({
           method  : 'POST',
-          url     : 'roles/'+$scope.roles.Id+'/update',
-          data    : $scope.roles,
+          url     : 'moduls/'+$scope.moduls.Id+'/update',
+          data    : $scope.moduls,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
                 table.reloadData();
