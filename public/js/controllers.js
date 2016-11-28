@@ -179,6 +179,7 @@ function EditUserCtrl($scope, editId, table, $http, $uibModalInstance)
         $scope.user.Roles             = response.Roles;
         $scope.user.Languaje          = response.Languaje;
         $scope.user.Status            = response.Status;
+        $scope.user.PhotoV            = response.Photo;
         
     });
     $scope.cancel = function () {
