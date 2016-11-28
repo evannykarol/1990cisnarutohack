@@ -5,6 +5,9 @@
             <li>
                 <a ui-sref="index.main">{{ 'HOME ' | translate }}</a>
             </li>
+            <li>
+                <a ui-sref="index.module_generator">{{ 'Module_Generator ' | translate }}</a>
+            </li>
             <li class="active">
                 <strong>{{ 'CRUD ' | translate }}</strong>
             </li>

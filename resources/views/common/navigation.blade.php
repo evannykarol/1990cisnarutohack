@@ -4,7 +4,7 @@
             <li class="nav-header">
              <center>
                 <div class="profile-element" uib-dropdown>
-                    <img alt="image" class="img-circle" src="<% URL::asset('img/perfil/{{Photo}}') %>" width="70px" />
+                    <img alt="image" class="img-circle" ng-src="img/perfil/{{Photo}}" width="70px" />
                     <a uib-dropdown-toggle href>
                             <span class="clear">
                                 <span class="block m-t-xs">

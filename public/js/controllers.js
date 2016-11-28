@@ -1181,7 +1181,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         .withOption('processing', true);
     vm.dtColumns = [
       DTColumnBuilder.newColumn(null).notSortable()
-        .renderWith(actionsHtml).withOption('width','10px')
+        .renderWith(actionsHtml).withOption('width','100px')
         .withOption('className', 'text-center').withTitle('ACTION'),
         DTColumnBuilder.newColumn('Name').withTitle('name'),
         DTColumnBuilder.newColumn('Icongroup').withTitle('Icon group'),
@@ -1202,6 +1202,9 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
                  }
                }
         });
+    };
+    $scope.addmodule = function(id){
+      $location.path( 'index/crud' );
     };
     $scope.add = function () {
         var modalInstance = $uibModal.open({
@@ -1225,6 +1228,9 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         vm.datas[data.id] = data;
         return '<button type="button" class="btn btn-success" ng-click="edit('+data.Id+')" title="Edit">'+
                '<span class="fa fa-edit"></span>'+
+               '</button>  '+
+               '<button type="button" class="btn btn-success" ng-click="addmodule('+data.Id+')" title="Edit">'+
+               '<span class="fa fa-plus"></span>'+
                '</button>';
     }
   
