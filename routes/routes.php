@@ -10,3 +10,17 @@ Route::post($Cruds->title.'/{id}/update',ucfirst($Cruds->title).'Controller@upda
 Route::get($Cruds->title.'/{id}/delete',ucfirst($Cruds->title).'Controller@destroy');
 Route::get($Cruds->title.'/{id}/deleteMsg',ucfirst($Cruds->title).'Controller@DeleteMsg');
 }
+
+
+
+$Modul = App\models\Moduls::get()->where('block','=',1);
+foreach ($Modul as $Moduls){
+Route::get($Moduls->title,$Moduls->controller.'@index');
+Route::post($Moduls->title,$Moduls->controller.'@store');
+Route::get($Moduls->title.'/query',$Moduls->controller.'@query');
+Route::get($Moduls->title.'/modal',$Moduls->controller.'@modal');
+Route::get($Moduls->title.'/{id}/edit',$Moduls->controller.'@edit');
+Route::post($Moduls->title.'/{id}/update',$Moduls->controller.'@update');
+Route::get($Moduls->title.'/{id}/delete',$Moduls->controller.'@destroy');
+Route::get($Moduls->title.'/{id}/deleteMsg',$Moduls->controller.'@DeleteMsg');
+}

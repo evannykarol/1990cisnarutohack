@@ -1,6 +1,470 @@
-/**
- * MainCtrl - controller
- */
+function DashboardCtrl($scope, $http, $location)
+{
+  $scope.dashboard = {};
+  $http.get('dashboard/query')
+    .success(function(response){
+    $scope.dashboard.user     = response.user;
+    $scope.dashboard.messages = response.messages;
+    // $scope.dashboard.user = response.moduls;
+  });
+};
+function chartJsCtrl() 
+{
+
+    this.lineDataDashboard4 = {
+        labels: ["January", "February", "March", "April", "May", "June", "July", "Agost", "Septiem", "Octub","November","December"],
+        datasets: [
+            {
+                label: "Example dataset",
+                fillColor: "rgba(220,220,220,0.5)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [65, 59, 40, 51, 36, 25, 40, 40, 51, 36, 25, 40]
+            },
+            {
+                label: "Example dataset",
+                fillColor: "rgba(26,179,148,0.5)",
+                strokeColor: "rgba(26,179,148,0.7)",
+                pointColor: "rgba(26,179,148,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(26,179,148,1)",
+                data: [48, 48, 60, 39, 56, 37, 30, 40, 51, 36, 25, 40]
+            },
+            {
+                label: "Example dataset",
+                fillColor: "rgba(226,179,148,0.5)",
+                strokeColor: "rgba(226,179,148,0.7)",
+                pointColor: "rgba(226,179,148,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(26,179,148,1)",
+                data: [78, 48, 10, 39, 56, 37, 30, 40, 51, 36, 25, 40]
+            }
+        ]
+    };
+
+    /**
+     * Options for Line chart
+     */
+    this.lineOptions = {
+        scaleShowGridLines : true,
+        scaleGridLineColor : "rgba(0,0,0,.05)",
+        scaleGridLineWidth : 1,
+        bezierCurve : true,
+        bezierCurveTension : 0.4,
+        pointDot : true,
+        pointDotRadius : 4,
+        pointDotStrokeWidth : 1,
+        pointHitDetectionRadius : 20,
+        datasetStroke : true,
+        datasetStrokeWidth : 2,
+        datasetFill : true
+    };
+
+};
+///////////////////////
+function MessagesCtrl($scope, $http, $location)
+{
+  // $scope.inbox = '20';
+  $scope.messages = {};
+  $http.get('messages/query')
+    .success(function(response){
+    $scope.messages.count = response.count;
+    $scope.messages.messages = response.messages;
+    // $scope.dashboard.user = response.moduls;
+  });
+}
+
+///Usuarios y roles
+
+function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location)
+{
+    var vm = this;
+    vm.delete = deleteRow;
+    vm.dtInstance = {};
+    vm.user = {};
+    vm.dtOptions = DTOptionsBuilder.fromSource('/user/query')
+        .withPaginationType('full_numbers')
+        .withOption('createdRow', createdRow)        
+        .withOption('processing', true);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn(null).notSortable()
+            .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
+        DTColumnBuilder.newColumn('Photo')
+        .notSortable()
+        .withOption('className', 'text-center')
+        .renderWith(function(data, type, full) {
+            if(data){
+              return '<div class="lightBoxGallery">'+
+              '<a href="img/perfil/'+full.Photo+'" data-gallery=""><img src="img/perfil/'+full.Photo+'" width="40px"></a></div>';
+            }else{
+                return '<img src="/img/perfil/default.jpg" class="img-thumbnail" width="40px">';
+            }          
+        }),
+        DTColumnBuilder.newColumn('User'),
+        DTColumnBuilder.newColumn('Name'),
+        DTColumnBuilder.newColumn('Email'),  
+        DTColumnBuilder.newColumn('Area'), 
+        DTColumnBuilder.newColumn('Languaje'), 
+        DTColumnBuilder.newColumn('Roles')   
+    ];
+    $scope.edit = function (id) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'user/modal',            
+            controller: EditUserCtrl,
+            windowClass: "animated fadeIn",
+            size:"lg",
+            resolve: {
+                 editId: function () {
+                   return id;
+                 },
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+        });
+    };
+    $scope.add = function () {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'user/modal',            
+            controller: NewUserController,
+            windowClass: "animated fadeIn",
+            size:"lg",
+            resolve: {
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+            });
+    };
+    function deleteRow(id) {
+        vm.dtInstance.reloadData();
+    };
+    function createdRow(row, data, dataIndex) {
+        $compile(angular.element(row).contents())($scope);
+    };
+    function actionsHtml(data, type, full, meta) {
+        vm.user[data.Id] = data;
+        return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
+               '<span class="fa fa-edit"></span>'+
+               '</button>';
+    }
+};
+function EditUserCtrl($scope, editId, table, $http, $uibModalInstance) 
+{
+    $scope.user = {};
+    $scope.delete = 'yes';
+    $scope.load = 'yes';
+    $scope.view='no';
+    $http.get('roles/list')
+    .success(function(response){
+      $scope.RolesList      = response.roles; 
+      $scope.LanguajeList   = response.languages;        
+    });
+    $http.get('/user/'+editId+'/edit')
+    .success(function(response){
+        $scope.load = 'no';
+        $scope.view='yes';
+        $scope.user.Id                = response.Id;
+        $scope.user.User              = response.User;
+        $scope.user.Name              = response.Name;
+        $scope.user.FirstName         = response.FirstName;        
+        $scope.user.Email             = response.Email;
+        $scope.user.Area              = response.Area;
+        $scope.user.Roles             = response.Roles;
+        $scope.user.Languaje          = response.Languaje;
+        $scope.user.Status            = response.Status;
+        
+    });
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.btndelete = function (Id) {
+        swal({
+        title: "¿Esta seguro sea Eliminar?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        closeOnCancel: true
+        },
+        function(isConfirm){
+          if(isConfirm){
+          $http.get('user/'+Id+'/destroy')
+            .then(function successCallback(response) {
+                    table.reloadData();
+                    sweetAlert('Correctamente', "", "success");
+                    $uibModalInstance.dismiss('cancel');
+              }, function errorCallback(response) {
+                    sweetAlert("Oops...", "", "error");
+              });
+            }
+        });
+    };    
+    $scope.submit = function() {
+         $scope.btnload = true;       
+         $http({
+          method  : 'POST',
+          url     : '/user/'+$scope.user.Id+'/update',
+          data    : $scope.user,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+                table.reloadData();
+                $scope.btnload = false;
+                sweetAlert('Correctamente', "", "success");
+          }, function errorCallback(response) {
+                $scope.btnload = false;
+                sweetAlert("Oops...", "Something went wrong!", "error"); 
+          });          
+    };
+};
+function NewUserController($scope, table, $http, $uibModalInstance)
+{
+    $scope.user = {};
+    $scope.RolesList = {};
+    $scope.LanguajeList = {};
+    $scope.user.Roles= '1';
+    $scope.user.Languaje= 'es';
+    $scope.user.Status='active';
+    $scope.delete ='no';
+    $scope.load ='yes';    
+    $http.get('roles/list')
+    .success(function(response){
+      $scope.RolesList      = response.roles; 
+      $scope.LanguajeList   = response.languages;        
+      $scope.view ='yes';
+      $scope.load ='no';
+    });
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+    $scope.submit = function() {
+      $scope.btnload = true;      
+      $http({
+        method  : 'POST',
+        url     : 'user',
+        data    : $scope.user,
+        headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+      }).then(function successCallback(response) {
+            $scope.btnload = false;
+              table.reloadData();
+            sweetAlert('Correctamente', "", "success");
+            $uibModalInstance.dismiss('cancel');
+      }, function errorCallback(response) {
+            $scope.btnload = false;
+            sweetAlert("Oops...", "Something went wrong!", "error");
+      });          
+    };
+}
+function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location)
+{
+    var vm = this;
+    vm.delete = deleteRow;
+    vm.dtInstance = {};
+    vm.roles = {};
+    vm.dtOptions = DTOptionsBuilder.fromSource('roles/query')
+        .withPaginationType('full_numbers')
+        .withOption('createdRow', createdRow)      
+        .withOption('processing', true);
+    vm.dtColumns = [
+        DTColumnBuilder.newColumn(null).notSortable()
+        .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px').withTitle('Actions'),
+        DTColumnBuilder.newColumn('Name').withTitle('Name'),
+        DTColumnBuilder.newColumn('Description').withTitle('Description') 
+    ];
+    $scope.edit = function (id) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'roles/modal',            
+            controller: EditRolesCtrl,
+            size:'lg',
+            windowClass: "animated fadeIn",
+            resolve: {
+                 editId: function () {
+                   return id;
+                 },
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+        });
+    };
+    $scope.add = function () {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'roles/modal',            
+            controller: NewRolesController,
+            size:'lg',
+            windowClass: "animated fadeIn",
+            resolve: {
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+            });      
+    };
+    function deleteRow(id) {
+        vm.dtInstance.reloadData();
+    };
+    function createdRow(row, data, dataIndex) {
+        $compile(angular.element(row).contents())($scope);
+    };
+    function actionsHtml(data, type, full, meta) {
+        vm.roles[data.Id] = data;
+        return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
+               '<span class="fa fa-edit"></span>'+
+               '</button>';
+    }
+};
+function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance) 
+{
+    $scope.roles = {};
+    $scope.roles.Permission = {};
+    $scope.delete = 'yes';
+    $scope.load = 'yes';
+    $scope.view='no';
+    $http.get('roles/'+editId+'/edit')
+    .success(function(response){
+        $scope.load = 'no';
+        $scope.view='yes';
+        $scope.roles.Id                     = response.Id;
+        $scope.roles.Name                   = response.Name;
+        $scope.roles.Description            = response.Description;        
+        $scope.roles.Permission             = response.Permission;
+    });
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+    $scope.btndelete = function (Id) {
+        swal({
+        title: "¿Esta seguro sea Eliminar?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Si",
+        cancelButtonText: "No",
+        closeOnConfirm: false,
+        closeOnCancel: true
+        },
+        function(isConfirm){
+          if(isConfirm){
+          $http.get('roles/'+Id+'/destroy')
+            .then(function successCallback(response) {
+                    table.reloadData();
+                    sweetAlert('Correctamente', "", "success");
+                    $uibModalInstance.dismiss('cancel');
+              }, function errorCallback(response) {
+                    sweetAlert("Oops...", "", "error");
+              });
+            }
+        });
+    };    
+    $scope.submit = function() {
+         $scope.btnload = true;       
+         $http({
+          method  : 'POST',
+          url     : 'roles/'+$scope.roles.Id+'/update',
+          data    : $scope.roles,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+                table.reloadData();
+                $scope.btnload = false;
+                sweetAlert('Correctamente', "", "success");
+          }, function errorCallback(response) {
+                $scope.btnload = false;
+                sweetAlert("Oops...", "Something went wrong!", "error"); 
+          });          
+    };
+};
+function NewRolesController($scope, table, $http, $uibModalInstance)
+{
+  $scope.roles = {};
+  $scope.roles.Permission = {};
+  $scope.delete ='no';
+  $scope.view ='yes';
+  $http.get('roles/list/moduls')
+    .success(function(response){
+        $scope.roles.Permission             = response.Permission;
+    });
+  $scope.cancel = function () {
+          $uibModalInstance.dismiss('cancel');
+      };
+    $scope.submit = function() {
+         $scope.btnload = true;      
+         $http({
+          method  : 'POST',
+          url     : 'roles',
+          data    : $scope.roles,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+              $scope.btnload = false;
+                table.reloadData();
+              sweetAlert('Correctamente', "", "success");
+              $uibModalInstance.dismiss('cancel');
+          }, function errorCallback(response) {
+              $scope.btnload = false;
+              sweetAlert("Oops...", "Something went wrong!", "error");
+          });          
+    };
+}
+
+///Final Usuarios y roles
+function PerfilCtrl($scope,$http){
+    $scope.loading ="yes"
+    $scope.view ="no";
+    $scope.user = {};
+    $.get("http://ipinfo.io", function (response) {
+    $scope.location = response.city + ", " + response.region;
+    }, "jsonp");    
+    $http.get('profile/show')
+    .success(function(response){
+        $scope.loading ="no";
+        $scope.view ="yes";
+        $scope.user.User              = response.User;
+        $scope.user.Name              = response.Name;
+        $scope.user.FirstName         = response.FirstName;        
+        $scope.user.Email             = response.Email;
+        $scope.user.Area              = response.Area;
+        $scope.user.Roles             = response.Roles;
+        $scope.user.Language          = response.Language;
+        //esta datos actualizad no funciona nada 
+        $scope.Name                   = response.Name;
+        $scope.Area                   = response.Area;
+        $scope.Photo                  = response.Photo;        
+    });
+    $scope.submit = function() {
+         $scope.btnloading = true;      
+         $http({
+          method  : 'POST',
+          url     : '/profile/update',
+          data    : $scope.user,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {                              
+                $scope.btnloading = false;  
+                sweetAlert('Correctamente', "", "success");
+          }, function errorCallback(response) {
+                $scope.btnloading = false;  
+                sweetAlert("Oops...", "Something went wrong!", "error");
+          });          
+    };        
+}; 
+
+
+
+
+
+
+
+
+
+
+
+
+
 function MainCtrl() {
     this.userName = 'Example user';
     this.helloText = 'Control Tecnología de la información';
@@ -9,15 +473,24 @@ function MainCtrl() {
 function NotificationCtrl($scope,$http,$interval) {
     $scope.dato =[];
     $scope.ncount= $scope.dato.length;
-     $scope.callAtInterval = function() {
-        var url = "notification";
-         // $http.get(url)
-         // .success(function(response){
-         //  $scope.dato =response;
-         //  $scope.ncount= $scope.dato.length;
-         //  });
-    }
-    $interval( function(){ $scope.callAtInterval(); }, 3000);
+    //  $scope.callAtInterval = function() {
+    //     var url = "notification";
+    //      $http.get(url)
+    //      .success(function(response){
+    //       $scope.dato =response;
+    //       $scope.ncount= $scope.dato.length;
+    //       });
+    // }
+    //  $scope.callAtInterval = function() {
+    //     var url = "messages/query";
+    //      $http.get(url)
+    //      .success(function(response){
+    //         // Push.create('hay mensaje'+response.count)
+    //         $scope.messagescount = response.count;
+    //         $scope.messagesdetall = response.detall;
+    //       });
+    // }    
+    // $interval( function(){ $scope.callAtInterval(); }, 5000);
 };
 
 function MainCtrl() {
@@ -83,173 +556,9 @@ function TicketCtrl($scope, $http) {
         $http(req);
     };
 };
-function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
-    var vm = this;
-    vm.delete = deleteRow;
-    vm.dtInstance = {};
-    vm.user = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/user/show')
-        .withPaginationType('full_numbers')
-        .withOption('createdRow', createdRow)
-        // .withOption('responsive', true)         
-        .withOption('processing', true);
-    vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).notSortable()
-            .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
-        DTColumnBuilder.newColumn('Photo')
-        .notSortable()
-        .withOption('className', 'text-center')
-        .renderWith(function(data, type, full) {
-            if(data){
-              return '<div class="lightBoxGallery">'+
-              '<a href="img/perfil/'+full.Photo+'" data-gallery=""><img src="img/perfil/'+full.Photo+'" width="40px"></a></div>';
-            }else{
-                return '<img src="/img/perfil/default.jpg" class="img-thumbnail" width="40px">';
-            }          
-        }),
-        DTColumnBuilder.newColumn('Name'),
-        DTColumnBuilder.newColumn('Email'),  
-        DTColumnBuilder.newColumn('Area'), 
-        DTColumnBuilder.newColumn('Language'), 
-        DTColumnBuilder.newColumn('Roles')   
-    ];
 
-    $scope.edit = function (id) {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'modalusers',            
-            controller: DataUserCtrl,
-            windowClass: "animated fadeIn",
-            resolve: {
-                 editId: function () {
-                   return id;
-                 },
-                 table: function () {
-                   return vm.dtInstance;
-                 }
-               }
-        });
-    };
-    $scope.add = function () {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'modalusers',            
-            controller: NewUserController,
-            windowClass: "animated fadeIn",
-            resolve: {
-                 table: function () {
-                   return vm.dtInstance;
-                 }
-               }
-            });
-    };
-    function deleteRow(id) {
-        vm.dtInstance.reloadData();
-    };
-    function createdRow(row, data, dataIndex) {
-        $compile(angular.element(row).contents())($scope);
-    };
-    function actionsHtml(data, type, full, meta) {
-        vm.user[data.Id] = data;
-        return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
-               '<span class="fa fa-edit"></span>'+
-               '</button>';
-    }
-};
-function NewUserController($scope, table, $http, $uibModalInstance){
-  $scope.user = {};
-  $scope.delete ='no';
-  $scope.view ='yes';
-  $scope.cancel = function () {
-          $uibModalInstance.dismiss('cancel');
-      };
-    $scope.submit = function() {
-         $scope.btnload = true;      
-         $http({
-          method  : 'POST',
-          url     : 'modalusers',
-          data    : $scope.user,
-          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
-         }).then(function successCallback(response) {
-              $scope.btnload = false;
-                table.reloadData();
-              sweetAlert('Correctamente', "", "success");
-              $uibModalInstance.dismiss('cancel');
-          }, function errorCallback(response) {
-              $scope.btnload = false;
-              sweetAlert("Oops...", "Something went wrong!", "error");
-          });          
-    };
-}
-function ClientCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
-    var vm = this;
-    vm.delete = deleteRow;
-    vm.dtInstance = {};
-    vm.user = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/user/show')
-        .withPaginationType('full_numbers')
-        .withOption('createdRow', createdRow)
-        // .withOption('responsive', true)         
-        .withOption('processing', true);
-    vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).notSortable()
-            .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
-        DTColumnBuilder.newColumn('Photo')
-        .notSortable()
-        .withOption('className', 'text-center')
-        .renderWith(function(data, type, full) {
-            if(data){
-              return '<div class="lightBoxGallery">'+
-              '<a href="img/perfil/'+full.Photo+'" data-gallery=""><img src="img/perfil/'+full.Photo+'" width="40px"></a></div>';
-            }else{
-                return '<img src="/img/perfil/default.jpg" class="img-thumbnail" width="40px">';
-            }          
-        }),
-        DTColumnBuilder.newColumn('Name'),
-        DTColumnBuilder.newColumn('Email'),  
-        DTColumnBuilder.newColumn('Area'), 
-        DTColumnBuilder.newColumn('Language'), 
-        DTColumnBuilder.newColumn('Roles')   
-    ];
 
-    $scope.edit = function (id) {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'modalusers',            
-            controller: DataUserCtrl,
-            windowClass: "animated fadeIn",
-            resolve: {
-                 editId: function () {
-                   return id;
-                 },
-                 table: function () {
-                   return vm.dtInstance;
-                 }
-               }
-        });
-    };
-    $scope.add = function () {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'modalusers',            
-            controller: NewUserController,
-            windowClass: "animated fadeIn",
-            resolve: {
-                 table: function () {
-                   return vm.dtInstance;
-                 }
-               }
-            });
-    };
-    function deleteRow(id) {
-        vm.dtInstance.reloadData();
-    };
-    function createdRow(row, data, dataIndex) {
-        $compile(angular.element(row).contents())($scope);
-    };
-    function actionsHtml(data, type, full, meta) {
-        vm.user[data.Id] = data;
-        return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
-               '<span class="fa fa-edit"></span>'+
-               '</button>';
-    }
-};
+
 function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuilder, DTColumnBuilder){
 
     var vm = this;
@@ -308,125 +617,9 @@ function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuild
             }          
         }
 };
-function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
-    var vm = this;
-    vm.delete = deleteRow;
-    vm.dtInstance = {};
-    vm.user = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('/roles/show')
-        .withPaginationType('full_numbers')
-        .withOption('createdRow', createdRow)      
-        .withOption('processing', true);
-    vm.dtColumns = [
-        DTColumnBuilder.newColumn(null).notSortable()
-        .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px').withTitle('Actions'),
-        DTColumnBuilder.newColumn('Name').withTitle('Name'),
-        DTColumnBuilder.newColumn('Create').withTitle('Create'),
-        DTColumnBuilder.newColumn('Update').withTitle('Update')   
-    ];
 
-    $scope.edit = function (id) {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'roles/modal',            
-            controller: DataRolesCtrl,
-            windowClass: "animated fadeIn",
-            resolve: {
-                 editId: function () {
-                   return id;
-                 },
-                 table: function () {
-                   return vm.dtInstance;
-                 }
-               }
-        });
-    };
-    $scope.add = function () {
-        var modalInstance = $uibModal.open({
-            templateUrl: 'roles/modal',            
-            controller: NewRolesController,
-            windowClass: "animated fadeIn",
-            resolve: {
-                 table: function () {
-                   return vm.dtInstance;
-                 }
-               }
-            });
-    };
-    function deleteRow(id) {
-        vm.dtInstance.reloadData();
-    };
-    function createdRow(row, data, dataIndex) {
-        $compile(angular.element(row).contents())($scope);
-    };
-    function actionsHtml(data, type, full, meta) {
-        vm.user[data.Id] = data;
-        return '<button type="button" class="btn btn-warning" ng-click="edit('+data.Id+')">'+
-               '<span class="fa fa-edit"></span>'+
-               '</button>'+
-               '<button type="button" class="btn btn-primary" ui-sref="index.permisionroles">'+
-               '<span class="fa fa-lock"></span>'+
-               '</button>';
-    }
-};
-function NewRolesController($scope, table, $http, $uibModalInstance){
-  $scope.roles = {};
-  $scope.delete ='no';
-  $scope.view ='yes';
-  $scope.cancel = function () {
-          $uibModalInstance.dismiss('cancel');
-      };
-    $scope.submit = function() {
-         $scope.btnload = true;      
-         $http({
-          method  : 'POST',
-          url     : 'roles',
-          data    : $scope.roles,
-          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
-         }).then(function successCallback(response) {
-              $scope.btnload = false;
-                table.reloadData();
-              sweetAlert('Correctamente', "", "success");
-              $uibModalInstance.dismiss('cancel');
-          }, function errorCallback(response) {
-              $scope.btnload = false;
-              sweetAlert("Oops...", "Something went wrong!", "error");
-          });          
-    };
-}
-function DataRolesCtrl($scope, editId, table, $http, $uibModalInstance) {
-    $scope.roles = {};
-    $scope.delete = 'yes';
-    $scope.load = 'yes';
-    $scope.view='no';
-    $http.get('roles/edit/'+editId)
-    .success(function(response){
-        $scope.load = 'no';
-        $scope.view='yes';
-        $scope.roles.Id                = response.Id;
-        $scope.roles.Name              = response.Name;
-    });
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-    $scope.btndelete = function () {
-        alert('elminado');
-    };    
-    $scope.submit = function() {
-         $scope.btnload = true;       
-         $http({
-          method  : 'POST',
-          url     : '/roles/update/'+ $scope.roles.Id,
-          data    : $scope.roles,
-          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
-         }).then(function successCallback(response) {
-                table.reloadData();
-                $scope.btnload = false;
-                // alert('actualizado');
-          }, function errorCallback(response) {
-                $scope.btnload = false; 
-          });          
-    };
-};
+
+
 function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
 
     var vm = this;
@@ -617,45 +810,7 @@ function ModalInstanceCtrl ($scope, $uibModalInstance,$http) {
         $uibModalInstance.dismiss('cancel');
     };
 };
-function DataUserCtrl($scope, editId, table, $http, $uibModalInstance) {
-    $scope.user = {};
-    $scope.delete = 'yes';
-    $scope.load = 'yes';
-    $scope.view='no';
-    $http.get('/user/edit/'+editId)
-    .success(function(response){
-        $scope.load = 'no';
-        $scope.view='yes';
-        $scope.user.Id                = response.Id;
-        $scope.user.Name              = response.Name;
-        $scope.user.Email             = response.Email;
-        $scope.user.Area              = response.Area;
-        $scope.user.Roles             = response.Roles;
-        $scope.user.Language
-                  = response.Language;
-    });
-    $scope.cancel = function () {
-        $uibModalInstance.dismiss('cancel');
-    };
-    $scope.btndelete = function () {
-        alert('elminado');
-    };    
-    $scope.submit = function() {
-         $scope.btnload = true;       
-         $http({
-          method  : 'POST',
-          url     : '/user/update/'+ $scope.user.Id,
-          data    : $scope.user,
-          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
-         }).then(function successCallback(response) {
-                table.reloadData();
-                $scope.btnload = false;
-                // alert('actualizado');
-          }, function errorCallback(response) {
-                $scope.btnload = false; 
-          });          
-    };
-};
+
 function DataCatalogsCtrl($scope, editId, table, $http, $uibModalInstance) {
     $scope.catalog = {};
     $scope.load = 'yes';
@@ -757,39 +912,7 @@ function hostinguserCtrl($scope,DTOptionsBuilder){
 /**
  * translateCtrl - Controller for translate
  */
-function PerfilCtrl($scope,$http){
-    $scope.loading ="yes"
-    $scope.view ="no";
-    $scope.user = {};    
-    $http.get('profileshow')
-    .success(function(response){
-        $scope.loading ="no";
-        $scope.view ="yes";
-        $scope.user.Name              = response.Name;
-        $scope.user.Email             = response.Email;
-        $scope.user.Area              = response.Area;
-        $scope.user.Language          = response.Language;
-        $scope.user.Roles             = response.Roles;
-        $scope.Name                   = response.Name;
-        $scope.Area                   = response.Area;
-        $scope.Photo                  = response.Photo;        
-    });
-    $scope.submit = function() {
-         $scope.btnloading = true;      
-         $http({
-          method  : 'POST',
-          url     : '/profileupdate',
-          data    : $scope.user,
-          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
-         }).then(function successCallback(response) {                              
-                $scope.btnloading = false;  
-                sweetAlert('Correctamente', "", "success");
-          }, function errorCallback(response) {
-                $scope.btnloading = false;  
-                sweetAlert("Oops...", "Something went wrong!", "error");
-          });          
-    };        
-} 
+
 function SettingsCtrl($scope,$http){
     $scope.settings = {};
     $scope.load= 'yes'; 
@@ -919,8 +1042,6 @@ function DataServicehostingCtrl($scope, editId, table, $http, $uibModalInstance)
     };
 };
 function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) { 
-///////////crear nuevos
-
    $scope.generate = {'template':'bootstrap'};
    $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
    $scope.colum =[];
@@ -1010,6 +1131,100 @@ function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnB
 
   
 };
+
+
+function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) { 
+   $scope.generate = {'template':'bootstrap'};
+   $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
+   $scope.colum =[];
+  $scope.increment = function () {
+        $scope.generate.items.push({'id':$scope.generate.items.length,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null});
+    };
+  $scope.remove = function( row ) {
+        $scope.generate.items.splice( $scope.generate.items.indexOf( row ), 1 );
+    };
+  $scope.submit = function() {
+        $scope.btnload = true;
+         $http({
+          method  : 'POST',
+          url     : '/enviar/',
+          data    : $scope.generate,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+                $scope.btnload = false;  
+                // alert('actualizado');
+          }, function errorCallback(response) {
+                $scope.btnload = false;
+                // alert('error');
+          });          
+        };
+  $scope.sortableOptions = {
+        cursor: "move",
+        revert: 'invalid',
+        handle: ".handle",
+        forceHelperSize: true
+    };
+
+//////////////////////////////es para databases de datos
+
+    var vm = this;
+    vm.delete = deleteRow;
+    vm.dtInstance = {};
+    vm.datas = {};
+    vm.dtOptions = DTOptionsBuilder.fromSource('moduls/query')
+        .withPaginationType('full_numbers')
+        .withOption('createdRow', createdRow)
+        .withOption('responsive', true)         
+        .withOption('processing', true);
+    vm.dtColumns = [
+      DTColumnBuilder.newColumn(null).notSortable()
+        .renderWith(actionsHtml).withOption('width','10px')
+        .withOption('className', 'text-center').withTitle('ACTION'),
+        DTColumnBuilder.newColumn('Name').withTitle('name'),
+      
+    ];
+
+    $scope.edit = function (datas) {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'producto/modal',            
+            controller: DataCrudCrud,
+            windowClass: "animated fadeIn",
+            resolve: {
+                 editId: function () {
+                   return datas;
+                 },
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+        });
+    };
+    $scope.add = function () {
+        var modalInstance = $uibModal.open({
+            templateUrl: 'moduls/modal',            
+            controller: NewUserController,
+            windowClass: "animated fadeIn",
+            resolve: {
+                 table: function () {
+                   return vm.dtInstance;
+                 }
+               }
+            });
+    };
+    function deleteRow(idaccessremote) {
+        vm.dtInstance.reloadData();
+    }
+    function createdRow(row, data, dataIndex) {
+        $compile(angular.element(row).contents())($scope);
+    }
+    function actionsHtml(data, type, full, meta) {
+        vm.datas[data.id] = data;
+        return '<button type="button" class="btn btn-success" ng-click="edit('+data.id+')">'+
+               '<span class="fa fa-edit"></span>'+
+               '</button>';
+    }
+  
+};
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
@@ -1030,9 +1245,13 @@ angular
     .controller('ServicehostingCtrl', ServicehostingCtrl)
     .controller('emailCtrl', emailCtrl)
     .controller('CrudCtrl', CrudCtrl)
+    .controller('ModulsCtrl', ModulsCtrl)
+    .controller('DashboardCtrl', DashboardCtrl)
+    .controller('chartJsCtrl', chartJsCtrl)
+    .controller('MessagesCtrl', MessagesCtrl)
+    
     .controller('SettingsCtrl', SettingsCtrl)
     .controller('NotificationCtrl', NotificationCtrl)
-    .controller('ClientCtrl', ClientCtrl)
     
     
     

@@ -92,7 +92,10 @@ function config($translateProvider) {
             Example:'Example',
             ROLES:'ROLES',
             LANGUAJE:'LANGUAJE', 
-            CLIENT:'CLIENT',  
+            CLIENT:'CLIENT',
+            FIRST_NAME:'FIRST NAME',
+            NEW_PASSWORD:'NEW PASSWORD',
+            CONFIRM_PASSWORD:'CONFIRM PASSWORD',  
 
         })
         .translations('es', {
@@ -187,7 +190,10 @@ function config($translateProvider) {
             Example:'Ejemplo',
             ROLES:'ROLES',
             LANGUAJE:'LENGUAJE',
-            CLIENT:'CLIENTE',               
+            CLIENT:'CLIENTE',
+            FIRST_NAME:'APELLIDO',
+            NEW_PASSWORD:'NUEVO CONTRASEÑA',
+            CONFIRM_PASSWORD:'CONFIR. CONTRASEÑA',                
 
             
         });

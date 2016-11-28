@@ -34,11 +34,23 @@ Route::get('crud/show','CrudController@show');
 Route::get('crud/create','CrudController@create');
 Route::get('crud/edit','CrudController@edit');
 
-Route::get('/common/navigation', function () {
-	// $catalog = App\PermissionCatalogs::join('catalogs', 'catalogs.id_catalogs', '=', 'permission_catalogs.id_catalogs')->where('permission_catalogs.id_users','=','1')->get();
-    $catalog = App\Catalogs::where('status','=','s')->get();
-    return view('common.navigation', ['catalog' => $catalog]);
-});
+// Route::get('/common/navigation', function () {
+
+//     $catalog = App\Catalogs::where('status','=','s')->get();
+//     $Moduls = App\Models\Moduls::get();
+//     return view('common.navigation', ['catalog' => $catalog,'Moduls'=>$Moduls]);
+// });
+
+Route::get('common/navigation', 'ModuleGroupController@index');
+Route::get('moduls', 'ModuleGroupController@moduls');
+Route::get('moduls/query', 'ModuleGroupController@query');
+Route::get('moduls/modal', 'ModuleGroupController@modal');
+Route::get('moduls/edit', 'ModuleGroupController@edit');
+Route::get('moduls/create', 'ModuleGroupController@create');
+
+
+
+
 Route::get('/common/topnavbar', function () {
     return view('common.topnavbar');
 });
@@ -59,21 +71,23 @@ Route::get('client/show', 'ClientController@show');
 
 //clientes
 
-Route::get('/panelcontrol', function(){
-	return view('view.ControlPanel');
+Route::get('/dashboard', function(){
+	return view('desarroladorez.dashboard');
 });
 
 
 
-Route::get('roles', 'AdministrationController@roles');
-Route::post('roles', 'AdministrationController@storeroles');
-Route::get('roles/show', 'AdministrationController@showroles');
-Route::get('roles/modal', 'AdministrationController@modalroles');
-Route::get('roles/edit/{id}', 'AdministrationController@editroles');
-Route::post('roles/update/{id}', 'AdministrationController@updateroles');
+
+
+Route::get('privileges', 'PrivilegesController@index');
+Route::post('privileges', 'PrivilegesController@store');
+Route::get('privileges/create', 'PrivilegesController@create');
+
+Route::get('privileges/query', 'PrivilegesController@query');
+Route::get('privileges/modal', 'AdministrationController@modalroles');
+Route::get('privileges/edit/{id}', 'AdministrationController@editroles');
+Route::post('privileges/update/{id}', 'AdministrationController@updateroles');
 Route::get('permisionroles', 'AdministrationController@permissionroles');
-
-
 
 
 
@@ -109,9 +123,7 @@ Route::get('hosting/modalacessremote', function(){
     return view('catalogs.modalhosting.accessremote');
 });
 //modal
-Route::get('modalusers', function(){
-    return view('modal.users');
-});
+
 Route::get('modalcatalog', function(){
     return view('modal.catalogpermission');
 });
@@ -121,15 +133,69 @@ Route::get('modalcatalogs', function(){
 
 //////////////
 
+
+
+
+Route::get('dashboard', 'DashboardController@index');
+Route::get('dashboard/query', 'DashboardController@dashboard');
+
+
 ////////////////languaje .--- Usuarios
-Route::get('user','UserController@index');
-Route::get('user/show','UserController@show');
-Route::get('user/edit/{id}','UserController@edit');
-Route::post('/user/update/{id}','UserController@update');
-Route::get('languaje','UserController@lenguaje');
-Route::get('profile','UserController@profile');
-Route::get('profileshow','UserController@profileshow');
-Route::post('profileupdate','UserController@profileupdate');
+Route::get('user','UsersController@index');
+Route::get('roles/list/moduls', 'UsersController@listmoduls');
+//funciones controlleres user para usuarios
+Route::get('user/query','UsersController@queryuser');
+Route::post('user','UsersController@userstore');
+Route::get('user/{id}/edit','UsersController@useredit');
+Route::post('user/{id}/update','UsersController@userupdate');
+Route::get('user/{id}/destroy','UsersController@userdestroy');
+Route::get('user/modal', 'UsersController@usermodal');
+//funciones controlleres user para roles
+Route::get('roles/query', 'UsersController@queryroles');
+Route::post('roles', 'UsersController@rolesstore');
+Route::get('roles/{id}/edit', 'UsersController@rolesedit');
+Route::post('roles/{id}/update', 'UsersController@rolesupdate');
+Route::get('roles/{id}/destroy', 'UsersController@rolesdestroy');
+Route::get('roles/modal', 'UsersController@rolesmodal');
+
+
+
+Route::get('roles/list', 'UsersController@list_roles');
+
+
+
+
+
+
+Route::get('languaje','UsersController@lenguaje');
+//////////////////perfiles
+Route::get('profile','UsersController@profileindex');
+Route::get('profile/show','UsersController@profileshow');
+Route::post('profile/update','UsersController@profileupdate');
+
+
+///////////////////messenger
+Route::get('messages','MessagesController@index');
+Route::get('messages/query','MessagesController@query');
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('userpermission/{id_user}','UsersController@permission');
+
+
+
+
+
 
 Route::get('settings','SettingsController@index');
 Route::get('settings/show','SettingsController@show');
@@ -138,7 +204,7 @@ Route::get('settings/clearcache','SettingsController@clearcache');
 
 
 
-Route::get('userpermission/{id_user}','UserController@permission');
+
 //////////////////
 Route::get('servicehosting','ServiceHostingController@index');
 Route::get('servicehosting/show','ServiceHostingController@show');

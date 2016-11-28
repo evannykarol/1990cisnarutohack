@@ -23,18 +23,18 @@
             </li>
             <li uib-dropdown>
                 <a class="count-info" href uib-dropdown-toggle>
-                    <i class="fa fa-envelope"></i> <span class="label label-warning">{{ ncount }}</span>
+                    <i class="fa fa-envelope"></i> <span class="label label-warning">{{ messagescount }}</span>
                 </a>
                 <ul class="dropdown-messages" uib-dropdown-menu>
-                    <li ng-repeat="datos in dato">
+                    <li ng-repeat="datos in messagesdetall">
                         <div class="dropdown-messages-box">
                             <a ui-sref="profile" class="pull-left">
-                                <img alt="image" class="img-circle" src="img/a7.jpg">
+                                <img alt="image" class="img-circle" src="img/perfil/a1.jpg">
                             </a>
 
                             <div>
                                 <small class="pull-right">hace 46 horas</small>
-                                <strong>{{datos.names}}</strong> checa  <strong>Ricardo orellana</strong>. <br>
+                                <strong></strong> Mensaje <strong>Evanny Karol Hernandez</strong>. <br>
                                 <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                     <li class="divider"></li>
                     <li>
                         <div class="text-center link-block">
-                            <a ui-sref="mailbox.inbox">
+                            <a ui-sref="index.messages">
                                 <i class="fa fa-envelope"></i> <strong>leer todos mensaje</strong>
                             </a>
                         </div>
@@ -51,7 +51,7 @@
             </li>
             <li uib-dropdown>
                 <a class="count-info" href uib-dropdown-toggle>
-                    <i class="fa fa-bell"></i> <span class="label label-primary">1</span>
+                    <i class="fa fa-bell"></i> <span class="label label-primary"></span>
                 </a>
                 <ul class="dropdown-alerts" uib-dropdown-menu>
                     <li>

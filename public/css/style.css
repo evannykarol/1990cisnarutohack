@@ -3416,7 +3416,8 @@ video {
   background: #f8fafb;
 }
 .inmodal .modal-header {
-  padding: 30px 15px;
+  /*padding: 30px 15px;*/
+  padding: 18px 15px;
   text-align: center;
 }
 .animated.modal.fade .modal-dialog {
@@ -5929,7 +5930,7 @@ body.body-small .vote-icon {
   display: inline-block;
   position: absolute;
   top: 0;
-  background-color: #1ab394;
+  background-color: #2489C5;
   border-radius: 100%;
   -webkit-animation: sk-chasingDotsBounce 2s infinite ease-in-out;
   animation: sk-chasingDotsBounce 2s infinite ease-in-out;

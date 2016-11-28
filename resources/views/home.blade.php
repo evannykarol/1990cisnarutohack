@@ -22,6 +22,12 @@
     <link id="loadBefore" href="css/style.css" rel="stylesheet">
 
 
+
+    <link href="css/mfb.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+
+
 </head>
 
 <!-- ControllerAs syntax -->
@@ -74,6 +80,9 @@
 <script src="js/translations.js"></script>
 <script src="js/controllers.js"></script>
 <script src="App"></script>
+
+<script src="js/mfb.js"></script>
+<script src="js/mfb-directive.js"></script>
 
 </body>
 </html>

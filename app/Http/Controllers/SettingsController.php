@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -10,9 +9,8 @@ class SettingsController extends Controller
 {
     public function index()
     {
-    	return view('Settings.settings');
-    }
-    
+    	return view('desarrolladorez.settings');
+    }   
     public function show()
     {
     	$Settings = Settings::get();
@@ -24,18 +22,14 @@ class SettingsController extends Controller
 		}
 		return response()->json($data);
     } 
-
     public function update(Request $request)
-    {
-        
+    {        
         $data = (object) $request->json()->all();
         foreach ($data as $datas => $key) {
              Settings::where('name','=',$datas)->update(['value'=>$key]);
          } 
-         // return $datas;
         return response()->json($data);
     }
-
     public function clearcache()
     {
         $dir = base_path()."/storage/logs"; 
@@ -47,7 +41,6 @@ class SettingsController extends Controller
                 unlink($file);
             }
         }
-
         $dir = base_path()."/storage/framework/views";  
         foreach(glob($dir . '/*') as $file) {
             if(is_dir($file))
@@ -58,14 +51,10 @@ class SettingsController extends Controller
             }
         }       
         Cache::flush();
-
         return response()->json(array(
             'status'    =>'success',
             'message'   => 'Cache has been cleared !'
         ));
-
-
-
-        
+       
     }         
 }

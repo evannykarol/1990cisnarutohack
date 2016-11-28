@@ -154,8 +154,8 @@ function icheck($timeout) {
                 })
 
                 return $(element).iCheck({
-                    checkboxClass: 'icheckbox_square-green',
-                    radioClass: 'iradio_square-green'
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue'
 
                 }).on('ifChanged', function(event) {
                         if ($(element).attr('type') === 'checkbox' && $attrs['ngModel']) {
@@ -174,6 +174,22 @@ function icheck($timeout) {
     };
 }
 
+function convertToNumber(){
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModel) {
+      ngModel.$parsers.push(function(val) {
+        return val != null ? parseInt(val, 10) : null;
+      });
+      ngModel.$formatters.push(function(val) {
+        return val != null ? '' + val : null;
+      });
+    }
+  };
+};
+
+
+
 /**
  *
  * Pass all functions into module
@@ -185,4 +201,5 @@ angular
     .directive('iboxTools', iboxTools)
     .directive('minimalizaSidebar', minimalizaSidebar)
     .directive('iboxToolsFullScreen', iboxToolsFullScreen)
+    .directive('convertToNumber', convertToNumber)
     .directive('icheck', icheck);

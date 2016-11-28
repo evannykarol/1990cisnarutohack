@@ -24,31 +24,37 @@
              </center>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="index.main"><i class="fa fa-laptop"></i> <span class="nav-label">{{ 'Panel_Control' | translate }}</span> </a>
+                <a ui-sref="index.main"><i class="fa fa-dashboard"></i> <span class="nav-label">{{ 'Dashboard' | translate }}</span> </a>
             </li>
+            @foreach($groups as $group)
+            <?php 
+                $moduls = DB::table("moduls")
+                            ->where("is_active",1)     
+                            ->where("id_moduls_group",$group->id)->get();
+            ?>
+            @if($group->is_group==1)
+            <li ng-class="{active: $state.includes('index')}">
+                <a href=""><i class="fa fa-gear"></i> <span class="nav-label"><%$group->name_group%></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('index')}">
+            @endif
+
+                @foreach($moduls as $modul)          
+                    <li ui-sref-active="active"><a ui-sref="index.<%$modul->path%>"><i class="fa fa-user"></i> <span class="nav-label"><%$modul->name%></span> </a></li>                     
+                @endforeach     
+
+            @if($group->is_group==1)
+                </ul>
+            </li> 
+            @endif
+
+            @endforeach
+
             @foreach($catalog as $catalogsss)
             <li ui-sref-active="active">
                 <a ui-sref="<% $catalogsss->viewcatalog %>"><i class="fa <% $catalogsss->icon %>" title="<% $catalogsss->catalogs %>"></i> <span class="nav-label"><% $catalogsss->description %></span> </a>
             </li>
-            @endforeach
-            <li ng-class="{active: $state.includes('index')}">
-                <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Configuración</span></a>
-                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('index')}">
-                    <li ui-sref-active="active"><a ui-sref="index.profile"><i class="fa fa-user"></i> <span class="nav-label">Perfile</span> </a></li> 
-                    <li ui-sref-active="active"><a ui-sref="index.settings"><i class="fa fa-user"></i> <span class="nav-label">Settings</span> </a></li> 
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('index')}">
-                <a href=""><i class="fa fa-gear"></i> <span class="nav-label">Administracion</span></a>
-                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('index')}">
-                    <li ui-sref-active="active"><a ui-sref="index.user"><i class="fa fa-user"></i> <span class="nav-label">User</span> </a></li>                     
-                    <li ui-sref-active="active"><a ui-sref="index.client"><i class="fa fa-user"></i> <span class="nav-label">Client</span> </a></li>
-                    <li ui-sref-active="active"><a ui-sref="index.roles"><i class="fa fa-user"></i> <span class="nav-label">Roles and permision</span></a></li> 
-                    <li ui-sref-active="active"><a ui-sref="index.catalog"><i class="fa fa-user"></i> <span class="nav-label">Catalogs</span></a></li> 
-                    <li ui-sref-active="active"><a ui-sref="index.crud"><i class="fa fa-users"></i> <span class="nav-label">Generar CRUD</span></a></li> 
-                </ul>
-            </li>   
-                     
+            @endforeach            
+              <!-- <li ui-sref-active="active"><a ui-sref="index.modulosedit"><i class="fa fa-user"></i> <span class="nav-label">modulos</span> </a></li>        -->
         </ul>
     </div>
 </nav>
