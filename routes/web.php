@@ -47,6 +47,8 @@ Route::post('moduls', 'ModuleGroupController@store');
 Route::get('moduls/query', 'ModuleGroupController@query');
 Route::get('moduls/modal', 'ModuleGroupController@modal');
 Route::get('moduls/{id}/edit', 'ModuleGroupController@edit');
+Route::post('moduls/{id}/update','ModuleGroupController@update');
+Route::get('moduls/{id}/destroy', 'ModuleGroupController@destroy');
 Route::get('moduls/create', 'ModuleGroupController@create');
 
 

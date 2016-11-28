@@ -31,14 +31,15 @@ class ModuleGroupController extends Controller
     }
     public function query()
     {
+        $App = app()->make('Data');
         $groups = ModulsGroup::get();
         $data = [];
         foreach ($groups as $group) {
             $data[] = [
-                        "Id"            =>$group->id,
-                        "Name"          =>$group->name_group,
-                        "Isgroup"      =>$group->is_group,
-                        "Icongroup"    =>$group->icon_group,                        
+                        "Id"           =>$group->id,
+                        "Name"         =>$group->name_group,
+                        "Isgroup"      =>$App->Status($group->is_group),
+                        "Icongroup"    =>$App->Icon($group->icon_group),                        
                       ];
         }
         return response()->json($data);
@@ -73,7 +74,13 @@ class ModuleGroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $User = $request->json()->all();
+        ModulsGroup::insert([
+            "name_group"         =>$User['Name'],
+            "is_group"           =>$User['Group'],
+            "icon_group"         =>$User['Icon']
+            ]);
+        return "Insertado";      
     }
 
     /**
@@ -114,7 +121,13 @@ class ModuleGroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            $data = (object) $request->json()->all();   
+            $ModulsGroup = ModulsGroup::find($id);
+            $ModulsGroup->name_group    = $data->Name;
+            $ModulsGroup->is_group      = $data->Group;
+            $ModulsGroup->icon_group    = $data->Icon;
+            $ModulsGroup->save();
+            return "Actualizado";
     }
 
     /**
@@ -125,6 +138,7 @@ class ModuleGroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ModulsGroup::destroy($id);
+        return "Eliminado";
     }
 }

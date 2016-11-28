@@ -29,14 +29,17 @@
          <div class="col-lg-12">            
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ 'IS_GROUP' | translate }}:</label>
-                <div class="col-sm-7"><input type="text" class="form-control" ng-model='moduls.Group' required></div>
+                <div class="col-sm-7">
+                    <label class="checkbox-inline"> <input icheck type="radio" ng-model="moduls.Group" value="1" ng-required="!moduls.Group"> active</label>
+                    <label class="checkbox-inline"> <input icheck type="radio" ng-model="moduls.Group" value="0" ng-required="!moduls.Group"> Inactive</label> 
+                </div>
             </div>  
          </div>                  
         </div>  
     </div>
     <div class="modal-footer">
         <button type="submit" class="ladda-button btn btn-primary" ladda="btnload" data-style="expand-right">{{ 'SAVE' | translate }}</button>
-        <button type="button" class="btn btn-danger" ng-if="'yes' == delete" ng-click="this.delete(moduls.id)">{{ 'DELETE' | translate }}</button>      
+        <button type="button" class="btn btn-danger" ng-if="'yes' == delete" ng-click="this.btndelete(moduls.Id)">{{ 'DELETE' | translate }}</button>      
         <button type="button" class="btn btn-white" ng-click="this.cancel()">{{ 'CLOSE' | translate }}</button>        
     </div>
 </div>

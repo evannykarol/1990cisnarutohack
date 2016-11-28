@@ -33,7 +33,8 @@
             </div>
           </a>
         </div>    
-        <div class="col-lg-3">
+        <div class="col-lg-3">            
+          <a ui-sref="index.module_generator">    
             <div class="widget style1 navy-bg">
                 <div class="row">
                     <div class="col-xs-4">
@@ -46,6 +47,7 @@
                     </div>
                 </div>
             </div>
+           </a> 
         </div>
         <div class="col-lg-3">
             <div class="widget style1 lazur-bg">

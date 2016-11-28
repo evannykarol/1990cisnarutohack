@@ -1182,10 +1182,8 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         .renderWith(actionsHtml).withOption('width','10px')
         .withOption('className', 'text-center').withTitle('ACTION'),
         DTColumnBuilder.newColumn('Name').withTitle('name'),
-        DTColumnBuilder.newColumn('Isgroup').withTitle('Is group'),
         DTColumnBuilder.newColumn('Icongroup').withTitle('Icon group'),
-        
-      
+        DTColumnBuilder.newColumn('Isgroup').withTitle('Is group')           
     ];
 
     $scope.edit = function (datas) {
