@@ -43,11 +43,12 @@
                                             <th>{{ 'ACTIONS' | translate }}</th>
                                             <th>{{ 'PHOTO' | translate }}</th>
                                             <th>{{ 'USER' | translate }}</th> 
-                                            <th>{{ 'NAME' | translate }}</th>                            
+                                            <th>{{ 'NAME' | translate }}</th> 
+                                            <th>{{ 'FIRST_NAME' | translate }}</th>                            
                                             <th>{{ 'EMAIL' | translate }}</th>  
                                             <th>{{ 'AREA' | translate }}</th>
-                                            <th>{{ 'LANGUAJE' | translate }}</th>
-                                            <th>{{ 'ROLES' | translate }}</th>                      
+                                            <th>{{ 'ROLES' | translate }}</th> 
+                                            <th>{{ 'STATUS' | translate }}</th>                      
                                         </tr>
                                     </thead>
                                 </table>

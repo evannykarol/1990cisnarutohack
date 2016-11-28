@@ -38,8 +38,7 @@ class UsersController extends Controller
 						"Email"=>$Users->email,
 						"Area"=>$Users->area,
 						"Roles"=>$App->Roles($Users->id_roles),
-                        "Languaje"=>$App->Lang($Users->language),
-                        "Status"=>$Users->status,
+                        "Status"=>$App->StatusN($Users->status),
                         "Photo"=>$Users->photo                       
 					  ];
 		}

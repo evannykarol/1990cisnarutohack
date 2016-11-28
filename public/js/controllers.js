@@ -107,10 +107,11 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         }),
         DTColumnBuilder.newColumn('User'),
         DTColumnBuilder.newColumn('Name'),
+        DTColumnBuilder.newColumn('FirstName'),
         DTColumnBuilder.newColumn('Email'),  
-        DTColumnBuilder.newColumn('Area'), 
-        DTColumnBuilder.newColumn('Languaje'), 
-        DTColumnBuilder.newColumn('Roles')   
+        DTColumnBuilder.newColumn('Area'),         
+        DTColumnBuilder.newColumn('Roles'), 
+        DTColumnBuilder.newColumn('Status')   
     ];
     $scope.edit = function (id) {
         var modalInstance = $uibModal.open({
@@ -1221,7 +1222,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     }
     function actionsHtml(data, type, full, meta) {
         vm.datas[data.id] = data;
-        return '<button type="button" class="btn btn-success" ng-click="edit('+data.Id+')">'+
+        return '<button type="button" class="btn btn-success" ng-click="edit('+data.Id+')" title="Edit">'+
                '<span class="fa fa-edit"></span>'+
                '</button>';
     }

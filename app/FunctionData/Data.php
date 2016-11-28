@@ -27,4 +27,12 @@ class Data
             return '<span class="label label-danger">Inactive</span>';
         }
     }
+    public function StatusN($id)
+    {
+        if($id=="active"){
+            return '<span class="label label-primary">Active</span>';
+        }else{
+            return '<span class="label label-danger">Inactive</span>';
+        }
+    }    
 }
