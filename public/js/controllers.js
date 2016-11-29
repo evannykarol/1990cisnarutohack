@@ -1242,7 +1242,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
 };
 
 
-function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams) { 
+function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state) { 
    $scope.generate = {'template':'bootstrap'};
    $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
    $scope.colum =[];
@@ -1276,6 +1276,7 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
 
 //////////////////////////////es para databases de datos
     var id =  $stateParams.qId;
+    $scope.Paramsid = id;
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -1297,9 +1298,10 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
 
     $scope.edit = function (id) {
       // $location.path( 'index/createcrud' );
+      alert(id);
     };
-    $scope.add = function () {
-      $location.path( 'index/moduls/create' );
+    $scope.add = function (id) {
+      $state.go('index.Create_module_generator', {'qId': id})
     };
     function deleteRow(idaccessremote) {
         vm.dtInstance.reloadData();

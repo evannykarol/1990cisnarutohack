@@ -23,7 +23,7 @@
                 <div class="ibox-title">
                     <div class="row">
                         <div class="col-sm-12"><h2><b>{{ 'CRUD ' | translate }}
-                        <button class="btn btn-primary pull-right" ng-click="add()"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button></b></h2>
+                        <button class="btn btn-primary pull-right" ng-click="add(Paramsid)"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button></b></h2>
                         </div>
                     </div>
                 </div>

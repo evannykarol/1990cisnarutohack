@@ -8,8 +8,8 @@
             <li>
                 <a ui-sref="index.module_generator">{{ 'Module_Generator ' | translate }}</a>
             </li>
-            <li ui-sref="index.crud">
-                <a ui-sref="index.crud">{{ 'CRUD ' | translate }}</a>
+            <li>
+                <a ui-sref="index.Edit_module_generator({ qId: 1})">{{ 'CRUD ' | translate }}</a>
             </li>
             <li class="active">
                 <strong>{{ 'CREATE_NEW_CRUD' | translate }}</strong>

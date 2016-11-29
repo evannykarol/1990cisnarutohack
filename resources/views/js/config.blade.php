@@ -111,7 +111,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })         
         .state('index.Create_module_generator', {
-            url: "/moduls/create",
+            url: "/moduls/create/{qId:[0-9]{1,8}}",
             templateUrl: "crud/create",
             data: { pageTitle: 'CREAR' },
             resolve: {
