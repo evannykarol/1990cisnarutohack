@@ -8235,3 +8235,7 @@ body.md-skin {
   border: 2px dashed #1ab394 !important;
   padding: 40px 20px !important;
 }
+.fullscreen {
+    width: 100%;
+    height: 100%;
+}
