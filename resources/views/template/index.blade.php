@@ -16,7 +16,7 @@
     <div class="col-lg-2">
     </div>
 </div>
-<div class="wrapper wrapper-content animated fadeInRight" ng-controller="CrudCtrl as showCase">
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="ListModulsCtrl as showCase">
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">

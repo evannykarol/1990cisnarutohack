@@ -241,7 +241,6 @@ class UsersController extends Controller
 
       return response()->json($data);
     }
-
     public function queryroles()
     {
         $Roles = Roles::get();
@@ -255,8 +254,6 @@ class UsersController extends Controller
         }
         return response()->json($data);
     } 
-
-
     public function rolesmodal()
     {
         return view('desarrolladorez.roles_modal');

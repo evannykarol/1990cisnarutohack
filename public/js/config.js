@@ -28,10 +28,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 }
             }
         })
-        .state('index.crud', {
+        .state('index.modul', {
             url: "/crud",
             templateUrl: "crud",
-            data: { pageTitle: 'crud' },
+            data: { pageTitle: 'modul' },
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([

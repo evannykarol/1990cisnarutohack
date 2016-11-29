@@ -4,10 +4,10 @@
             <li class="nav-header">
              <center>
                 <div class="spiner-example" ng-if="navperfilload">
-                        <div class="sk-spinner sk-spinner-chasing-dots">
-                            <div class="sk-dot1"></div>
-                            <div class="sk-dot2"></div>
-                        </div>
+                    <div class="sk-spinner sk-spinner-chasing-dots">
+                        <div class="sk-dot1"></div>
+                        <div class="sk-dot2"></div>
+                    </div>
                 </div>
                 <div class="profile-element" uib-dropdown ng-if="navperfil == 'yes'">
                     <img alt="image" class="img-circle" ng-src="img/perfil/{{Photo}}" width="70px" />

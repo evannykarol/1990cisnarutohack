@@ -111,7 +111,7 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         DTColumnBuilder.newColumn('Email'),  
         DTColumnBuilder.newColumn('Area'),         
         DTColumnBuilder.newColumn('Roles'), 
-        DTColumnBuilder.newColumn('Status')   
+        DTColumnBuilder.newColumn('Status').withOption('className', 'text-center')   
     ];
     $scope.edit = function (id) {
         var modalInstance = $uibModal.open({
@@ -502,12 +502,6 @@ function MainCtrl($scope) {
     this.userName = 'Example user';
     this.helloText = 'Control Tecnología de la información';
     this.descriptionText = 'Aqui van hacer una grafica ';
-    $scope.goFullscreen = function () {
-      alert('here full');
-
-      // Set Fullscreen to a specific element (bad practice)
-      // Fullscreen.enable( document.getElementById('img') )
-    }
 };
 function LoginCtrl($scope,$http,$location) {
     $scope.login = {};
@@ -1145,6 +1139,7 @@ function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnB
 };
 
 
+////////////////////////////modulos
 function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) 
 { 
     $scope.generate = {'template':'bootstrap'};
@@ -1178,7 +1173,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         forceHelperSize: true
     };
 
-//////////////////////////////es para databases de datos
+  //////////////////////////////es para databases de datos
 
     var vm = this;
     vm.delete = deleteRow;
@@ -1214,7 +1209,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         });
     };
     $scope.addmodule = function(id){
-      $location.path( 'index/crud' );
+      $location.path( 'index/moduls/'+id );
     };
     $scope.add = function () {
         var modalInstance = $uibModal.open({
@@ -1245,7 +1240,83 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     }
   
 };
-function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance) 
+
+
+function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams) { 
+   $scope.generate = {'template':'bootstrap'};
+   $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
+   $scope.colum =[];
+  $scope.increment = function () {
+        $scope.generate.items.push({'id':$scope.generate.items.length,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null});
+    };
+  $scope.remove = function( row ) {
+        $scope.generate.items.splice( $scope.generate.items.indexOf( row ), 1 );
+    };
+  $scope.submit = function() {
+        $scope.btnload = true;
+         $http({
+          method  : 'POST',
+          url     : 'enviar',
+          data    : $scope.generate,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+                $scope.btnload = false;  
+                // alert('actualizado');
+          }, function errorCallback(response) {
+                $scope.btnload = false;
+                // alert('error');
+          });          
+        };
+  $scope.sortableOptions = {
+        cursor: "move",
+        revert: 'invalid',
+        handle: ".handle",
+        forceHelperSize: true
+    };
+
+//////////////////////////////es para databases de datos
+    var id =  $stateParams.qId;
+    var vm = this;
+    vm.delete = deleteRow;
+    vm.dtInstance = {};
+    vm.datas = {};
+    vm.dtOptions = DTOptionsBuilder.fromSource('modul/'+id+'/query')
+        .withPaginationType('full_numbers')
+        .withOption('createdRow', createdRow)
+        .withOption('responsive', true)         
+        .withOption('processing', true);
+    vm.dtColumns = [
+      DTColumnBuilder.newColumn(null).notSortable()
+        .renderWith(actionsHtml).withOption('width','10px')
+        .withOption('className', 'text-center').withTitle('ACTION'),
+        DTColumnBuilder.newColumn('name').withTitle('name'),
+        DTColumnBuilder.newColumn('icon').withTitle('icon'),
+        DTColumnBuilder.newColumn('is_active').withTitle('is_active'),
+     
+    ];
+
+    $scope.edit = function (id) {
+      // $location.path( 'index/createcrud' );
+    };
+    $scope.add = function () {
+      $location.path( 'index/moduls/create' );
+    };
+    function deleteRow(idaccessremote) {
+        vm.dtInstance.reloadData();
+    }
+    function createdRow(row, data, dataIndex) {
+        $compile(angular.element(row).contents())($scope);
+    }
+    function actionsHtml(data, type, full, meta) {
+        vm.datas[data.id] = data;
+        return '<button type="button" class="btn btn-success" ng-click="edit('+data.id+')">'+
+               '<span class="fa fa-edit"></span>'+
+               '</button>';
+    }
+};
+
+
+function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
 {
     $scope.moduls = {};
     $scope.delete = 'yes';
@@ -1335,7 +1406,6 @@ function LogoutCtrl($scope, $http,$location){
       $http.get('logout')
     .then(function successCallback(response) {
             $location.path( 'login' );
-            // sweetAlert('Correctamente', "", "success");
       }, function errorCallback(response) {
             sweetAlert("Oops...", "", "error");
       });
@@ -1365,6 +1435,7 @@ angular
     .controller('DashboardCtrl', DashboardCtrl)
     .controller('chartJsCtrl', chartJsCtrl)
     .controller('MessagesCtrl', MessagesCtrl)
+    .controller('ListModulsCtrl', ListModulsCtrl)
     
     .controller('SettingsCtrl', SettingsCtrl)
     .controller('NotificationCtrl', NotificationCtrl)

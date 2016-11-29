@@ -51,6 +51,10 @@ Route::get('moduls/{id}/destroy', 'ModuleGroupController@destroy');
 Route::get('moduls/create', 'ModuleGroupController@create');
 
 
+Route::get('modul/{id}/query', 'ModuleController@querymoduls');
+
+
+
 
 
 Route::get('/common/topnavbar', function () {

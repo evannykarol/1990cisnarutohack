@@ -32,115 +32,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 }
             }
         })
-        .state('index.crud', {
-            url: "/crud",
-            templateUrl: "crud",
-            data: { pageTitle: 'crud' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            serie: true,
-                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables',
-                            files: ['js/plugins/dataTables/angular-datatables.min.js']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables.buttons',
-                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
-                        },
-                        {
-                            name: 'ui.select',
-                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
-                        },
-                        {
-                            name: 'ui.sortable',
-                            files: ['js/plugins/other/sortable.js']
-                        },
-                        {
-                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
-                        },
-                    ]);
-                }
-            }              
-        })         
-        .state('index.createcrud', {
-            url: "/createcrud",
-            templateUrl: "crud/create",
-            data: { pageTitle: 'CREAR' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            serie: true,
-                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables',
-                            files: ['js/plugins/dataTables/angular-datatables.min.js']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables.buttons',
-                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
-                        },
-                        {
-                            name: 'ui.select',
-                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
-                        },
-                        {
-                            name: 'ui.sortable',
-                            files: ['js/plugins/other/sortable.js']
-                        },
-                        {
-                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
-                        },
-                    ]);
-                }
-            }              
-        })
-        .state('index.editcrud', {
-            url: "/editcrud",
-            templateUrl: "crud/edit",
-            data: { pageTitle: 'CREAR' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            serie: true,
-                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables',
-                            files: ['js/plugins/dataTables/angular-datatables.min.js']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables.buttons',
-                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
-                        },
-                        {
-                            name: 'ui.select',
-                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
-                        },
-                        {
-                            name: 'ui.sortable',
-                            files: ['js/plugins/other/sortable.js']
-                        },
-                        {
-                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
-                        },
-                    ]);
-                }
-            }              
-        })
-
         .state('index.module_generator', {
             url: "/moduls",
             templateUrl: "moduls",
@@ -183,9 +74,118 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 }
             }              
         })
+        .state('index.Edit_module_generator', {
+            url: "/moduls/{qId:[0-9]{1,8}}",
+            templateUrl: "crud",
+            data: { pageTitle: 'Agregar Modulos' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        },
+                        {
+                            name: 'ui.select',
+                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
+                        },
+                        {
+                            name: 'ui.sortable',
+                            files: ['js/plugins/other/sortable.js']
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+                        },
+                    ]);
+                }
+            }              
+        })         
+        .state('index.Create_module_generator', {
+            url: "/moduls/create",
+            templateUrl: "crud/create",
+            data: { pageTitle: 'CREAR' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        },
+                        {
+                            name: 'ui.select',
+                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
+                        },
+                        {
+                            name: 'ui.sortable',
+                            files: ['js/plugins/other/sortable.js']
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+                        },
+                    ]);
+                }
+            }              
+        })
 
 
 
+/////////
+        .state('index.editcrud', {
+            url: "/editcrud",
+            templateUrl: "crud/edit",
+            data: { pageTitle: 'CREAR' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        },
+                        {
+                            name: 'ui.select',
+                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
+                        },
+                        {
+                            name: 'ui.sortable',
+                            files: ['js/plugins/other/sortable.js']
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+                        },
+                    ]);
+                }
+            }              
+        })
         .state('index.modulosedit', {
             url: "/modulosedit",
             templateUrl: "moduls/edit",
@@ -222,7 +222,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 }
             }              
         })
-
         .state('index.moduloscreate', {
             url: "/modulos/create",
             templateUrl: "moduls/create",

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Moduls;
 class ModuleController extends Controller
 {
     /**
@@ -14,6 +14,21 @@ class ModuleController extends Controller
     public function index()
     {
         //
+    }
+
+    public function querymoduls($id)
+    {
+        $Modul = Moduls::where('id_moduls_group','=',$id)->get();
+        $data = [];
+        foreach ($Modul as $Moduls) {
+            $data[] = [
+                        "id"            => $Moduls->id,
+                        "name"          => $Moduls->name,
+                        "icon"          => '<i class="'.$Moduls->icon.'"></i>',
+                        "is_active"     => $Moduls->is_active
+                      ];
+        }
+        return response()->json($data);
     }
 
     /**

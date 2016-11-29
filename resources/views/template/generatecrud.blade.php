@@ -1,12 +1,15 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>PROYECTO</h2>
+        <h2>CREAR CRUD</h2>
         <ol class="breadcrumb">
             <li>
                 <a ui-sref="index.main">{{ 'HOME ' | translate }}</a>
             </li>
+            <li>
+                <a ui-sref="index.module_generator">{{ 'Module_Generator ' | translate }}</a>
+            </li>
             <li ui-sref="index.crud">
-                <strong>{{ 'CRUD' | translate }}</strong>
+                <a ui-sref="index.crud">{{ 'CRUD ' | translate }}</a>
             </li>
             <li class="active">
                 <strong>{{ 'CREATE_NEW_CRUD' | translate }}</strong>
