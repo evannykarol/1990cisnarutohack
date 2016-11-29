@@ -155,7 +155,7 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
                '</button>';
     }
 };
-function EditUserCtrl($scope, editId, table, $http, $uibModalInstance) 
+function EditUserCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
 {
     $scope.user = {};
     $scope.delete = 'yes';
@@ -187,12 +187,12 @@ function EditUserCtrl($scope, editId, table, $http, $uibModalInstance)
     };
     $scope.btndelete = function (Id) {
         swal({
-        title: "¿Esta seguro sea Eliminar?",
+        title: $translate.instant('CONFIRM_DELETE'),
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
+        confirmButtonText: $translate.instant('YES'),
+        cancelButtonText: $translate.instant('NO'),
         closeOnConfirm: false,
         closeOnCancel: true
         },
@@ -264,7 +264,7 @@ function NewUserController($scope, table, $http, $uibModalInstance)
       });          
     };
 }
-function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location)
+function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$controller,$rootScope)
 {
     var vm = this;
     vm.delete = deleteRow;
@@ -276,15 +276,16 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         .withOption('processing', true);
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).notSortable()
-        .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px').withTitle('Actions'),
-        DTColumnBuilder.newColumn('Name').withTitle('Name'),
-        DTColumnBuilder.newColumn('Description').withTitle('Description') 
+        .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
+        DTColumnBuilder.newColumn('Name'),
+        DTColumnBuilder.newColumn('Description')
     ];
+   
     $scope.edit = function (id) {
         var modalInstance = $uibModal.open({
             templateUrl: 'roles/modal',            
             controller: EditRolesCtrl,
-            size:'lg',
+            size:'md',
             windowClass: "animated fadeIn",
             resolve: {
                  editId: function () {
@@ -300,7 +301,7 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         var modalInstance = $uibModal.open({
             templateUrl: 'roles/modal',            
             controller: NewRolesController,
-            size:'lg',
+            size:'md',
             windowClass: "animated fadeIn",
             resolve: {
                  table: function () {
@@ -322,7 +323,7 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
                '</button>';
     }
 };
-function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance) 
+function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
 {
     $scope.roles = {};
     $scope.roles.Permission = {};
@@ -343,12 +344,12 @@ function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance)
     };
     $scope.btndelete = function (Id) {
         swal({
-        title: "¿Esta seguro sea Eliminar?",
+        title: $translate.instant('CONFIRM_DELETE'),
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Si",
-        cancelButtonText: "No",
+        confirmButtonText: $translate.instant('YES'),
+        cancelButtonText: $translate.instant('NO'),
         closeOnConfirm: false,
         closeOnCancel: true
         },
@@ -360,7 +361,7 @@ function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance)
                     sweetAlert('Correctamente', "", "success");
                     $uibModalInstance.dismiss('cancel');
               }, function errorCallback(response) {
-                    sweetAlert("Oops...", "", "error");
+                    sweetAlert("Oops...", $translate.instant('Something_went_wrong'), "error"); 
               });
             }
         });
@@ -421,11 +422,14 @@ function PerfilCtrl($scope,$http){
     $scope.user = {};
     $.get("http://ipinfo.io", function (response) {
     $scope.location = response.city + ", " + response.region;
-    }, "jsonp");    
+    }, "jsonp");
+    $scope.navperfilload = true;    
     $http.get('profile/show')
     .success(function(response){
         $scope.loading ="no";
         $scope.view ="yes";
+        $scope.navperfil = "yes";
+        $scope.navperfilload = false;
         $scope.user.User              = response.User;
         $scope.user.Name              = response.Name;
         $scope.user.FirstName         = response.FirstName;        
@@ -963,10 +967,11 @@ function SettingsCtrl($scope,$http){
           }); 
     }        
 } 
-function translateCtrl($translate, $scope) {
+function translateCtrl($translate, $scope, $controller,$rootScope) {
     $scope.changeLanguage = function (langKey) {
         $translate.use(langKey);
         $scope.language = langKey;
+        $rootScope.othercontroller()
     };
 }
 function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
@@ -1325,6 +1330,17 @@ function NewGroupModulsCtrl($scope, table, $http, $uibModalInstance)
           });          
     };
 }
+function LogoutCtrl($scope, $http,$location){
+  $scope.Logout = function(){
+      $http.get('logout')
+    .then(function successCallback(response) {
+            $location.path( 'login' );
+            // sweetAlert('Correctamente', "", "success");
+      }, function errorCallback(response) {
+            sweetAlert("Oops...", "", "error");
+      });
+  }
+}
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
@@ -1352,6 +1368,7 @@ angular
     
     .controller('SettingsCtrl', SettingsCtrl)
     .controller('NotificationCtrl', NotificationCtrl)
+    .controller('LogoutCtrl', LogoutCtrl)
     
     
     

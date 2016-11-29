@@ -17,8 +17,8 @@
                     {{ 'Language' | translate }}
                 </a>
                 <ul uib-dropdown-menu class="animated fadeInRight m-t-xs" ng-controller="translateCtrl">
-                    <li><a ng-click="changeLanguage('en')">English</a></li>
-                    <li><a ng-click="changeLanguage('es')">Spanish</a></li>
+                    <li><a ng-click="changeLanguage('en')"><img src="img/idiomas/United-States.png"> English</a></li>
+                    <li><a ng-click="changeLanguage('es')"><img src="img/idiomas/Spain.png"> Spanish</a></li>
                 </ul>
             </li>
             <li uib-dropdown>
@@ -73,8 +73,8 @@
                     </li>
                 </ul>
             </li>           
-            <li>
-                <a ui-sref="login">
+            <li ng-controller="LogoutCtrl">
+                <a ng-click="Logout()">
                     <i class="fa fa-sign-out"></i> {{ 'Logout' | translate }}
                 </a>
             </li>

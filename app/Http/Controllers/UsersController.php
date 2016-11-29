@@ -420,6 +420,7 @@ class UsersController extends Controller
     public function listmoduls()
     {
         $Moduls = Moduls::get();
+            $data=[];
         foreach ($Moduls as $Modul) {
             $data[] = [
                         "Id"=>$Modul->id,
@@ -430,11 +431,11 @@ class UsersController extends Controller
                         "Delete"=>false
                       ];
         }
-            $datos = ["Permission"=>$data];        
-        return response()->json($datos); 
+            $datas = ["Permission"=>$data];        
+        return response()->json($datas); 
     }
     public function rolesdestroy($id)
     {
-        return "espera relaciones roles";
+        return "espera relaciones roles ";
     }                 
 }

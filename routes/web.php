@@ -20,7 +20,6 @@ Route::get('/notification', 'HomeController@notification');
 Auth::routes();
 Route::get('logout', function(){
     Auth::logout();
-    return "hola";
 });
 
 // Route::get('/home', 'HomeController@index');

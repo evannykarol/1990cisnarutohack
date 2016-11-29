@@ -67,6 +67,13 @@
                             <div class="row">
                              <div class="table-responsive">
                                 <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="table table-striped table-bordered table-hover dataTables-example" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ 'ACTIONS' | translate }}</th>
+                                            <th>{{ 'NAME' | translate }}</th>
+                                            <th>{{ 'DESCRIPTION' | translate }}</th>                      
+                                        </tr>
+                                    </thead>
                                 </table>
                              </div>
                             </div>    

@@ -27,16 +27,20 @@
                     <table class="table table-striped table-bordered table-hover dataTables-example">
                      <thead>
                         <tr>
-                            <td>Name</td><td> Create</td><td>Read</td><td>Update</td><td>Delete</td>
+                            <td>{{ 'NAME' | translate }}</td>
+                            <td class="text-center">{{ 'CREATE' | translate }}</td>
+                            <td class="text-center">{{ 'READ' | translate }}</td>
+                            <td class="text-center">{{ 'UPDATE' | translate }}</td>
+                            <td class="text-center">{{ 'DELETE' | translate }}</td>
                         </tr>
                      </thead>
                      <tbody>
                         <tr ng-repeat="n in roles.Permission">
                             <td>{{n.Name}}</td>
-                            <td><input icheck type="checkbox" ng-model="n.Create"></td>
-                            <td><input icheck type="checkbox" ng-model="n.Read"></td>
-                            <td><input icheck type="checkbox" ng-model="n.Update"></td>
-                            <td><input icheck type="checkbox" ng-model="n.Delete"></td>
+                            <td class="text-center"><input icheck type="checkbox" ng-model="n.Create"></td>
+                            <td class="text-center"><input icheck type="checkbox" ng-model="n.Read"></td>
+                            <td class="text-center"><input icheck type="checkbox" ng-model="n.Update"></td>
+                            <td class="text-center"><input icheck type="checkbox" ng-model="n.Delete"></td>
                         </tr>
                      </tbody>
                     </table>    

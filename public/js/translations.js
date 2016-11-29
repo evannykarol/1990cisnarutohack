@@ -39,6 +39,8 @@ function config($translateProvider) {
             FORGOTPASSWORD:'Forgot password?',
             LOGO:'LOGO',
             COMPANY:'CAMPANY',
+            READ:'READ',
+            UPDATE:'UPDATE',
             DELETE:'DELETE',
             Create_new:'Create new',
             NAME_COLUM:'NAME COLUM',
@@ -99,7 +101,11 @@ function config($translateProvider) {
             CONFIRM_PASSWORD:'CONFIRM PASSWORD',  
             Module_Generator:'MODULE GENERATOR',
             IS_GROUP:'IS GROUP',
-            FULLSCREEN:'FULLSCREEN',     
+            FULLSCREEN:'FULLSCREEN',
+            CONFIRM_DELETE: 'Are you sure you want to delete?',
+            YES: 'YES',
+            NO: 'NO',
+            Something_went_wrong:'Something went wrong!',      
 
         })
         .translations('es', {
@@ -142,6 +148,8 @@ function config($translateProvider) {
             LOGO:'LOGO',
             COMPANY:'EMPRESA',
             DELETE:'ELIMINAR',
+            READ:'LEER',
+            UPDATE:'ACTUALIZAR',
             Create_new:'Crear nuevo',
             NAME_COLUM:'NOMBRE COLUMNAS',
             CHOOSE_YOUR_TABLE:'ELIGE TU TABLA',
@@ -202,8 +210,10 @@ function config($translateProvider) {
             Module_Generator:'GENERADOR DE MÓDULOS',
             IS_GROUP:'ES GRUPO',
             FULLSCREEN:'PANTALLA COMPLETA',                   
-
-            
+            CONFIRM_DELETE: '¿Esta seguro que desea eliminar?', 
+            YES: 'SI',
+            NO: 'NO',
+            Something_went_wrong:'Algo salió mal!',             
         });
     $translateProvider.preferredLanguage('es');
 }
