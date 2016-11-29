@@ -85,8 +85,8 @@
 <script src="js/mfb.js"></script>
 <script src="js/mfb-directive.js"></script>
 
-<script src="http://hrajchert.github.io/angular-screenfull/js/dist/angular-screenfull.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/2.0.0/screenfull.js"></script>
+<script src="js/plugins/screenfull/angular-screenfull.js"></script>
+<script src="js/plugins/screenfull/screenfull.js"></script>
 
 </body>
 </html>
