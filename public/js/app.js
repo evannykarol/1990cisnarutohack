@@ -10,7 +10,8 @@
         'pascalprecht.translate',       // Angular Translate
         'ngIdle',                       // Idle timer
         'ngSanitize',
-        'ng-mfb'                    // ngSanitize
+        'ng-mfb',                    // ngSanitize
+        'angularScreenfull'
     ])
 })();
 

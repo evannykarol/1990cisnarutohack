@@ -104,7 +104,8 @@ class UsersController extends Controller
     }
     public function userdestroy($id)
     {
-        return "esperar ";
+        User::destroy($id);
+        return "Eliminado Correctamente";
     }
     public function list_roles()
     {

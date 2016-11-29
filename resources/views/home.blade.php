@@ -28,11 +28,12 @@
 
 
 
+
 </head>
 
 <!-- ControllerAs syntax -->
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
-<body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
+<body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top" ngsf-fullscreen="fullscreenCtrl">
 
 <!-- Main view  -->
 <div ui-view></div>
@@ -83,6 +84,9 @@
 
 <script src="js/mfb.js"></script>
 <script src="js/mfb-directive.js"></script>
+
+<script src="http://hrajchert.github.io/angular-screenfull/js/dist/angular-screenfull.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/screenfull.js/2.0.0/screenfull.js"></script>
 
 </body>
 </html>

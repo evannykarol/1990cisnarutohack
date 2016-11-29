@@ -20,6 +20,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                             name: 'oitozero.ngSweetAlert',
                             files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
                         }
+                        {
+                            files: ['js/plugins/fullscreen/angular-fullscreen.js']
+                        },
+                        
                     ]);
                 }
             }

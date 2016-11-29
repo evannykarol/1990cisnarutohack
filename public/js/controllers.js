@@ -466,12 +466,11 @@ function PerfilCtrl($scope,$http){
 
 
 
-
-function MainCtrl() {
-    this.userName = 'Example user';
-    this.helloText = 'Control Tecnología de la información';
-    this.descriptionText = 'Aqui van hacer una grafica ';
-};
+// function MainCtrl() {
+//     this.userName = 'Example user';
+//     this.helloText = 'Control Tecnología de la información';
+//     this.descriptionText = 'Aqui van hacer una grafica ';
+// };
 function NotificationCtrl($scope,$http,$interval) {
     $scope.dato =[];
     $scope.ncount= $scope.dato.length;
@@ -495,10 +494,16 @@ function NotificationCtrl($scope,$http,$interval) {
     // $interval( function(){ $scope.callAtInterval(); }, 5000);
 };
 
-function MainCtrl() {
+function MainCtrl($scope) {
     this.userName = 'Example user';
     this.helloText = 'Control Tecnología de la información';
     this.descriptionText = 'Aqui van hacer una grafica ';
+    $scope.goFullscreen = function () {
+      alert('here full');
+
+      // Set Fullscreen to a specific element (bad practice)
+      // Fullscreen.enable( document.getElementById('img') )
+    }
 };
 function LoginCtrl($scope,$http,$location) {
     $scope.login = {};
