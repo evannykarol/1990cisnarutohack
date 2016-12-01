@@ -40,7 +40,7 @@
             ?>
             @if($group->is_group==1)
             <li ng-class="{active: $state.includes('index')}">
-                <a href=""><i class="fa fa-gear"></i> <span class="nav-label"><%$group->name_group%></span></a>
+                <a href=""><i class="<%$group->icon_group%>"></i> <span class="nav-label"><%$group->name_group%></span></a>
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('index')}">
             @endif
 
@@ -60,7 +60,7 @@
                 <a ui-sref="<% $catalogsss->viewcatalog %>"><i class="fa <% $catalogsss->icon %>" title="<% $catalogsss->catalogs %>"></i> <span class="nav-label"><% $catalogsss->description %></span> </a>
             </li>
             @endforeach            
-              <!-- <li ui-sref-active="active"><a ui-sref="index.modulosedit"><i class="fa fa-user"></i> <span class="nav-label">modulos</span> </a></li>        -->
+            <li ui-sref-active="active"><a ui-sref="support.ticket"><i class="fa fa-ticket"></i> <span class="nav-label">{{ 'Ticket_System' | translate }}</span> </a></li>       
         </ul>
     </div>
 </nav>

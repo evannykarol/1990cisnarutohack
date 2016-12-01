@@ -3,67 +3,41 @@ function DashboardCtrl($scope, $http, $location)
   $scope.dashboard = {};
   $http.get('dashboard/query')
     .success(function(response){
-    $scope.dashboard.user     = response.user;
-    $scope.dashboard.messages = response.messages;
+    $scope.dashboard.user               = response.user;
+    $scope.dashboard.moduls             = response.moduls;    
+    $scope.dashboard.messages           = response.messages;
+    $scope.data                         = [response.ticket];
+    $scope.dashboard.totalTicket        = response.totalTicket;
     // $scope.dashboard.user = response.moduls;
   });
-};
-function chartJsCtrl() 
-{
 
-    this.lineDataDashboard4 = {
-        labels: ["January", "February", "March", "April", "May", "June", "July", "Agost", "Septiem", "Octub","November","December"],
-        datasets: [
-            {
-                label: "Example dataset",
-                fillColor: "rgba(220,220,220,0.5)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 40, 51, 36, 25, 40, 40, 51, 36, 25, 40]
-            },
-            {
-                label: "Example dataset",
-                fillColor: "rgba(26,179,148,0.5)",
-                strokeColor: "rgba(26,179,148,0.7)",
-                pointColor: "rgba(26,179,148,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(26,179,148,1)",
-                data: [48, 48, 60, 39, 56, 37, 30, 40, 51, 36, 25, 40]
-            },
-            {
-                label: "Example dataset",
-                fillColor: "rgba(226,179,148,0.5)",
-                strokeColor: "rgba(226,179,148,0.7)",
-                pointColor: "rgba(226,179,148,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(26,179,148,1)",
-                data: [78, 48, 10, 39, 56, 37, 30, 40, 51, 36, 25, 40]
-            }
-        ]
-    };
 
-    /**
-     * Options for Line chart
-     */
-    this.lineOptions = {
-        scaleShowGridLines : true,
-        scaleGridLineColor : "rgba(0,0,0,.05)",
-        scaleGridLineWidth : 1,
-        bezierCurve : true,
-        bezierCurveTension : 0.4,
-        pointDot : true,
-        pointDotRadius : 4,
-        pointDotStrokeWidth : 1,
-        pointHitDetectionRadius : 20,
-        datasetStroke : true,
-        datasetStrokeWidth : 2,
-        datasetFill : true
-    };
+  $scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October","November","December"];
+  $scope.series = ['Ticket'];
+  // $scope.data = [
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+  // ;
+  $scope.onClickd = function () {
+     $scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October","November","December"];
+  };
+  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }];
+  $scope.options = {
+    responsive: true,
+    scales: {
+      yAxes: [
+        {
+          id: 'y-axis-1',
+          type: 'linear',
+          display: true,
+          position: 'left'
+        }
+      ]
+    }
+  };
+
+
+
+
 
 };
 ///////////////////////
@@ -461,20 +435,6 @@ function PerfilCtrl($scope,$http){
 
 
 
-
-
-
-
-
-
-
-
-
-// function MainCtrl() {
-//     this.userName = 'Example user';
-//     this.helloText = 'Control Tecnología de la información';
-//     this.descriptionText = 'Aqui van hacer una grafica ';
-// };
 function NotificationCtrl($scope,$http,$interval) {
     $scope.dato =[];
     $scope.ncount= $scope.dato.length;
@@ -538,31 +498,29 @@ function OptCtrl($scope) {
 	  ]
   };
 };
-function TicketCtrl($scope, $http) {
-      $http({
-        method : "GET",
-        url : "support/Num_tickets/1"
-      }).then(function mySucces(response) {
-            $('#detalleticket').html(response.data);
-          // $scope.detalleticket = response.data;
-        }, function myError(response) {
-          $scope.detalleticket = response.statusText;
-      });
-     $scope.submitticket = function() {
-        mensaje  =  $scope.CommentTicket;
-        var req = {
-         method: 'POST',
-         url: 'support/newticket',
-         headers: {
-           'Content-Type': undefined
-         },
-         data: { mensaje: mensaje }
-        }
-        $http(req);
-    };
-};
-
-
+// function TicketCtrl($scope, $http) {
+//       $http({
+//         method : "GET",
+//         url : "support/Num_tickets/1"
+//       }).then(function mySucces(response) {
+//             $('#detalleticket').html(response.data);
+//           // $scope.detalleticket = response.data;
+//         }, function myError(response) {
+//           $scope.detalleticket = response.statusText;
+//       });
+//      $scope.submitticket = function() {
+//         mensaje  =  $scope.CommentTicket;
+//         var req = {
+//          method: 'POST',
+//          url: 'support/newticket',
+//          headers: {
+//            'Content-Type': undefined
+//          },
+//          data: { mensaje: mensaje }
+//         }
+//         $http(req);
+//     };
+// };
 
 function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuilder, DTColumnBuilder){
 
@@ -622,7 +580,6 @@ function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuild
             }          
         }
 };
-
 
 
 function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
@@ -961,11 +918,11 @@ function SettingsCtrl($scope,$http){
           }); 
     }        
 } 
-function translateCtrl($translate, $scope, $controller,$rootScope) {
+function translateCtrl($translate, $scope,$http, $controller,$rootScope) {
     $scope.changeLanguage = function (langKey) {
         $translate.use(langKey);
         $scope.language = langKey;
-        $rootScope.othercontroller()
+        $http.get('user/translate/'+langKey)
     };
 }
 function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
@@ -1020,7 +977,8 @@ function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTCol
             }          
         }
 };
-function DataServicehostingCtrl($scope, editId, table, $http, $uibModalInstance) {
+function DataServicehostingCtrl($scope, editId, table, $http, $uibModalInstance) 
+{
     $scope.servicehosting = {};
     $http.get('servicehosting/edit/'+editId)
     .success(function(response){
@@ -1047,10 +1005,11 @@ function DataServicehostingCtrl($scope, editId, table, $http, $uibModalInstance)
           });          
     };
 };
-function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) { 
-   $scope.generate = {'template':'bootstrap'};
-   $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
-   $scope.colum =[];
+function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) 
+{ 
+  $scope.generate = {'template':'bootstrap'};
+  $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
+  $scope.colum =[];
   $scope.increment = function () {
         $scope.generate.items.push({'id':$scope.generate.items.length,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null});
     };
@@ -1079,7 +1038,7 @@ function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnB
         forceHelperSize: true
     };
 
-//////////////////////////////es para databases de datos
+      ////////////////////////////es para databases de datos
 
     var vm = this;
     vm.delete = deleteRow;
@@ -1130,12 +1089,6 @@ function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnB
                '<span class="fa fa-edit"></span>'+
                '</button>';
     }
-
-
-
-
-
-  
 };
 
 
@@ -1173,7 +1126,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         forceHelperSize: true
     };
 
-  //////////////////////////////es para databases de datos
+      //////////////////////////////es para databases de datos
 
     var vm = this;
     vm.delete = deleteRow;
@@ -1187,10 +1140,10 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     vm.dtColumns = [
       DTColumnBuilder.newColumn(null).notSortable()
         .renderWith(actionsHtml).withOption('width','100px')
-        .withOption('className', 'text-center').withTitle('ACTION'),
-        DTColumnBuilder.newColumn('Name').withTitle('name'),
-        DTColumnBuilder.newColumn('Icongroup').withTitle('Icon group'),
-        DTColumnBuilder.newColumn('Isgroup').withTitle('Is group')           
+        .withOption('className', 'text-center'),
+        DTColumnBuilder.newColumn('Name'),
+        DTColumnBuilder.newColumn('Icongroup'),
+        DTColumnBuilder.newColumn('Isgroup')          
     ];
 
     $scope.edit = function (datas) {
@@ -1237,15 +1190,69 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
                '<button type="button" class="btn btn-success" ng-click="addmodule('+data.Id+')" title="Edit">'+
                '<span class="fa fa-plus"></span>'+
                '</button>';
+    } 
+};
+function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) { 
+    var vm = this;
+    $scope.Ticket={};
+    vm.delete = deleteRow;
+    vm.dtInstance = {};
+    vm.datas = {};
+    vm.dtOptions = DTOptionsBuilder.fromSource('ticket/query')
+        .withPaginationType('full_numbers')
+        .withOption('createdRow', createdRow)        
+        .withOption('processing', true);
+    vm.dtColumns = [
+      DTColumnBuilder.newColumn(null).notSortable()
+        .renderWith(actionsHtml).withOption('width','10px')
+        .withOption('className', 'text-center'),
+        DTColumnBuilder.newColumn('Title'),
+        DTColumnBuilder.newColumn('Department'),
+        DTColumnBuilder.newColumn('Type'),
+        DTColumnBuilder.newColumn('Priority'),
+        DTColumnBuilder.newColumn('Status'),
+        DTColumnBuilder.newColumn('CreationDate'),   
+        DTColumnBuilder.newColumn('LastUpdate')
+    ];
+    $scope.edit = function (id) {
+      $state.go('support.ticketcreate')
+    };
+    $scope.add = function () {
+       $state.go('support.ticketcreate')
+    };
+    function deleteRow(id) {
+        vm.dtInstance.reloadData();
     }
-  
+    function createdRow(row, data, dataIndex) {
+        $compile(angular.element(row).contents())($scope);
+    }
+    function actionsHtml(data, type, full, meta) {
+        vm.datas[data.Id] = data;
+        return '<button type="button" class="btn btn-success" ng-click="edit('+data.Id+')">'+
+               '<span class="fa fa-edit"></span>'+
+               '</button>';
+    };
+    $scope.submit = function() {
+      $scope.btnload = true;
+         $http({
+          method  : 'POST',
+          url     : 'ticket',
+          data    : $scope.Ticket,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+                $scope.btnload = false;  
+                // alert('actualizado');
+          }, function errorCallback(response) {
+                $scope.btnload = false;
+                // alert('error');
+          }); 
+    };
 };
 
-
 function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state) { 
-   $scope.generate = {'template':'bootstrap'};
-   $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
-   $scope.colum =[];
+  $scope.generate = {'template':'bootstrap'};
+  $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
+  $scope.colum =[];
   $scope.increment = function () {
         $scope.generate.items.push({'id':$scope.generate.items.length,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null});
     };
@@ -1274,7 +1281,7 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
         forceHelperSize: true
     };
 
-//////////////////////////////es para databases de datos
+        //////////////////////////////es para databases de datos
     var id =  $stateParams.qId;
     $scope.Paramsid = id;
     var vm = this;
@@ -1316,8 +1323,6 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
                '</button>';
     }
 };
-
-
 function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
 {
     $scope.moduls = {};
@@ -1435,10 +1440,8 @@ angular
     .controller('CrudCtrl', CrudCtrl)
     .controller('ModulsCtrl', ModulsCtrl)
     .controller('DashboardCtrl', DashboardCtrl)
-    .controller('chartJsCtrl', chartJsCtrl)
     .controller('MessagesCtrl', MessagesCtrl)
     .controller('ListModulsCtrl', ListModulsCtrl)
-    
     .controller('SettingsCtrl', SettingsCtrl)
     .controller('NotificationCtrl', NotificationCtrl)
     .controller('LogoutCtrl', LogoutCtrl)

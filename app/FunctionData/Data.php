@@ -3,6 +3,10 @@
 namespace App\FunctionData;
 use App\models\Language;
 use App\models\Roles;
+use App\models\Department;
+use App\models\TicketType;
+use App\models\TicketPriority;
+use App\models\TicketStatus;
 class Data 
 {
     public function Lang($code)
@@ -34,5 +38,22 @@ class Data
         }else{
             return '<span class="label label-danger">Inactive</span>';
         }
-    }    
+    }
+    //////data Ticket 
+    public function  TDepartment($id){
+        $Department = Department::find($id);
+        return $Department->name;
+    }
+    public function  TType($id){
+        $TicketType = TicketType::find($id);
+        return $TicketType->name; 
+    }
+    public function  TPriority($id){
+        $TicketPriority = TicketPriority::find($id);
+        return $TicketPriority->name;
+    }
+    public function  TStatus($id){
+        $TicketStatus = TicketStatus::find($id);
+        return $TicketStatus->name;
+    }  
 }

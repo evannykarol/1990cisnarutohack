@@ -3,7 +3,7 @@
         <h2>INICIO</h2>
         <ol class="breadcrumb">
             <li class="active">
-                <strong>INICIO</strong>
+                <strong>{{ 'HOME ' | translate }}</strong>
             </li>
         </ol>
     </div>
@@ -26,7 +26,7 @@
                         <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-8 text-right">
-                        <span>USUARIOS & ROLES</span>
+                        <span>{{ 'USER_ROLES ' | translate }}</span>
                         <h2 class="font-bold">{{dashboard.user}}</h2>
                     </div>
                 </div>
@@ -41,9 +41,9 @@
                         <i class="fa fa-cube fa-5x"></i>
                     </div>
                     <div class="col-xs-8 text-right">
-                        <span> MODULS </span>
+                        <span> {{ 'MODULS ' | translate }} </span>
 
-                        <h2 class="font-bold">10</h2>
+                        <h2 class="font-bold">{{dashboard.moduls}}</h2>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         <i class="fa fa-envelope-o fa-5x"></i>
                     </div>
                     <div class="col-xs-8 text-right">
-                        <span> New messages </span>
+                        <span> {{ 'NEW_MESSAGE' | translate }} </span>
 
                         <h2 class="font-bold">{{dashboard.messages}}</h2>
                     </div>
@@ -70,7 +70,7 @@
                         <i class="fa fa-bell fa-5x"></i>
                     </div>
                     <div class="col-xs-8 text-right">
-                        <span> Alerts </span>
+                        <span> {{ 'ALERTS' | translate }} </span>
 
                         <h2 class="font-bold">12</h2>
                     </div>
@@ -85,48 +85,63 @@
             <div class="ibox-content">
                 <div>
                     <h3 class="font-bold no-margins">
-                        Ticket
+                        {{'SUPPORT_TICKET' | translate}} EN 2016
                     </h3>
                 </div>
 
                 <div class="m-t-sm">
 
                     <div class="row">
-                        <div class="col-md-10" ng-controller="chartJsCtrl as chart">
+                        <div class="col-md-9">
                             <div>
-                                <canvas linechart options="chart.lineOptions" data="chart.lineDataDashboard4" height="114" responsive=true ></canvas>
+                                <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick"></canvas> 
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <ul class="stat-list m-t-lg">
-                                <li>
-                                    <h2 class="no-margins">2,346</h2>
-                                    <small>Total tickets in period</small>
-                                    <div class="progress progress-mini">
+                        <div class="col-md-3">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h2 class="no-margins">{{dashboard.totalTicket}}</h2>
+                                        <small>Total tickets in period</small>
+                                        <div class="progress progress-mini">
                                         <div class="progress-bar" style="width: 48%;"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h2 class="no-margins ">4,422</h2>
-                                    <small>Tickets in last month</small>
-                                    <div class="progress progress-mini">
-                                        <div class="progress-bar" style="width: 60%;"></div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </div> 
+                                </div>
+                            </div>    
+                                <br>
+                            <div class="row">
+                                <div class="col-lg-12">                                 
+                                     <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <button type="button" class="btn btn-info m-r-sm">12</button>
+                                                Total Nuevo
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button type="button" class="btn btn-warning m-r-sm">12</button>
+                                                Total En espera
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button type="button" class="btn btn-success m-r-sm">12</button>
+                                                Total Resuelto
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <button type="button" class="btn btn-danger m-r-sm">12</button>
+                                                Total Cerrado
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                </div>
-
-                <div class="m-t-md">
-                    <small class="pull-right">
-                        <i class="fa fa-clock-o"> </i>
-                        Update on 16.07.2015
-                    </small>
-                    <small>
-                        <strong>Analysis of sales:</strong> The value has been changed over time, and last month reached a level over $50,000.
-                    </small>
                 </div>
 
             </div>

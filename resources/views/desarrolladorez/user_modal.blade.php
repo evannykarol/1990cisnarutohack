@@ -75,7 +75,7 @@
                 <div class="col-sm-7"><input type="file" ng-model='user.Photo'></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-12 text-center"><img ng-src="img/perfil/{{user.PhotoV}}" width="240px"/></div>
+                <div class="col-sm-12 text-center"><img class="img-circle" ng-src="img/perfil/{{user.PhotoV}}" width="240px"/></div>
             </div>               
          </div>         
         </div>  

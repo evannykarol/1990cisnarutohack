@@ -11,7 +11,8 @@
         'ngIdle',                       // Idle timer
         'ngSanitize',
         'ng-mfb',                    // ngSanitize
-        'angularScreenfull'
+        'angularScreenfull',
+        'chart.js'
     ])
 })();
 

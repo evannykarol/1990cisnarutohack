@@ -3437,6 +3437,7 @@ video {
 #wrapper {
   width: 100%;
   overflow-x: hidden;
+  background-color: #022a50;
 }
 .wrapper {
   padding: 0 20px;

@@ -434,5 +434,12 @@ class UsersController extends Controller
     public function rolesdestroy($id)
     {
         return "espera relaciones roles ";
-    }                 
+    }
+    public function getTranslate($lang)
+    {
+        $id = Auth::id();
+        $User = User::find($id);
+        $User->language = $lang;
+        $User->save();
+    }                       
 }

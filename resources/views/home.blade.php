@@ -33,7 +33,7 @@
 
 <!-- ControllerAs syntax -->
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
-<body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top" ngsf-fullscreen="fullscreenCtrl">
+<body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top" ngsf-fullscreen>
 
 <!-- Main view  -->
 <div ui-view></div>
@@ -87,6 +87,8 @@
 
 <script src="js/plugins/screenfull/angular-screenfull.js"></script>
 <script src="js/plugins/screenfull/screenfull.js"></script>
+<script src="js/plugins/chartJs/Chart.js"></script>
+<script src="js/plugins/chartJs/angular-chart.min.js"></script>
 
 </body>
 </html>

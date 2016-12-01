@@ -97,6 +97,28 @@ Route::get('permisionroles', 'AdministrationController@permissionroles');
 
 
 
+
+
+
+
+Route::get('ticket', 'TicketController@index');
+Route::post('ticket', 'TicketController@store');
+Route::post('ticket/data', 'TicketController@getData');
+Route::get('ticket/query', 'TicketController@getIndex');
+Route::get('ticket/form', 'TicketController@form');
+Route::get('ticket/detall', 'TicketController@getDetall');
+
+
+
+
+
+
+
+
+
+
+
+
 ///Soporte Ticket Clientes
 Route::get('/common/top_navigation', function () {
     return view('common.top_navigation');
@@ -238,5 +260,6 @@ Route::get('Config', function(){
 });
 
 
+Route::get('user/translate/{lang}','UsersController@getTranslate');
 
 require('routes.php');

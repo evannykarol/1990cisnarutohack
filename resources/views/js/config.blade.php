@@ -148,7 +148,141 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         })
 
 
-
+////////////////////////////////////////////////////////////////////////////////
+        .state('support', {
+            abstract: true,
+            url: "/support",
+            templateUrl: "common/content",
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            files:['js/plugins/push/push.min.js']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'angular-ladda',
+                            files: ['js/plugins/ladda/spin.min.js', 'js/plugins/ladda/ladda.min.js', 'css/plugins/ladda/ladda-themeless.min.css','js/plugins/ladda/angular-ladda.min.js']
+                        }
+                    ]);
+                }
+            }
+        })
+        .state('support.ticket', {
+            url: "/ticket",
+            templateUrl: "ticket",
+            data: { pageTitle: 'Agregar Modulos' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        },
+                        {
+                            name: 'ui.select',
+                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
+                        },
+                        {
+                            name: 'ui.sortable',
+                            files: ['js/plugins/other/sortable.js']
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+                        },
+                    ]);
+                }
+            }              
+        })
+        .state('support.ticketcreate', {
+            url: "/ticket/create",
+            templateUrl: "ticket/form",
+            data: { pageTitle: 'Formularios' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        },
+                        {
+                            name: 'ui.select',
+                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
+                        },
+                        {
+                            name: 'ui.sortable',
+                            files: ['js/plugins/other/sortable.js']
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+                        },
+                    ]);
+                }
+            }              
+        })
+        .state('support.ticketdetall', {
+            url: "/ticket/detall",
+            templateUrl: "ticket/detall",
+            data: { pageTitle: 'Formularios' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            serie: true,
+                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables',
+                            files: ['js/plugins/dataTables/angular-datatables.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'datatables.buttons',
+                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
+                        },
+                        {
+                            name: 'ui.select',
+                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
+                        },
+                        {
+                            name: 'ui.sortable',
+                            files: ['js/plugins/other/sortable.js']
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
+                        },
+                    ]);
+                }
+            }              
+        })                        
 /////////
         .state('index.editcrud', {
             url: "/editcrud",
@@ -431,10 +565,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            name: 'angles',
-                            files: ['js/plugins/chartJs/angles.js', 'js/plugins/chartJs/Chart.min.js']
-                        },
-                        {
                             name: 'angular-peity',
                             files: ['js/plugins/peity/jquery.peity.min.js', 'js/plugins/peity/angular-peity.js']
                         },
@@ -647,66 +777,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })
         /////////////////////
-        .state('support', {
-            abstract: true,
-            url: "support",
-            templateUrl: "/common/content_top_navigation",
-        })
-        .state('support.hometicket', {
-            url: "/home",
-            templateUrl: "support/home",
-            data: { pageTitle: 'Soporte Ticket' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            serie: true,
-                            files: ['js/plugins/dataTables/datatables.min.js','css/plugins/dataTables/datatables.min.css']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables',
-                            files: ['js/plugins/dataTables/angular-datatables.min.js']
-                        },
-                        {
-                            serie: true,
-                            name: 'datatables.buttons',
-                            files: ['js/plugins/dataTables/angular-datatables.buttons.min.js']
-                        }
-                    ]);
-                }
-            }          
-        }) 
-        .state('support.tickets', {
-            url: "/tickets",
-            templateUrl: "support/detalletickets",
-            data: { pageTitle: 'Soporte Ticket' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            name: 'summernote',
-                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js']
-                        }
-                    ]);
-                }
-            }                       
-        }) 
-        .state('support.newticket', {
-            url: "/Newticket",
-            templateUrl: "support/tickets/new",
-            data: { pageTitle: 'Soporte Ticket' },
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            name: 'summernote',
-                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js']
-                        }
-                    ]);
-                }
-            }            
-        }) 
         .state('login', {
             url: "/login",
             templateUrl: "session",
