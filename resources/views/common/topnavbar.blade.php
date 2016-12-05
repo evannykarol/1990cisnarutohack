@@ -29,13 +29,13 @@
                     <li ng-repeat="datos in messagesdetall">
                         <div class="dropdown-messages-box">
                             <a ui-sref="profile" class="pull-left">
-                                <img alt="image" class="img-circle" src="img/perfil/a1.jpg">
+                                <img alt="image" class="img-circle"  ng-src="img/perfil/{{datos.photo}}" >
                             </a>
 
                             <div>
-                                <small class="pull-right">hace 46 horas</small>
-                                <strong></strong> Mensaje <strong>Evanny Karol Hernandez</strong>. <br>
-                                <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                <small class="pull-right"> 46 horas</small>
+                                <strong></strong> {{datos.subject}} <strong>{{datos.name}}</strong>. <br>
+                                <small class="text-muted">{{datos.created}}</small>
                             </div>
                         </div>
                     </li>
@@ -43,7 +43,7 @@
                     <li>
                         <div class="text-center link-block">
                             <a ui-sref="index.messages">
-                                <i class="fa fa-envelope"></i> <strong>leer todos mensaje</strong>
+                                <i class="fa fa-envelope"></i> <strong> {{ 'Read_All_Messages' | translate }} </strong>
                             </a>
                         </div>
                     </li>

@@ -19,7 +19,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <div class="row">
-                        <div class="col-sm-12"><h2><b>{{ 'TICKET_SYSTEM ' | translate }}
+                        <div class="col-sm-12"><h><b>{{ 'TICKET_SYSTEM ' | translate }}
                         <button class="btn btn-primary pull-right" ng-click="add()"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button></b></h2>
                         </div>
                     </div>
@@ -32,10 +32,11 @@
                             <td>{{ 'ACTION' | translate }}</td>
                             <td class="text-center">{{ 'TITLE' | translate }}</td>
                             <td class="text-center">{{ 'DEPARTMENT' | translate }}</td>
+                            <td class="text-center">{{ 'USER' | translate }}</td>
+                            <td class="text-center">{{ 'ASSIGNED' | translate }}</td>
                             <td class="text-center">{{ 'TYPE' | translate }}</td>
                             <td class="text-center">{{ 'PRIORITY' | translate }}</td>
                             <td class="text-center">{{ 'STATUS' | translate }}</td>
-                            <td class="text-center">{{ 'CREATEDATE' | translate }}</td>
                             <td class="text-center">{{ 'LAST_MODIFICATION' | translate }}</td>
                         </tr>
                      </thead>                        

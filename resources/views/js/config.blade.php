@@ -27,6 +27,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                             serie: true,
                             name: 'angular-ladda',
                             files: ['js/plugins/ladda/spin.min.js', 'js/plugins/ladda/ladda.min.js', 'css/plugins/ladda/ladda-themeless.min.css','js/plugins/ladda/angular-ladda.min.js']
+                        },
+                        {
+                            name: 'ckeditor',
+                            files: ['js/plugins/ckeditor/ckeditor.js','js/plugins/ckeditor/angular-ckeditor.js']
                         }
                     ]);
                 }
@@ -149,33 +153,33 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
 
 ////////////////////////////////////////////////////////////////////////////////
-        .state('support', {
-            abstract: true,
-            url: "/support",
-            templateUrl: "common/content",
-            resolve: {
-                loadPlugin: function ($ocLazyLoad) {
-                    return $ocLazyLoad.load([
-                        {
-                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
-                        },
-                        {
-                            files:['js/plugins/push/push.min.js']
-                        },
-                        {
-                            name: 'oitozero.ngSweetAlert',
-                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
-                        },
-                        {
-                            serie: true,
-                            name: 'angular-ladda',
-                            files: ['js/plugins/ladda/spin.min.js', 'js/plugins/ladda/ladda.min.js', 'css/plugins/ladda/ladda-themeless.min.css','js/plugins/ladda/angular-ladda.min.js']
-                        }
-                    ]);
-                }
-            }
-        })
-        .state('support.ticket', {
+        // .state('support', {
+        //     abstract: true,
+        //     url: "/support",
+        //     templateUrl: "common/content",
+        //     resolve: {
+        //         loadPlugin: function ($ocLazyLoad) {
+        //             return $ocLazyLoad.load([
+        //                 {
+        //                     files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+        //                 },
+        //                 {
+        //                     files:['js/plugins/push/push.min.js']
+        //                 },
+        //                 {
+        //                     name: 'oitozero.ngSweetAlert',
+        //                     files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+        //                 },
+        //                 {
+        //                     serie: true,
+        //                     name: 'angular-ladda',
+        //                     files: ['js/plugins/ladda/spin.min.js', 'js/plugins/ladda/ladda.min.js', 'css/plugins/ladda/ladda-themeless.min.css','js/plugins/ladda/angular-ladda.min.js']
+        //                 }
+        //             ]);
+        //         }
+        //     }
+        // })
+        .state('index.ticket', {
             url: "/ticket",
             templateUrl: "ticket",
             data: { pageTitle: 'Agregar Modulos' },
@@ -211,7 +215,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                 }
             }              
         })
-        .state('support.ticketcreate', {
+        .state('index.ticketcreate', {
             url: "/ticket/create",
             templateUrl: "ticket/form",
             data: { pageTitle: 'Formularios' },
@@ -242,13 +246,13 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                         },
                         {
                             files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
-                        },
+                        }
                     ]);
                 }
             }              
         })
-        .state('support.ticketdetall', {
-            url: "/ticket/detall",
+        .state('index.ticketdetall', {
+            url: "/ticket/detall/{qId:[0-9]{1,8}}",
             templateUrl: "ticket/detall",
             data: { pageTitle: 'Formularios' },
             resolve: {

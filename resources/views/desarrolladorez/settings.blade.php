@@ -116,10 +116,14 @@
                     </uib-tab>
                     <uib-tab>
                         <uib-tab-heading>
-                            <i class="fa fa-trash"></i>Setting Ticket
+                            <i class="fa fa-ticket"></i>Setting Ticket
                         </uib-tab-heading>
                         <div class="panel-body">
-                            <strong><button type="button" class="ladda-button btn btn-success" ladda="btnloading" ng-click="Cache()"><i class="fa fa-trash"></i> Clear cache and logs</button></strong>               
+                            <table>
+                                <tr>
+                                  <th>NAME</th>
+                                </tr>
+                            </table>             
                         </div>
                     </uib-tab>                    
                 </uib-tabset>

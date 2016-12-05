@@ -17,6 +17,7 @@
             </div>
         </div>
     </div>
+ <div ng-if="'yes'==viewdashboard">   
     <div class="row">
         <div class="col-lg-3">
           <a ui-sref="index.user">
@@ -50,6 +51,7 @@
            </a> 
         </div>
         <div class="col-lg-3">
+          <a ui-sref="index.messages">              
             <div class="widget style1 lazur-bg">
                 <div class="row">
                     <div class="col-xs-4">
@@ -62,6 +64,7 @@
                     </div>
                 </div>
             </div>
+          </a>
         </div>
         <div class="col-lg-3">
             <div class="widget style1 yellow-bg">
@@ -84,9 +87,18 @@
         <div class="ibox float-e-margins">
             <div class="ibox-content">
                 <div>
-                    <h3 class="font-bold no-margins">
+                    <div class="col-md-9">
+                     <h3 class="font-bold no-margins">
                         {{'SUPPORT_TICKET' | translate}} EN 2016
-                    </h3>
+                     </h3>
+                    </div>
+                    <div class="col-md-3">
+                     <select class="form-control" ng-model="Years" ng-change="changeYears(Years)" convert-to-number>
+                        <option>2015</option>
+                        <option>2016</option>
+                        <option>2017</option>
+                     </select>
+                    </div>
                 </div>
 
                 <div class="m-t-sm">
@@ -97,14 +109,19 @@
                                 <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick"></canvas> 
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3"> 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h2 class="no-margins">{{dashboard.totalTicket}}</h2>
-                                        <small>Total tickets in period</small>
-                                        <div class="progress progress-mini">
-                                        <div class="progress-bar" style="width: 48%;"></div>
-                                    </div> 
+                                    <div class="widget style1 navy-bg">
+                                        <div class="row vertical-align">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-ticket fa-3x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <h2 class="font-bold">{{dashboard.totalTicket}}</h2>
+                                            </div>
+                                        </div>
+                                    </div>                                     
                                 </div>
                             </div>    
                                 <br>
@@ -114,25 +131,25 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <button type="button" class="btn btn-info m-r-sm">12</button>
+                                                <button type="button" class="btn btn-info m-r-sm">{{ticketNew}}</button>
                                                 Total Nuevo
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button type="button" class="btn btn-warning m-r-sm">12</button>
+                                                <button type="button" class="btn btn-warning m-r-sm">{{ticketWait}}</button>
                                                 Total En espera
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button type="button" class="btn btn-success m-r-sm">12</button>
+                                                <button type="button" class="btn btn-success m-r-sm">{{ticketResolved}}</button>
                                                 Total Resuelto
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button type="button" class="btn btn-danger m-r-sm">12</button>
+                                                <button type="button" class="btn btn-danger m-r-sm">{{ticketCloses}}</button>
                                                 Total Cerrado
                                             </td>
                                         </tr>
@@ -149,7 +166,7 @@
      </div>
 
     </div>
-
+ </div>
 
 
 </div>

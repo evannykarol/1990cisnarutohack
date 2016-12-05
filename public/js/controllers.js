@@ -1,16 +1,56 @@
+function type(id)
+{
+    if(id === 1)
+    {
+      return 'Incident';    
+    } else
+    {
+      return 'Request';
+    }
+
+};
+function priority(id)
+{
+    if(id === 1)
+    {
+      return 'Low';
+    } else if(id === 2)
+    {
+      return 'Medium';
+    } else if(id === 3)
+    {
+      return 'High';
+    } else
+    {
+      return 'Urgent';
+    }
+};
 function DashboardCtrl($scope, $http, $location)
 {
+  var years = new Date().getFullYear();
+  DataDashboard(years);
   $scope.dashboard = {};
-  $http.get('dashboard/query')
+  $scope.Years =years;
+  $scope.loading                      = 'yes';
+function DataDashboard(years){
+  $http.get('dashboard/query/'+years)
     .success(function(response){
     $scope.dashboard.user               = response.user;
     $scope.dashboard.moduls             = response.moduls;    
     $scope.dashboard.messages           = response.messages;
     $scope.data                         = [response.ticket];
     $scope.dashboard.totalTicket        = response.totalTicket;
-    // $scope.dashboard.user = response.moduls;
+    $scope.ticketNew                    = response.ticketNew;
+    $scope.ticketWait                   = response.ticketWait;
+    $scope.ticketResolved               = response.ticketResolved;
+    $scope.ticketCloses                 = response.ticketCloses;
+    $scope.loading                      = 'no';
+    $scope.viewdashboard                = 'yes';
   });
-
+}
+$scope.changeYears =  function(years){
+      DataDashboard(years);
+};
 
   $scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October","November","December"];
   $scope.series = ['Ticket'];
@@ -43,14 +83,51 @@ function DashboardCtrl($scope, $http, $location)
 ///////////////////////
 function MessagesCtrl($scope, $http, $location)
 {
-  // $scope.inbox = '20';
+  $scope.listmessages = 'yes';
   $scope.messages = {};
-  $http.get('messages/query')
-    .success(function(response){
-    $scope.messages.count = response.count;
-    $scope.messages.messages = response.messages;
-    // $scope.dashboard.user = response.moduls;
-  });
+ function messages()
+ {
+    $http.get('messages/inbox')
+      .success(function(response){
+      $scope.messages.inbox = response.inbox;
+      $scope.messages.messages = response.listmessage;
+
+    });
+  };
+  messages();
+
+
+  $scope.ComposeMessage = function(){
+    $scope.listmessages = 'no';
+    $scope.newmessages = 'yes';
+    $scope.viewmessages = 'no';
+  };
+  $scope.inbox = function(){
+    messages();
+    $scope.listmessages = 'yes';
+    $scope.viewmessages = 'no';
+    $scope.newmessages = 'no';
+  };
+  $scope.Refresh = function(){
+    messages();
+  };
+  $scope.Search = function(){
+    alert('holas');
+  };
+
+  $scope.select = function(id){
+    $http.get('messages/'+id+'/viewmessage')
+      .then(function(response) {
+        $scope.body         = response.data.messages;
+        $scope.subject      = response.data.subject;
+        $scope.date         = response.data.date;
+        $scope.from         = response.data.users;
+
+
+        $scope.listmessages = 'no';
+        $scope.viewmessages = 'yes';
+    });
+  };
 }
 
 ///Usuarios y roles
@@ -299,7 +376,7 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
 };
 function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
 {
-    $scope.roles = {};
+    $scope.roles = {}; 
     $scope.roles.Permission = {};
     $scope.delete = 'yes';
     $scope.load = 'yes';
@@ -310,7 +387,8 @@ function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translat
         $scope.view='yes';
         $scope.roles.Id                     = response.Id;
         $scope.roles.Name                   = response.Name;
-        $scope.roles.Description            = response.Description;        
+        $scope.roles.Description            = response.Description;
+        $scope.roles.IsTicket               = response.Isticket;                
         $scope.roles.Permission             = response.Permission;
     });
     $scope.cancel = function () {
@@ -390,7 +468,8 @@ function NewRolesController($scope, table, $http, $uibModalInstance)
 }
 
 ///Final Usuarios y roles
-function PerfilCtrl($scope,$http){
+function PerfilCtrl($scope,$http)
+{
     $scope.loading ="yes"
     $scope.view ="no";
     $scope.user = {};
@@ -446,16 +525,21 @@ function NotificationCtrl($scope,$http,$interval) {
     //       $scope.ncount= $scope.dato.length;
     //       });
     // }
+
+    //  $scope.messagescount = 0;
     //  $scope.callAtInterval = function() {
     //     var url = "messages/query";
     //      $http.get(url)
     //      .success(function(response){
     //         // Push.create('hay mensaje'+response.count)
+            
     //         $scope.messagescount = response.count;
     //         $scope.messagesdetall = response.detall;
+
     //       });
     // }    
     // $interval( function(){ $scope.callAtInterval(); }, 5000);
+    
 };
 
 function MainCtrl($scope) {
@@ -1192,12 +1276,13 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
                '</button>';
     } 
 };
-function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) { 
+function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {
+    $scope.load = 'yes';
     var vm = this;
-    $scope.Ticket={};
     vm.delete = deleteRow;
     vm.dtInstance = {};
     vm.datas = {};
+    $scope.Ticket={'Type':1,'Priority':1};
     vm.dtOptions = DTOptionsBuilder.fromSource('ticket/query')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)        
@@ -1208,17 +1293,18 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         .withOption('className', 'text-center'),
         DTColumnBuilder.newColumn('Title'),
         DTColumnBuilder.newColumn('Department'),
+        DTColumnBuilder.newColumn('Users'),
+        DTColumnBuilder.newColumn('UsersAssign'),
         DTColumnBuilder.newColumn('Type'),
         DTColumnBuilder.newColumn('Priority'),
-        DTColumnBuilder.newColumn('Status'),
-        DTColumnBuilder.newColumn('CreationDate'),   
+        DTColumnBuilder.newColumn('Status'),  
         DTColumnBuilder.newColumn('LastUpdate')
     ];
     $scope.edit = function (id) {
-      $state.go('support.ticketcreate')
+      $state.go('index.ticketdetall', {'qId': id});
     };
     $scope.add = function () {
-       $state.go('support.ticketcreate')
+       $state.go('index.ticketcreate');
     };
     function deleteRow(id) {
         vm.dtInstance.reloadData();
@@ -1232,6 +1318,14 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
                '<span class="fa fa-edit"></span>'+
                '</button>';
     };
+    $http.get('ticket/data')
+    .success(function(response){
+      $scope.load = 'no';
+      $scope.viewticket = 'yes';
+      $scope.DepartmentList     = response.Department;
+      $scope.Ticket={Department:$scope.DepartmentList[0].id,'Type':1,'Priority':1};
+    });
+      
     $scope.submit = function() {
       $scope.btnload = true;
          $http({
@@ -1241,15 +1335,81 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
                 $scope.btnload = false;  
-                // alert('actualizado');
+                sweetAlert('Correctamente', "", "success");
+                $state.go('index.ticket')
           }, function errorCallback(response) {
                 $scope.btnload = false;
-                // alert('error');
+                sweetAlert("Oops...", "Something went wrong!", "error");
           }); 
     };
+    $scope.textoptions = {
+        height: 240,
+    };
+
+};
+function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {
+    $scope.message = {};
+    $scope.Ticket  = {};
+    $scope.loading = 'yes';
+    function ticket()
+    {
+      var id =  $stateParams.qId;
+      $http.get('ticket/'+id+'/show')
+      .success(function(response){
+      $scope.Id                 = response.Id;
+      $scope.Client             = response.Client;
+      $scope.Photo              = response.Photo;
+      $scope.Description        = response.Description;
+      $scope.Department         = response.Department;
+      $scope.Type               = type(response.Type);
+      $scope.Priority           = priority(response.Priority);
+      $scope.Status             = response.Status;
+      $scope.Technician         = response.Technician;
+      $scope.Created            = response.Created;
+      $scope.LastUpdate         = response.LastUpdate;
+      $scope.message            = response.Message;
+      $scope.User               = response.User;
+      $scope.Ticket             = {IdTicket:response.Id};
+      $scope.loading = 'no';
+      $scope.viewticket = 'yes';
+      
+      });
+    }
+    ticket();
+    $scope.open = 'yes';
+    $scope.Open = function(){
+      $scope.open = 'no';
+      $scope.openresponde = 'yes';
+    }
+    $scope.Close = function(){
+      $scope.open = 'yes';
+      $scope.openresponde = 'no';
+    }
+    $scope.submit = function()
+    {
+         $http({
+          method  : 'POST',
+          url     : 'ticket/comment',
+          data    : $scope.Ticket,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+                ticket();
+                $scope.open = 'yes';
+                $scope.openresponde = 'no';
+                sweetAlert('Correctamente', "", "success");
+
+          }, function errorCallback(response) {
+
+                sweetAlert("Oops...", "Something went wrong!", "error");
+          }); 
+
+   }
+
 };
 
-function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state) { 
+
+function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state) 
+{ 
   $scope.generate = {'template':'bootstrap'};
   $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
   $scope.colum =[];
@@ -1428,6 +1588,8 @@ angular
     .controller('CatalogCtrl', CatalogCtrl)
     .controller('OptCtrl', OptCtrl)
     .controller('TicketCtrl', TicketCtrl)
+    .controller('TicketEditCtrl', TicketEditCtrl)
+    
     .controller('UsersCtrl',UsersCtrl)
     .controller('RolesCtrl', RolesCtrl)
     .controller('hostingCtrl', hostingCtrl)

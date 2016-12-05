@@ -96,8 +96,8 @@ class UsersController extends Controller
             $User->id_roles           = $data->Roles; 
             $User->language           = $data->Languaje;          
             $User->status             = $data->Status; 
-            if(@$data->Password){
-               $User->password          = Hash::make($data->Password); 
+            if(@$data->New_Password){
+               $User->password          = Hash::make($data->New_Password); 
             }
             $User->save();
             return "Actualizacion";    	
@@ -374,6 +374,7 @@ class UsersController extends Controller
                     "Id"            =>  $Roles->id,
                     "Name"          =>  $Roles->name,
                     "Description"   =>  $Roles->description,
+                    "Isticket"      =>  $Roles->is_ticket ? true : false  ,
                     "Permission"    =>  $dato
                     ];
         return response()->json($data);

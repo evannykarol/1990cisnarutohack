@@ -4,11 +4,23 @@ namespace App\FunctionData;
 use App\models\Language;
 use App\models\Roles;
 use App\models\Department;
-use App\models\TicketType;
-use App\models\TicketPriority;
 use App\models\TicketStatus;
+use App\User;
 class Data 
 {
+    public function UserName($id){
+        $User = User::find($id);
+        if(@$User->name){
+            return $User->name;
+        }else{
+            return null;    
+        }
+        
+    }
+    public function Photo($id){
+        $User = User::find($id);
+        return $User->photo;
+    }    
     public function Lang($code)
     {
         $Language = Language::where('code','=',$code)->First();
@@ -45,12 +57,10 @@ class Data
         return $Department->name;
     }
     public function  TType($id){
-        $TicketType = TicketType::find($id);
-        return $TicketType->name; 
+        return $id;
     }
     public function  TPriority($id){
-        $TicketPriority = TicketPriority::find($id);
-        return $TicketPriority->name;
+        return $id;
     }
     public function  TStatus($id){
         $TicketStatus = TicketStatus::find($id);

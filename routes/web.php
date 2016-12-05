@@ -103,10 +103,13 @@ Route::get('permisionroles', 'AdministrationController@permissionroles');
 
 Route::get('ticket', 'TicketController@index');
 Route::post('ticket', 'TicketController@store');
-Route::post('ticket/data', 'TicketController@getData');
+Route::get('ticket/data', 'TicketController@getData');
 Route::get('ticket/query', 'TicketController@getIndex');
 Route::get('ticket/form', 'TicketController@form');
 Route::get('ticket/detall', 'TicketController@getDetall');
+Route::get('ticket/{id}/show', 'TicketController@show');
+Route::post('ticket/comment', 'TicketController@shorecomment');
+
 
 
 
@@ -165,7 +168,7 @@ Route::get('modalcatalogs', function(){
 
 
 Route::get('dashboard', 'DashboardController@index');
-Route::get('dashboard/query', 'DashboardController@dashboard');
+Route::get('dashboard/query/{year}', 'DashboardController@dashboard');
 
 
 ////////////////languaje .--- Usuarios
@@ -205,6 +208,8 @@ Route::post('profile/update','UsersController@profileupdate');
 ///////////////////messenger
 Route::get('messages','MessagesController@index');
 Route::get('messages/query','MessagesController@query');
+Route::get('messages/inbox','MessagesController@inbox');
+Route::get('messages/{id}/viewmessage','MessagesController@View');
 
 
 

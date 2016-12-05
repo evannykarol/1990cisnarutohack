@@ -11,18 +11,9 @@
         </ol>
     </div>
     <div class="col-lg-2">
-
     </div>
 </div>
 <div class="wrapper wrapper-content">
-        <div class="row" ng-if="'yes'==load">
-            <div class="spiner-example">
-                <div class="sk-spinner sk-spinner-chasing-dots">
-                    <div class="sk-dot1"></div>
-                    <div class="sk-dot2"></div>
-                </div>
-            </div>
-        </div> 
     <div class="row" ng-if="'yes' == 'yes'">
         <div class="col-lg-12">
             <div class="tabs-container">
@@ -35,6 +26,7 @@
                             <div class="row">    
                                 <button class="btn btn-primary pull-right" ng-click="add()"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button>
                             </div>
+                            <br>
                             <div class="row">
                              <div class="table-responsive">
                                 <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="table table-striped table-bordered table-hover dataTables-example" width="100%">
@@ -64,6 +56,7 @@
                             <div class="row">    
                                 <button class="btn btn-primary pull-right" ng-click="add()"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button>
                             </div>
+                            <br>
                             <div class="row">
                              <div class="table-responsive">
                                 <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="table table-striped table-bordered table-hover dataTables-example" width="100%">
@@ -79,17 +72,11 @@
                             </div>    
                         </div>
                     </uib-tab>
-
                 </uib-tabset>
             </div>
         </div>
     </div>
-
 </div>
-
-
-
-
 <div id="blueimp-gallery" class="blueimp-gallery">
     <div class="slides"></div>
     <h3 class="title"></h3>

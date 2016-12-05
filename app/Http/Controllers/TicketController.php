@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use App\Models\TicketComment;
+use App\Models\Department;
+use App\Models\TicketType;
+use App\User;
 use Auth;
+use Carbon\Carbon;
 class TicketController extends Controller
 {
     /**
@@ -26,12 +31,12 @@ class TicketController extends Controller
                         "Id"            =>$Tickets->id,
                         "Title"         =>$Tickets->title,
                         "Department"    =>$App->TDepartment($Tickets->id_department),
-                        "Type"          =>$App->TType($Tickets->id_ticket_type),
-                        "Priority"      =>$App->TPriority($Tickets->id_ticket_priority),
-                        "Status"        =>$App->TStatus($Tickets->id_ticket_status),
-                        "Status"        =>$App->TStatus($Tickets->id_ticket_status),
-                        "CreationDate"  =>$Tickets->created_at,
-                        "LastUpdate"    =>$Tickets->updated_at,
+                        "Users"         =>$App->UserName($Tickets->id_users),
+                        "UsersAssign"   =>$App->UserName($Tickets->id_users_assign),
+                        "Type"          =>$App->TType($Tickets->type),
+                        "Priority"      =>$App->TPriority($Tickets->priority),
+                        "Status"        =>$App->TStatus($Tickets->status),
+                        "LastUpdate"    =>Carbon::parse($Tickets->updated_at)->toDateTimeString(),
                                             
                       ];
         }
@@ -48,7 +53,14 @@ class TicketController extends Controller
     }
     public function getData()
     {
-        return view('desarrolladorez.ticket.form');
+        $Department     =  Department::get();
+        foreach ($Department as $Departments) {
+            $DDepartment[] =  ['id'=>$Departments->id, 'name'=>$Departments->name];
+        }
+        $data =[
+                'Department'        =>$DDepartment
+                ];
+        return response()->json($data);
     }
         public function getDetall()
     {
@@ -74,6 +86,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
+        $date = Carbon::now();
         $data = (object) $request->json()->all();
         $id = Auth::id();
         Ticket::insert(
@@ -81,13 +94,14 @@ class TicketController extends Controller
             'title'                 => $data->Title, 
             'description'           => $data->Description,
             'id_department'         => $data->Department,
-            'id_ticket_type'        => $data->Type,
-            'id_ticket_priority'    => $data->Priority,
-            'id_ticket_status'      => 1,
+            'Type'                  => $data->Type,
+            'priority'              => $data->Priority,
+            'status'                => 1,
             'id_users'              => $id,
+            'created_at'            =>$date->toDateTimeString()
             ]
         );
-        return $request->json()->all();
+        return $date->toDateTimeString();
     }
 
     /**
@@ -98,7 +112,43 @@ class TicketController extends Controller
      */
     public function show($id)
     {
-        //
+        $App = app()->make('Data');
+        $Ticket = Ticket::find($id);
+        $TicketComment = TicketComment::where('id_ticket','=',$Ticket->id)->get();
+        $Message = [];
+        foreach ($TicketComment as $TicketComments) {
+            $Message[] = [
+                        'photo'  =>$App->Photo($TicketComments->id_users),
+                        'users'  =>$App->UserName($TicketComments->id_users),
+                        'comment'=>$TicketComments->comment,
+                        'created'=>Carbon::parse($TicketComments->created_at)->toDateTimeString()
+                        ]; 
+        };
+        $id = Auth::id();
+        $User = User::find($id);        
+        $data = [
+                "Id"            =>$Ticket->id,
+                "Client"        =>$App->UserName($Ticket->id_users),
+                "Photo"         =>$App->Photo($Ticket->id_users),
+                "Description"   =>$Ticket->description,
+                "Title"         =>$Ticket->title,
+                "Department"    =>$App->TDepartment($Ticket->id_department),
+                "Type"          =>$Ticket->type,
+                "Priority"      =>$Ticket->priority,
+                "Status"        =>$Ticket->status,
+                "Technician"    =>$Ticket->id_users_assign,
+                "Created"       =>Carbon::parse($Ticket->created_at)->toDateTimeString(),
+                "LastUpdate"    =>Carbon::parse($Ticket->updated_at)->toDateTimeString(),
+                "Message"       =>$Message,
+                "User"          =>["Id"=>$User->id,"User"=>$User->name,"photo"=>$User->photo]
+              ];
+        return response()->json($data);
+    }
+    public function shorecomment(Request $request)
+    {
+            $data = (object) $request->json()->all();
+            $id = Auth::id();
+            TicketComment::insert(['id_ticket'=>$data->IdTicket,'id_users'=>$id,'comment'=>$data->Description,'created_at'=>Carbon::now()]);
     }
 
     /**

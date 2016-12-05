@@ -22,29 +22,101 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">{{ 'DESCRIPTION' | translate }}:</label>
                     <div class="col-sm-6"><input type="text" class="form-control" ng-model='roles.Description' required></div>
+                </div>
+                <div class="tabs-container" >
+                 <uib-tabset>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            <i class="fa fa-block"></i> {{'CRUD' | translate}} 
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                         <div class="form-group">
+                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                             <thead>
+                                <tr>
+                                    <td>{{ 'NAME' | translate }}</td>
+                                    <td class="text-center">{{ 'CREATE' | translate }}</td>
+                                    <td class="text-center">{{ 'READ' | translate }}</td>
+                                    <td class="text-center">{{ 'UPDATE' | translate }}</td>
+                                    <td class="text-center">{{ 'DELETE' | translate }}</td>
+                                </tr>
+                             </thead>
+                             <tbody>
+                                <tr ng-repeat="n in roles.Permission">
+                                    <td>{{n.Name}}</td>
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Create"></td>
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Read"></td>
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Update"></td>
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Delete"></td>
+                                </tr>
+                             </tbody>
+                            </table>    
+                         </div>  
+                        </div>
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            <i class="fa fa-list-alt"></i> {{'MENUS' | translate}} 
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                         <div class="form-group">
+                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                             <thead>
+                                <tr>
+                                    <td>{{ 'NAME' | translate }}</td>
+                                    <td class="text-center">{{ 'CREATE' | translate }}</td>
+                                    <td class="text-center">{{ 'READ' | translate }}</td>
+                                    <td class="text-center">{{ 'UPDATE' | translate }}</td>
+                                    <td class="text-center">{{ 'DELETE' | translate }}</td>
+                                </tr>
+                             </thead>
+                             <tbody>
+<!--                                 <tr>
+                                    <td>Usuarios</td>
+                                    <td class="text-center"><input icheck type="checkbox"></td>
+                                    <td class="text-center"><input icheck type="checkbox"></td>
+                                    <td class="text-center"><input icheck type="checkbox"></td>
+                                    <td class="text-center"><input icheck type="checkbox"></td>
+                                </tr>
+                                <tr>
+                                    <td>Ticket</td>
+                                    <td class="text-center"><input icheck type="checkbox"></td>
+                                    <td class="text-center"><input icheck type="checkbox"></td>
+                                    <td class="text-center"><input icheck type="checkbox"></td>
+                                    <td class="text-center"><input icheck type="checkbox"></td>
+                                </tr> -->
+                             </tbody>
+                            </table>
+                         </div>  
+                        </div>
+                    </uib-tab> 
+                    <uib-tab>
+                        <uib-tab-heading>
+                            <i class="fa fa-ticket"></i> {{'TICKET' | translate}} 
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                         <div class="form-group">
+                            <div class="setings-item">
+                                    <span>
+                                         Ticket Usuarios indivual
+                                    </span>
+
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="fixedsidebar" class="onoffswitch-checkbox" id="fixedsidebar" ng-model='roles.IsTicket'>
+                                        <label class="onoffswitch-label" for="fixedsidebar">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>  
+                        </div>
+                    </uib-tab>                                       
+                 </uib-tabset>
                 </div>  
-                <div class="form-group">
-                    <table class="table table-striped table-bordered table-hover dataTables-example">
-                     <thead>
-                        <tr>
-                            <td>{{ 'NAME' | translate }}</td>
-                            <td class="text-center">{{ 'CREATE' | translate }}</td>
-                            <td class="text-center">{{ 'READ' | translate }}</td>
-                            <td class="text-center">{{ 'UPDATE' | translate }}</td>
-                            <td class="text-center">{{ 'DELETE' | translate }}</td>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr ng-repeat="n in roles.Permission">
-                            <td>{{n.Name}}</td>
-                            <td class="text-center"><input icheck type="checkbox" ng-model="n.Create"></td>
-                            <td class="text-center"><input icheck type="checkbox" ng-model="n.Read"></td>
-                            <td class="text-center"><input icheck type="checkbox" ng-model="n.Update"></td>
-                            <td class="text-center"><input icheck type="checkbox" ng-model="n.Delete"></td>
-                        </tr>
-                     </tbody>
-                    </table>    
-                </div>               
+                <pre ng-bind="roles|json"></pre>
              </div>
         </div>
     </div>    
