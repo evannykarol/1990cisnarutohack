@@ -15,7 +15,8 @@ class MessagesController extends Controller
     }
     public function query()
     {
-    	$Messages = Messages::where('is_read',"=",0)->get();       
+        $id = Auth::id();
+    	$Messages = Messages::where('is_read',"=",0)->where("for_users","=",$id)->get();       
         $data = [];
         foreach ($Messages as $Message) {
             $User=User::find($Message->id_user);
