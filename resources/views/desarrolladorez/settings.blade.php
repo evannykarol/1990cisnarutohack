@@ -125,7 +125,19 @@
                                 </tr>
                             </table>             
                         </div>
-                    </uib-tab>                    
+                    </uib-tab>
+                    <uib-tab>
+                        <uib-tab-heading>
+                            <i class="fa fa-envelope"></i>Setting Email
+                        </uib-tab-heading>
+                        <div class="panel-body">
+                            <table>
+                                <tr>
+                                  <th>NAME</th>
+                                </tr>
+                            </table>             
+                        </div>
+                    </uib-tab>                                        
                 </uib-tabset>
 
             </div>

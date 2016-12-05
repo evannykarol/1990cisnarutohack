@@ -526,19 +526,19 @@ function NotificationCtrl($scope,$http,$interval) {
     //       });
     // }
 
-    //  $scope.messagescount = 0;
-    //  $scope.callAtInterval = function() {
-    //     var url = "messages/query";
-    //      $http.get(url)
-    //      .success(function(response){
-    //         // Push.create('hay mensaje'+response.count)
+     $scope.messagescount = 0;
+     $scope.callAtInterval = function() {
+        var url = "messages/query";
+         $http.get(url)
+         .success(function(response){
+            // Push.create('hay mensaje'+response.count)
             
-    //         $scope.messagescount = response.count;
-    //         $scope.messagesdetall = response.detall;
+            $scope.messagescount = response.count;
+            $scope.messagesdetall = response.detall;
 
-    //       });
-    // }    
-    // $interval( function(){ $scope.callAtInterval(); }, 5000);
+          });
+    }    
+    $interval( function(){ $scope.callAtInterval(); }, 5000);
     
 };
 
