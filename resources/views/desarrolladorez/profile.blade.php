@@ -31,7 +31,7 @@
                 </div>
                 <div>
                     <div class="ibox-content no-padding border-left-right">
-                        <img alt="image" class="img-responsive" ng-url="img/perfil/{{Photo}}">
+                        <img alt="image" class="img-responsive" ng-src="img/perfil/{{Photo}}"/>
                     </div>
                     <div class="ibox-content profile-content">
                         <h4><strong>{{Name}}</strong></h4>

@@ -283,6 +283,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                         {
                             files: ['css/plugins/iCheck/custom.css','js/plugins/iCheck/icheck.min.js']
                         },
+                        {
+                            name: 'ui.select',
+                            files: ['js/plugins/ui-select/select.min.js', 'css/plugins/ui-select/select.min.css']
+                        },
                     ]);
                 }
             }              

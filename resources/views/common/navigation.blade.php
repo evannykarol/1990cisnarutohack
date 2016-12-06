@@ -25,7 +25,7 @@
                     </ul>
                 </div>
                 <div class="logo-element">
-                    <img class="img-circle" src="<% URL::asset('img/perfil/'.Auth::user()->photo) %>" width="40px">
+                    <img class="img-circle" ng-src="img/perfil/{{Photo}}" width="40px">
                 </div>
              </center>
             </li>

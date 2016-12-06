@@ -71,20 +71,14 @@
                                 </tr>
                              </thead>
                              <tbody>
-<!--                                 <tr>
-                                    <td>Usuarios</td>
-                                    <td class="text-center"><input icheck type="checkbox"></td>
-                                    <td class="text-center"><input icheck type="checkbox"></td>
-                                    <td class="text-center"><input icheck type="checkbox"></td>
-                                    <td class="text-center"><input icheck type="checkbox"></td>
-                                </tr>
                                 <tr>
-                                    <td>Ticket</td>
-                                    <td class="text-center"><input icheck type="checkbox"></td>
-                                    <td class="text-center"><input icheck type="checkbox"></td>
-                                    <td class="text-center"><input icheck type="checkbox"></td>
-                                    <td class="text-center"><input icheck type="checkbox"></td>
-                                </tr> -->
+                                    <td>Usuarios</td>
+                                    <td class="text-center"><input  type="checkbox"></td>
+                                    <td class="text-center"><input  type="checkbox"></td>
+                                    <td class="text-center"><input  type="checkbox"></td>
+                                    <td class="text-center"><input  type="checkbox"></td>
+                                </tr>
+
                              </tbody>
                             </table>
                          </div>  
@@ -129,7 +123,7 @@
                     </uib-tab>                                       
                  </uib-tabset>
                 </div>  
-                <pre ng-bind="roles|json"></pre>
+                <!-- <pre ng-bind="roles|json"></pre> -->
              </div>
         </div>
     </div>    

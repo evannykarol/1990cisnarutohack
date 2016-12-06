@@ -605,7 +605,8 @@ function OptCtrl($scope) {
 //     };
 // };
 
-function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuilder, DTColumnBuilder){
+function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuilder, DTColumnBuilder)
+{
 
     var vm = this;
     vm.delete = deleteRow;
@@ -759,40 +760,7 @@ function hostingCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
                '</a>';
     }
 };
-function emailCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
 
-    var vm = this;
-    vm.edit = edit;
-    vm.delete = deleteRow;
-    vm.dtInstance = {};
-    vm.email = {};
-    vm.dtOptions = DTOptionsBuilder.fromSource('email/show')
-        .withPaginationType('full_numbers')
-        .withOption('createdRow', createdRow);
-    vm.dtColumns = [
-        DTColumnBuilder.newColumn('User'),
-        DTColumnBuilder.newColumn('Email'),
-        DTColumnBuilder.newColumn('Password'),
-        DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
-            .renderWith(actionsHtml)
-    ];
-
-    function edit(id) {
-        alert('holamundo');
-    }
-    function deleteRow(id) {
-        vm.dtInstance.reloadData();
-    }
-    function createdRow(row, data, dataIndex) {
-        $compile(angular.element(row).contents())($scope);
-    }
-    function actionsHtml(data, type, full, meta) {
-        vm.email[data.Id] = data;
-        return '<button type="button" class="btn btn-warning" ng-click="showCase.edit('+data.Id+')">'+
-               '<span class="fa fa-edit"></span>'+
-               '</button>';
-    }
-};
 function AccessRemoteCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
 
     var vm = this;
@@ -1348,6 +1316,17 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
 
 };
 function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {
+    $scope.person = {};
+
+    $http.get('user/list').success(function(response){
+        $scope.person=response;
+    });
+
+
+
+
+
+
     $scope.message = {};
     $scope.Ticket  = {};
     $scope.ticket  = {};
@@ -1360,6 +1339,7 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
       .success(function(response){
       $scope.Id                 = response.Id;
       $scope.ticket.Client      = response.Client;
+      $scope.ticket.Title       = response.Title;
       $scope.Photo              = response.Photo;
       $scope.ticket.Description = response.Description;
       $scope.ticket.Department  = response.Department;
@@ -1600,7 +1580,6 @@ angular
     .controller('datatablesCtrl', datatablesCtrl)
     .controller('hostinguserCtrl', hostinguserCtrl)
     .controller('ServicehostingCtrl', ServicehostingCtrl)
-    .controller('emailCtrl', emailCtrl)
     .controller('CrudCtrl', CrudCtrl)
     .controller('ModulsCtrl', ModulsCtrl)
     .controller('DashboardCtrl', DashboardCtrl)

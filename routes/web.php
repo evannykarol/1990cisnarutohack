@@ -181,6 +181,7 @@ Route::get('user/{id}/edit','UsersController@useredit');
 Route::post('user/{id}/update','UsersController@userupdate');
 Route::get('user/{id}/destroy','UsersController@userdestroy');
 Route::get('user/modal', 'UsersController@usermodal');
+Route::get('user/list', 'UsersController@listUser');
 //funciones controlleres user para roles
 Route::get('roles/query', 'UsersController@queryroles');
 Route::post('roles', 'UsersController@rolesstore');

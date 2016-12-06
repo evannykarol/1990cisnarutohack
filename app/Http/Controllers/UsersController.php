@@ -442,5 +442,17 @@ class UsersController extends Controller
         $User = User::find($id);
         $User->language = $lang;
         $User->save();
+    }
+    public function listUser(){
+        $User = User::get();
+            $data=[];
+        foreach ($User as $Users) {
+            $data[] = [
+                        "Id"=>$Users->id,
+                        "Name"=>$Users->name,
+                        "Email"=>$Users->email,
+                      ];
+        }       
+        return response()->json($data);
     }                       
 }

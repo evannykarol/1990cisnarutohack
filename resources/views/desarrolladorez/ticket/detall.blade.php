@@ -63,7 +63,8 @@
                 <label class="col-sm-4 control-label">{{ 'TYPE' | translate }}:</label>
                 <div class="col-sm-8">
                     <select class="form-control" ng-disabled="disable" ng-model='ticket.Type'>
-                        <option>asasdl</option>
+                        <option value="1">{{'Incident' | translate}}</option>
+                        <option value="2">{{'Request' | translate}}</option>
                     </select>
                 </div>
             </div>
@@ -74,7 +75,10 @@
                 <label class="col-sm-4 control-label">{{ 'PRIORITY' | translate }}:</label>
                 <div class="col-sm-8">
                     <select class="form-control" ng-disabled="disable" ng-model='ticket.Priority'>
-                        <option>asasdl</option>
+                        <option value="1">{{'Low' | translate}}</option>
+                        <option value="2">{{'Medium' | translate}}</option>
+                        <option value="3">{{'High' | translate}}</option>
+                        <option value="4">{{'Urgent' | translate}}</option>
                     </select>
                 </div>
             </div>
@@ -86,9 +90,13 @@
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'CLIENT' | translate }}:</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Client'>
-                        <option>asasdl</option>
-                    </select>
+                    <ui-select ng-model="ticket.Client" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.Name}}</ui-select-match>
+                        <ui-select-choices repeat="item.Id as item in person  | filter: $select.search">
+                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            <small ng-bind-html="item.Email | highlight: $select.search"></small>
+                        </ui-select-choices>
+                    </ui-select>
                 </div>
             </div>
         </div>

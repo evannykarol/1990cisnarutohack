@@ -89,7 +89,7 @@
                 <div>
                     <div class="col-md-9">
                      <h3 class="font-bold no-margins">
-                        {{'SUPPORT_TICKET' | translate}} EN 2016
+                        {{'SUPPORT_TICKET' | translate}} EN {{Years}}
                      </h3>
                     </div>
                     <div class="col-md-3">
