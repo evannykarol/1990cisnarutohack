@@ -16,7 +16,7 @@
     <div class="col-lg-2">
     </div>
 </div>
-<div class="row" ng-controller="TicketEditCtrl">
+<div class="row form-horizontal" ng-controller="TicketEditCtrl">
     <div class="row" ng-if="'yes'==loading">
         <div class="spiner-example">
             <div class="sk-spinner sk-spinner-chasing-dots">
@@ -25,49 +25,88 @@
             </div>
         </div>
     </div>    
-    <div class="col-lg-9 col-lg-offset-2" ng-if="viewticket == 'yes'">
+    <div class="col-lg-10 col-lg-offset-1" ng-if="viewticket == 'yes'">
     <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox">
     <div class="ibox-content">
     <div class="row">
         <div class="col-lg-12">
             <div class="m-b-md">
-                <h2><b>Ticket</b></h2>
+                <h2><b>Ticket #0001 <button type="button" class="btn btn-primary pull-right">Actualizar</button></b></h2>
             </div>
-            <dl class="dl-horizontal">
-                <dt>{{'STATUS' | translate}}:</dt>
-                <dd>
-                    <select class="form-control" convert-to-number ng-model="Status">
-                        <option value="1">{{ 'New ' | translate }}</option>
-                        <option value="1">{{ 'Wait ' | translate }}</option>
-                        <option value="1">{{ 'Resolved ' | translate }}</option>
-                        <option value="1">{{ 'Close ' | translate }}</option>
-                    </select> 
-                </dd>
-            </dl>
+        </div>
+    </div>        
+    <div class="row">   
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input type="hidden" ng-model='roles.Id'>
+                <label class="col-sm-4 control-label">{{ 'TITLE' | translate }}:</label>
+                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input type="hidden" ng-model='roles.Id'>
+                <label class="col-sm-4 control-label">{{ 'DEPARTAMENT' | translate }}:</label>
+                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+            </div>
         </div>
     </div>
+    <div class="row">   
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input type="hidden" ng-model='roles.Id'>
+                <label class="col-sm-4 control-label">{{ 'TYPE' | translate }}:</label>
+                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input type="hidden" ng-model='roles.Id'>
+                <label class="col-sm-4 control-label">{{ 'PRIORITY' | translate }}:</label>
+                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">   
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input type="hidden" ng-model='roles.Id'>
+                <label class="col-sm-4 control-label">{{ 'CLIENT' | translate }}:</label>
+                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input type="hidden" ng-model='roles.Id'>
+                <label class="col-sm-4 control-label">{{ 'ASSIGNED_TO_TECHNICIAN' | translate }}:</label>
+                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">   
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input type="hidden" ng-model='roles.Id'>
+                <label class="col-sm-4 control-label">{{ 'STATUS' | translate }}:</label>
+                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+
+        </div>
+    </div>                    
     <div class="row">
         <div class="col-lg-5">
             <dl class="dl-horizontal">
-                <dt>{{ 'CLIENT' | translate }}:</dt>
-                <dd>{{Client}}</dd>
-                <dt>{{'DEPARTMENT' | translate }}:</dt>
-                <dd>{{Department}}</dd>
-                <dt>{{'TYPE' | translate }}:</dt>
-                <dd>{{Type | translate}}</dd>
-                <dt>{{'PRIORITY' | translate }}:</dt>
-                <dd>{{Priority | translate }}</dd>            
+                <dt>{{ 'CREATED' | translate }}:</dt>
+                <dd>{{Created}}</dd>         
             </dl>
         </div>
         <div class="col-lg-7" id="cluster_info">
             <dl class="dl-horizontal">
                 <dt>{{ 'LAST_UPDATED' | translate }}:</dt>
                 <dd>{{LastUpdate}}</dd>
-                <dt>{{'CREATED' | translate }}:</dt>
-                <dd>{{Created}}</dd>
-                <dt>{{'ASSIGNED_TO_TECHNICIAN' | translate }}:</dt>
-                <dd>{{Technician}}</dd>
             </dl>
         </div>
     </div>
@@ -113,7 +152,7 @@
                             <div class="media-body ">
                                 <strong>{{User.User}}</strong><br>
                                 <div class="well">
-                                    <div ng-click="Open()" ng-if="open == 'yes'">Haz clic aquí para responder a este ticket.</div>
+                                    <div ng-click="Open()" ng-if="open == 'yes'">{{'Click_Ticket'| translate}}</div>
                                     <div ng-if="openresponde == 'yes'">
                                      <form  class="form-horizontal" ng-submit="submit()">
                                         <textarea  class="form-control" ng-model="Ticket.Description" ckeditor required></textarea>

@@ -153,7 +153,8 @@ function config($translateProvider) {
             ASSIGNED_TO_TECHNICIAN:'ASSIGNED TO TECHNICIAN',
             REPLAY:'REPLAY',
             CANCEL:'CANCEL',
-            View_Message:'View Message',            
+            View_Message:'View Message',
+            Click_Ticket:'Click here to reply to this ticket.',            
         })
         .translations('es', {
             WELCOME:'BIENVEDIDO',
@@ -309,6 +310,7 @@ function config($translateProvider) {
             REPLAY:'RESPONDER',
             CANCEL:'CANCELAR',
             View_Message:'Ver mensaje',
+            Click_Ticket:'Haz clic aquí para responder a este ticket.',
 
         });
     $translateProvider.preferredLanguage('es');

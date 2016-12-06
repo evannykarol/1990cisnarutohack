@@ -30,6 +30,7 @@
                      <thead>
                         <tr>
                             <td>{{ 'ACTION' | translate }}</td>
+                            <td class="text-center">{{ 'ID' | translate }}</td>
                             <td class="text-center">{{ 'TITLE' | translate }}</td>
                             <td class="text-center">{{ 'DEPARTMENT' | translate }}</td>
                             <td class="text-center">{{ 'USER' | translate }}</td>

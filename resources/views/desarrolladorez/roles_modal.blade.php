@@ -98,13 +98,26 @@
                          <div class="form-group">
                             <div class="setings-item">
                                     <span>
-                                         Ticket Usuarios indivual
+                                         Ticket Admin
                                     </span>
-
                                 <div class="switch">
                                     <div class="onoffswitch">
-                                        <input type="checkbox" name="fixedsidebar" class="onoffswitch-checkbox" id="fixedsidebar" ng-model='roles.IsTicket'>
-                                        <label class="onoffswitch-label" for="fixedsidebar">
+                                        <input type="checkbox" class="onoffswitch-checkbox" id="IsAdmin" ng-model='roles.IsAdmin'>
+                                        <label class="onoffswitch-label" for="IsAdmin">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="setings-item">
+                                    <span>
+                                         Ticket Usuarios indivual
+                                    </span>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" class="onoffswitch-checkbox" id="IsTicket" ng-model='roles.IsTicket'>
+                                        <label class="onoffswitch-label" for="IsTicket">
                                             <span class="onoffswitch-inner"></span>
                                             <span class="onoffswitch-switch"></span>
                                         </label>

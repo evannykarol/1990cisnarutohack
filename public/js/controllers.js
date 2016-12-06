@@ -122,8 +122,6 @@ function MessagesCtrl($scope, $http, $location)
         $scope.subject      = response.data.subject;
         $scope.date         = response.data.date;
         $scope.from         = response.data.users;
-
-
         $scope.listmessages = 'no';
         $scope.viewmessages = 'yes';
     });
@@ -526,19 +524,20 @@ function NotificationCtrl($scope,$http,$interval) {
     //       });
     // }
 
-     $scope.messagescount = 0;
-     $scope.callAtInterval = function() {
-        var url = "messages/query";
-         $http.get(url)
-         .success(function(response){
-            // Push.create('hay mensaje'+response.count)
+    //  $scope.messagescount = 0;
+    //  $scope.callAtInterval = function() {
+    //     var url = "messages/query";
+    //      $http.get(url)
+    //      .success(function(response){
+    //         // Push.create('hay mensaje'+response.count)
             
-            $scope.messagescount = response.count;
-            $scope.messagesdetall = response.detall;
+    //         $scope.messagescount = response.count;
+    //         $scope.messagesdetall = response.detall;
+    //         m
 
-          });
-    }    
-    $interval( function(){ $scope.callAtInterval(); }, 5000);
+    //       });
+    // }    
+    // $interval( function(){ $scope.callAtInterval(); }, 5000);
     
 };
 
@@ -1291,6 +1290,7 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
       DTColumnBuilder.newColumn(null).notSortable()
         .renderWith(actionsHtml).withOption('width','10px')
         .withOption('className', 'text-center'),
+        DTColumnBuilder.newColumn('Id'),
         DTColumnBuilder.newColumn('Title'),
         DTColumnBuilder.newColumn('Department'),
         DTColumnBuilder.newColumn('Users'),
