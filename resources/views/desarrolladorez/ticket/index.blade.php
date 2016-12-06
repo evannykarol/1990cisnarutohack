@@ -19,28 +19,25 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <div class="row">
-                        <div class="col-sm-12"><h><b>{{ 'TICKET_SYSTEM ' | translate }}
-                        <button class="btn btn-primary pull-right" ng-click="add()"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button></b></h2>
+                        <div class="col-sm-1">
+                            <h><b>{{ 'STATUS ' | translate }}:</b></h2>           
+                        </div>
+                        <div class="col-sm-2">
+                            <select ng-model="OptionStatus" ng-change="statusoption(OptionStatus)" convert-to-number class="form-control input-sm">
+                                <option value="1">{{ 'New' | translate }}</option>
+                                <option value="2">{{ 'Wait' | translate }}</option>
+                                <option value="3">{{ 'Resolved' | translate }}</option>
+                                <option value="4">{{ 'Close' | translate }}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-9">
+                            <button class="btn btn-primary pull-right" ng-click="add()"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button>
                         </div>
                     </div>
                 </div>
                 <div class="ibox-content">
                  <div class="table-responsive">
-                    <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="table table-striped table-bordered table-hover dataTables-example" width="100%">
-                     <thead>
-                        <tr>
-                            <td>{{ 'ACTION' | translate }}</td>
-                            <td class="text-center">{{ 'ID' | translate }}</td>
-                            <td class="text-center">{{ 'TITLE' | translate }}</td>
-                            <td class="text-center">{{ 'DEPARTMENT' | translate }}</td>
-                            <td class="text-center">{{ 'USER' | translate }}</td>
-                            <td class="text-center">{{ 'ASSIGNED' | translate }}</td>
-                            <td class="text-center">{{ 'TYPE' | translate }}</td>
-                            <td class="text-center">{{ 'PRIORITY' | translate }}</td>
-                            <td class="text-center">{{ 'STATUS' | translate }}</td>
-                            <td class="text-center">{{ 'LAST_MODIFICATION' | translate }}</td>
-                        </tr>
-                     </thead>                        
+                    <table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" dt-instance="showCase.dtInstance" class="table table-striped table-bordered table-hover dataTables-example" width="100%">                      
                     </table>
                  </div>
                 </div>    

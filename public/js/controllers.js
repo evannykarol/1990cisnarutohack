@@ -25,7 +25,7 @@ function priority(id)
       return 'Urgent';
     }
 };
-function DashboardCtrl($scope, $http, $location)
+function DashboardCtrl($scope, $http, $location,$state)
 {
   var years = new Date().getFullYear();
   DataDashboard(years);
@@ -74,7 +74,9 @@ $scope.changeYears =  function(years){
       ]
     }
   };
-
+  $scope.clickstatus =  function(status){
+    $state.go('index.ticket', {'status': status});
+  }
 
 
 
@@ -1274,98 +1276,123 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     } 
 };
 function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {
-    $scope.load = 'yes';
-    var vm = this;
-    vm.delete = deleteRow;
-    vm.dtInstance = {};
-    vm.datas = {};
-    $scope.Ticket={'Type':1,'Priority':1};
-    vm.dtOptions = DTOptionsBuilder.fromSource('ticket/query')
-        .withPaginationType('full_numbers')
-        .withOption('createdRow', createdRow)        
-        .withOption('processing', true);
-    vm.dtColumns = [
-      DTColumnBuilder.newColumn(null).notSortable()
-        .renderWith(actionsHtml).withOption('width','10px')
-        .withOption('className', 'text-center'),
-        DTColumnBuilder.newColumn('Id'),
-        DTColumnBuilder.newColumn('Title'),
-        DTColumnBuilder.newColumn('Department'),
-        DTColumnBuilder.newColumn('Users'),
-        DTColumnBuilder.newColumn('UsersAssign'),
-        DTColumnBuilder.newColumn('Type').renderWith(Type).withOption('className', 'text-center'),,
-        DTColumnBuilder.newColumn('Priority').renderWith(Priority).withOption('className', 'text-center'),,
-        DTColumnBuilder.newColumn('Status').renderWith(Status).withOption('className', 'text-center'),,  
-        DTColumnBuilder.newColumn('LastUpdate')
-    ];
-    $scope.edit = function (id) {
-      $state.go('index.ticketdetall', {'qId': id});
-    };
-    $scope.add = function () {
-       $state.go('index.ticketcreate');
-    };
-    function deleteRow(id) {
-        vm.dtInstance.reloadData();
-    }
-    function createdRow(row, data, dataIndex) {
-        $compile(angular.element(row).contents())($scope);
-    }
-    function Type(data, type, full, meta) 
-    {
-      if(data == 1)
+      if($stateParams.status=='New')
       {
-        return $translate.instant('Incident');
-      }else
-      {
-        return $translate.instant('Request');
+        status=1;
+        $scope.OptionStatus = 1;
       }
-    };
-    function Priority(data, type, full, meta) 
-    {
-      if(data==1)
+      else if($stateParams.status=='Wait')
       {
-        return '<span class="label label-info">'+$translate.instant('Low')+'</span>';
-      } else if(data==2)
+        status=2;
+        $scope.OptionStatus = 2;
+      }
+      else if($stateParams.status=='Resolved')
       {
-        return '<span class="label label-primary">'+$translate.instant('Medium')+'</span>';
-      } else if(data==3)
+        status=3;
+        $scope.OptionStatus = 3;
+      }
+      else if($stateParams.status=='Close')
       {
-        return '<span class="label label-warning">'+$translate.instant('High')+'</span>';
-      } else
+        status=4;
+        $scope.OptionStatus = 4;
+      }else{
+        status=1;
+        $scope.OptionStatus = 1;
+      }
+      
+      $scope.load = 'yes';
+      var vm = this;
+      vm.delete = deleteRow;
+      vm.dtInstance = {};
+      vm.datas = {};
+      $scope.Ticket={'Type':1,'Priority':1};
+      vm.dtOptions = DTOptionsBuilder.fromSource('ticket/query/'+status)
+          .withPaginationType('full_numbers')
+          .withOption('createdRow', createdRow)        
+          .withOption('processing', true);
+      vm.dtColumns = [
+        DTColumnBuilder.newColumn(null).notSortable()
+          .renderWith(actionsHtml).withOption('width','10px')
+          .withOption('className', 'text-center').withTitle($translate.instant('ACTION')),
+          DTColumnBuilder.newColumn('Id').withTitle('ID'),
+          DTColumnBuilder.newColumn('Title').withTitle($translate.instant('TITLE')),
+          DTColumnBuilder.newColumn('Department').withTitle($translate.instant('DEPARTMENT')),
+          DTColumnBuilder.newColumn('Users').withTitle($translate.instant('USER')),
+          DTColumnBuilder.newColumn('UsersAssign').withTitle($translate.instant('ASSIGNED')),
+          DTColumnBuilder.newColumn('Type').renderWith(Type).withOption('className', 'text-center').withTitle($translate.instant('TYPE')),
+          DTColumnBuilder.newColumn('Priority').renderWith(Priority).withOption('className', 'text-center').withTitle($translate.instant('PRIORITY')),
+          DTColumnBuilder.newColumn('Status').renderWith(Status).withOption('className', 'text-center').withTitle($translate.instant('STATUS')),  
+          DTColumnBuilder.newColumn('LastUpdate').withTitle($translate.instant('LAST_MODIFICATION'))
+      ];
+      $scope.edit = function (id) {
+        $state.go('index.ticketdetall', {'qId': id});
+      };
+      $scope.add = function () {
+         $state.go('index.ticketcreate');
+      };
+      function deleteRow(id) {
+          vm.dtInstance.reloadData();
+      }
+      function createdRow(row, data, dataIndex) {
+          $compile(angular.element(row).contents())($scope);
+      }
+      function Type(data, type, full, meta) 
       {
-        return '<span class="label label-danger">'+$translate.instant('Urgent')+'</span>';
-      }  
-    };    
-    function Status(data, type, full, meta) 
-    {
-      if(data==1)
+        if(data == 1)
+        {
+          return $translate.instant('Incident');
+        }else
+        {
+          return $translate.instant('Request');
+        }
+      };
+      function Priority(data, type, full, meta) 
       {
-        return '<span class="label label-primary">'+$translate.instant('New')+'</span>';
-      } else if(data==2)
+        if(data==1)
+        {
+          return '<span class="label label-info">'+$translate.instant('Low')+'</span>';
+        } else if(data==2)
+        {
+          return '<span class="label label-primary">'+$translate.instant('Medium')+'</span>';
+        } else if(data==3)
+        {
+          return '<span class="label label-warning">'+$translate.instant('High')+'</span>';
+        } else
+        {
+          return '<span class="label label-danger">'+$translate.instant('Urgent')+'</span>';
+        }  
+      };    
+      function Status(data, type, full, meta) 
       {
-        return '<span class="label label-warning">'+$translate.instant('Wait')+'</span>';
-      } else if(data==3)
+        if(data==1)
+        {
+          return '<span class="label label-primary">'+$translate.instant('New')+'</span>';
+        } else if(data==2)
+        {
+          return '<span class="label label-warning">'+$translate.instant('Wait')+'</span>';
+        } else if(data==3)
+        {
+          return '<span class="label label-success">'+$translate.instant('Resolved')+'</span>';
+        } else
+        {
+          return '<span class="label label-danger">'+$translate.instant('Close')+'</span>';
+        }  
+      }; 
+      function actionsHtml(data, type, full, meta) 
       {
-        return '<span class="label label-success">'+$translate.instant('Resolved')+'</span>';
-      } else
-      {
-        return '<span class="label label-danger">'+$translate.instant('Close')+'</span>';
-      }  
-    }; 
-    function actionsHtml(data, type, full, meta) {
-        vm.datas[data.Id] = data;
-        return '<button type="button" class="btn btn-success" ng-click="edit('+data.Id+')">'+
-               '<span class="fa fa-edit"></span>'+
-               '</button>';
-    };
+          vm.datas[data.Id] = data;
+          return '<button type="button" class="btn btn-success" ng-click="edit('+data.Id+')">'+
+                 '<span class="fa fa-edit"></span>'+
+                 '</button>';
+      };
+
     $http.get('ticket/data')
     .success(function(response){
       $scope.load = 'no';
       $scope.viewticket = 'yes';
       $scope.DepartmentList     = response.Department;
       $scope.Ticket={Department:$scope.DepartmentList[0].id,'Type':1,'Priority':1};
-    });
-      
+    });    
     $scope.submit = function() {
       $scope.btnload = true;
          $http({
@@ -1385,6 +1412,24 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     $scope.textoptions = {
         height: 240,
     };
+    $scope.statusoption = function(id){
+      vm.dtInstance.changeData('ticket/query/'+id);
+      vm.dtInstance.reloadData();
+      vm.dtColumns = [
+        DTColumnBuilder.newColumn(null).notSortable()
+          .renderWith(actionsHtml).withOption('width','10px')
+          .withOption('className', 'text-center').withTitle($translate.instant('ACTION')),
+          DTColumnBuilder.newColumn('Id').withTitle('ID'),
+          DTColumnBuilder.newColumn('Title').withTitle($translate.instant('TITLE')),
+          DTColumnBuilder.newColumn('Department').withTitle($translate.instant('DEPARTMENT')),
+          DTColumnBuilder.newColumn('Users').withTitle($translate.instant('USER')),
+          DTColumnBuilder.newColumn('UsersAssign').withTitle($translate.instant('ASSIGNED')),
+          DTColumnBuilder.newColumn('Type').renderWith(Type).withOption('className', 'text-center').withTitle($translate.instant('TYPE')),
+          DTColumnBuilder.newColumn('Priority').renderWith(Priority).withOption('className', 'text-center').withTitle($translate.instant('PRIORITY')),
+          DTColumnBuilder.newColumn('Status').renderWith(Status).withOption('className', 'text-center').withTitle($translate.instant('STATUS')),  
+          DTColumnBuilder.newColumn('LastUpdate').withTitle($translate.instant('LAST_MODIFICATION'))
+      ];
+    }
 
 };
 function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {

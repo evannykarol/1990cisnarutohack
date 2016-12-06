@@ -105,7 +105,7 @@ Route::get('ticket', 'TicketController@index');
 Route::post('ticket', 'TicketController@store');
 Route::post('ticket/{id}/update', 'TicketController@update');
 Route::get('ticket/data', 'TicketController@getData');
-Route::get('ticket/query', 'TicketController@getIndex');
+Route::get('ticket/query/{id}', 'TicketController@getIndex');
 Route::get('ticket/form', 'TicketController@form');
 Route::get('ticket/detall', 'TicketController@getDetall');
 Route::get('ticket/{id}/show', 'TicketController@show');

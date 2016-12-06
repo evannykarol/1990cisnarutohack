@@ -131,25 +131,25 @@
                                         <tbody>
                                         <tr>
                                             <td>
-                                                <button type="button" class="btn btn-info m-r-sm">{{ticketNew}}</button>
+                                                <button type="button" class="btn btn-info m-r-sm" ng-click="clickstatus('New')">{{ticketNew}}</button>
                                                 Total Nuevo
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button type="button" class="btn btn-warning m-r-sm">{{ticketWait}}</button>
+                                                <button type="button" class="btn btn-warning m-r-sm" ng-click="clickstatus('Wait')">{{ticketWait}}</button>
                                                 Total En espera
                                             </td>
-                                        </tr>
+                                        </tr>                                      
                                         <tr>
                                             <td>
-                                                <button type="button" class="btn btn-success m-r-sm">{{ticketResolved}}</button>
+                                                <button type="button" class="btn btn-success m-r-sm" ng-click="clickstatus('Resolved')">{{ticketResolved}}</button>
                                                 Total Resuelto
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button type="button" class="btn btn-danger m-r-sm">{{ticketCloses}}</button>
+                                                <button type="button" class="btn btn-danger m-r-sm" ng-click="clickstatus('Close')">{{ticketCloses}}</button>
                                                 Total Cerrado
                                             </td>
                                         </tr>

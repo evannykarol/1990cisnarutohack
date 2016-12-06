@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\TicketComment;
 use App\Models\Department;
 use App\Models\TicketType;
+use App\Models\Roles;
 use App\User;
 use Auth;
 use Carbon\Carbon;
@@ -21,12 +22,21 @@ class TicketController extends Controller
     {
         return view('desarrolladorez.ticket.index');
     }
-    public function getIndex()
+    public function getIndex($id)
     {
-        $Ticket = Ticket::get();
+        $Ticket = Ticket::where('status','=',$id);
+        $id_roles = Auth::user()->id_roles;
+        $roles = Roles::find($id_roles);
+        if($roles->is_ticket == 1)
+        {
+            $ticketC = $Ticket->where('id_users','=',1)->get();
+        }else
+        {
+            $ticketC = $Ticket->get();
+        };
         $App = app()->make('Data');
         $data = [];
-        foreach ($Ticket as $Tickets) {
+        foreach ($ticketC as $Tickets) {
             $data[] = [
                         "Id"            =>$Tickets->id,
                         "Title"         =>$Tickets->title,

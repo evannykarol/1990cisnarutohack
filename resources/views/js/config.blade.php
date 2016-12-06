@@ -180,7 +180,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         //     }
         // })
         .state('index.ticket', {
-            url: "/ticket",
+            url: "/ticket/{status}",
             templateUrl: "ticket",
             data: { pageTitle: 'Agregar Modulos' },
             resolve: {
