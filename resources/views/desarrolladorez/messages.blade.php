@@ -132,7 +132,7 @@
             </h3>
             <h5>
                 <span class="pull-right font-noraml">{{date}}</span>
-                <span class="font-noraml">From: </span>{{from}}
+                <span class="font-noraml">{{'From' | translate}}: </span>{{from}}
             </h5>
         </div>
     </div>

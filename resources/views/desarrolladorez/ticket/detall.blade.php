@@ -41,14 +41,18 @@
             <div class="form-group">
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'TITLE' | translate }}:</label>
-                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+                <div class="col-sm-8"><input type="text" class="form-control" ng-model='ticket.Title' required ng-disabled="disable"></div>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'DEPARTAMENT' | translate }}:</label>
-                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Departament'>
+                        <option>asasdl</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
@@ -57,14 +61,22 @@
             <div class="form-group">
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'TYPE' | translate }}:</label>
-                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Type'>
+                        <option>asasdl</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'PRIORITY' | translate }}:</label>
-                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Priority'>
+                        <option>asasdl</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
@@ -73,14 +85,22 @@
             <div class="form-group">
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'CLIENT' | translate }}:</label>
-                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Client'>
+                        <option>asasdl</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'ASSIGNED_TO_TECHNICIAN' | translate }}:</label>
-                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Assigned'>
+                        <option>asasdl</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
@@ -89,7 +109,14 @@
             <div class="form-group">
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'STATUS' | translate }}:</label>
-                <div class="col-sm-8"><input type="text" class="form-control" ng-model='roles.Name' required></div>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Status'>
+                        <option value="1">{{ 'New' | translate }}</option>
+                        <option value="2">{{ 'Wait' | translate }}</option>
+                        <option value="3">{{ 'Resolved' | translate }}</option>
+                        <option value="4">{{ 'Close' | translate }}</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="col-lg-6">
@@ -125,7 +152,7 @@
                                 <small class="pull-right">2h ago</small>
                                 <strong>{{Client}}</strong><br>
                                 <small class="text-muted">{{Created}}</small>
-                                <div class="well" ng-bind-html="Description">
+                                <div class="well" ng-bind-html="ticket.Description">
                                 </div>
                             </div>
                         </div>

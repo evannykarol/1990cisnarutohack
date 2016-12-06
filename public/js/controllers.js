@@ -1350,21 +1350,23 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
 function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {
     $scope.message = {};
     $scope.Ticket  = {};
+    $scope.ticket  = {};
     $scope.loading = 'yes';
+    $scope.disable = false; 
     function ticket()
     {
       var id =  $stateParams.qId;
       $http.get('ticket/'+id+'/show')
       .success(function(response){
       $scope.Id                 = response.Id;
-      $scope.Client             = response.Client;
+      $scope.ticket.Client      = response.Client;
       $scope.Photo              = response.Photo;
-      $scope.Description        = response.Description;
-      $scope.Department         = response.Department;
-      $scope.Type               = type(response.Type);
-      $scope.Priority           = priority(response.Priority);
-      $scope.Status             = response.Status;
-      $scope.Technician         = response.Technician;
+      $scope.ticket.Description = response.Description;
+      $scope.ticket.Department  = response.Department;
+      $scope.ticket.Type        = response.Type;
+      $scope.ticket.Priority    = response.Priority;
+      $scope.ticket.Status      = response.Status;
+      $scope.ticket.Technician  = response.Technician;
       $scope.Created            = response.Created;
       $scope.LastUpdate         = response.LastUpdate;
       $scope.message            = response.Message;
