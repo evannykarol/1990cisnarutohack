@@ -16,7 +16,7 @@
     <div class="col-lg-2">
     </div>
 </div>
-<div class="row form-horizontal" ng-controller="TicketEditCtrl">
+<div class="row" ng-controller="TicketEditCtrl">
     <div class="row" ng-if="'yes'==loading">
         <div class="spiner-example">
             <div class="sk-spinner sk-spinner-chasing-dots">
@@ -29,10 +29,11 @@
     <div class="wrapper wrapper-content animated fadeInRight">
     <div class="ibox">
     <div class="ibox-content">
+    <form class="form-horizontal" ng-submit="update()">
     <div class="row">
         <div class="col-lg-12">
             <div class="m-b-md">
-                <h2><b>Ticket #0001 <button type="button" class="btn btn-primary pull-right">Actualizar</button></b></h2>
+                <h2><b>Ticket #0001 <button type="submit" class="btn btn-primary pull-right">Actualizar</button></b></h2>
             </div>
         </div>
     </div>        
@@ -49,8 +50,8 @@
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'DEPARTAMENT' | translate }}:</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Departament'>
-                        <option>asasdl</option>
+                    <select class="form-control" ng-model='ticket.Departament' convert-to-number required>
+                        <option ng-repeat="option in departament" value="{{option.id}}">{{option.name}}</option>
                     </select>
                 </div>
             </div>
@@ -105,9 +106,13 @@
                 <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'ASSIGNED_TO_TECHNICIAN' | translate }}:</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Assigned'>
-                        <option>asasdl</option>
-                    </select>
+                    <ui-select ng-model="ticket.Technician" theme="bootstrap">
+                        <ui-select-match>{{$select.selected.Name}}</ui-select-match>
+                        <ui-select-choices repeat="item.Id as item in person  | filter: $select.search">
+                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            <small ng-bind-html="item.Email | highlight: $select.search"></small>
+                        </ui-select-choices>
+                    </ui-select>                    
                 </div>
             </div>
         </div>
@@ -145,11 +150,12 @@
             </dl>
         </div>
     </div>
+    </form>
     <div class="row m-t-sm">
      <div class="col-lg-12">
         <div class="panel blank-panel ui-tab">
             <uib-tabset>
-                <uib-tab heading="Informado" active="tab.active" class="dsads">
+                <uib-tab heading="{{'Processing_ticket'| translate}}" active="tab.active" class="dsads">
                     <div class="feed-activity-list">
                         <div class="feed-element">
                             <a href="" class="pull-left">
@@ -158,7 +164,7 @@
 
                             <div class="media-body ">
                                 <small class="pull-right">2h ago</small>
-                                <strong>{{Client}}</strong><br>
+                                <strong>{{ticket.Client}}</strong><br>
                                 <small class="text-muted">{{Created}}</small>
                                 <div class="well" ng-bind-html="ticket.Description">
                                 </div>

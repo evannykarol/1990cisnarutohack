@@ -103,6 +103,7 @@ Route::get('permisionroles', 'AdministrationController@permissionroles');
 
 Route::get('ticket', 'TicketController@index');
 Route::post('ticket', 'TicketController@store');
+Route::post('ticket/{id}/update', 'TicketController@update');
 Route::get('ticket/data', 'TicketController@getData');
 Route::get('ticket/query', 'TicketController@getIndex');
 Route::get('ticket/form', 'TicketController@form');

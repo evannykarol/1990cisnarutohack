@@ -155,7 +155,8 @@ function config($translateProvider) {
             CANCEL:'CANCEL',
             View_Message:'View Message',
             Click_Ticket:'Click here to reply to this ticket.',
-            From:'From',            
+            From:'From',
+            Processing_ticket:'Processing ticket',            
         })
         .translations('es', {
             WELCOME:'BIENVEDIDO',
@@ -313,6 +314,7 @@ function config($translateProvider) {
             View_Message:'Ver mensaje',
             Click_Ticket:'Haz clic aquí para responder a este ticket.',
             From:'De',
+            Processing_ticket:'Procesando el ticket',
 
         });
     $translateProvider.preferredLanguage('es');

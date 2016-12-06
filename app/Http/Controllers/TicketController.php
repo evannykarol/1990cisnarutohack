@@ -33,9 +33,9 @@ class TicketController extends Controller
                         "Department"    =>$App->TDepartment($Tickets->id_department),
                         "Users"         =>$App->UserName($Tickets->id_users),
                         "UsersAssign"   =>$App->UserName($Tickets->id_users_assign),
-                        "Type"          =>$App->TType($Tickets->type),
-                        "Priority"      =>$App->TPriority($Tickets->priority),
-                        "Status"        =>$App->TStatus($Tickets->status),
+                        "Type"          =>$Tickets->type,
+                        "Priority"      =>$Tickets->priority,
+                        "Status"        =>$Tickets->status,
                         "LastUpdate"    =>Carbon::parse($Tickets->updated_at)->toDateTimeString(),
                                             
                       ];
@@ -128,11 +128,11 @@ class TicketController extends Controller
         $User = User::find($id);        
         $data = [
                 "Id"            =>$Ticket->id,
-                "Client"        =>$App->UserName($Ticket->id_users),
+                "Client"        =>$Ticket->id_users,
                 "Photo"         =>$App->Photo($Ticket->id_users),
                 "Description"   =>$Ticket->description,
                 "Title"         =>$Ticket->title,
-                "Department"    =>$App->TDepartment($Ticket->id_department),
+                "Departament"   =>$Ticket->id_department,
                 "Type"          =>$Ticket->type,
                 "Priority"      =>$Ticket->priority,
                 "Status"        =>$Ticket->status,
@@ -171,7 +171,18 @@ class TicketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = (object) $request->json()->all();
+        $update = [
+                'title'             =>$data->Title,
+                'id_department'     =>$data->Departament,
+                'type'              =>$data->Type,
+                'priority'          =>$data->Priority,
+                'status'            =>$data->Status,
+                'id_users'          =>$data->Client,
+                'id_users_assign'   =>$data->Technician
+                ];
+            Ticket::where('id','=',$data->IdTicket)->update($update);
+        return response()->json($data);
     }
 
     /**

@@ -512,7 +512,8 @@ function PerfilCtrl($scope,$http)
 
 
 
-function NotificationCtrl($scope,$http,$interval) {
+function NotificationCtrl($scope,$http,$interval) 
+{
     $scope.dato =[];
     $scope.ncount= $scope.dato.length;
     //  $scope.callAtInterval = function() {
@@ -546,7 +547,8 @@ function MainCtrl($scope) {
     this.helloText = 'Control Tecnología de la información';
     this.descriptionText = 'Aqui van hacer una grafica ';
 };
-function LoginCtrl($scope,$http,$location) {
+function LoginCtrl($scope,$http,$location) 
+{
     $scope.login = {};
     $scope.submit = function() {      
          $http({
@@ -567,7 +569,8 @@ function LoginCtrl($scope,$http,$location) {
           });       
     };
 };
-function OptCtrl($scope) {
+function OptCtrl($scope) 
+{
   $scope.options = {
     height: 150,
     focus: true,
@@ -666,7 +669,8 @@ function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuild
 };
 
 
-function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
+function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder)
+{
 
     var vm = this;
     vm.delete = deleteRow;
@@ -724,7 +728,8 @@ function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuil
             }          
         }
 };
-function hostingCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
+function hostingCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder)
+{
 
     var vm = this;
     vm.edit = edit;
@@ -761,7 +766,8 @@ function hostingCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
     }
 };
 
-function AccessRemoteCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
+function AccessRemoteCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder)
+{
 
     var vm = this;
     vm.delete = deleteRow;
@@ -801,7 +807,8 @@ function AccessRemoteCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColum
                '</button>';
     }
 };
-function ModalInstanceCtrl ($scope, $uibModalInstance,$http) {
+function ModalInstanceCtrl ($scope, $uibModalInstance,$http) 
+{
     $scope.Customer = {};
     $scope.submit = function() {
         $http({
@@ -824,7 +831,8 @@ function ModalInstanceCtrl ($scope, $uibModalInstance,$http) {
     };
 };
 
-function DataCatalogsCtrl($scope, editId, table, $http, $uibModalInstance) {
+function DataCatalogsCtrl($scope, editId, table, $http, $uibModalInstance) 
+{
     $scope.catalog = {};
     $scope.load = 'yes';
     $http.get('catalog/edit/'+editId)
@@ -858,7 +866,8 @@ function DataCatalogsCtrl($scope, editId, table, $http, $uibModalInstance) {
           });          
     };
 };
-function DomainCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
+function DomainCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder)
+{
 
     var vm = this;
     vm.edit = edit;
@@ -894,7 +903,8 @@ function DomainCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder){
                '</a>';
     }
 };
-function datatablesCtrl($scope,DTOptionsBuilder){
+function datatablesCtrl($scope,DTOptionsBuilder)
+{
     $scope.dtOptions = DTOptionsBuilder.newOptions()
         .withDOM('<"html5buttons"B>lTfgitp')
         .withButtons([
@@ -915,7 +925,8 @@ function datatablesCtrl($scope,DTOptionsBuilder){
             }
         ]);
 };
-function hostinguserCtrl($scope,DTOptionsBuilder){
+function hostinguserCtrl($scope,DTOptionsBuilder)
+{
 
     $scope.dtOptions = DTOptionsBuilder.newOptions()  
      $scope.funciones = function(){
@@ -926,7 +937,8 @@ function hostinguserCtrl($scope,DTOptionsBuilder){
  * translateCtrl - Controller for translate
  */
 
-function SettingsCtrl($scope,$http){
+function SettingsCtrl($scope,$http)
+{
     $scope.settings = {};
     $scope.load= 'yes'; 
     $http.get('settings/show')
@@ -969,14 +981,16 @@ function SettingsCtrl($scope,$http){
           }); 
     }        
 } 
-function translateCtrl($translate, $scope,$http, $controller,$rootScope) {
+function translateCtrl($translate, $scope,$http, $controller,$rootScope) 
+{
     $scope.changeLanguage = function (langKey) {
         $translate.use(langKey);
         $scope.language = langKey;
         $http.get('user/translate/'+langKey)
     };
 }
-function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder){
+function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder)
+{
 
     var vm = this;
     vm.delete = deleteRow;
@@ -1263,9 +1277,9 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         DTColumnBuilder.newColumn('Department'),
         DTColumnBuilder.newColumn('Users'),
         DTColumnBuilder.newColumn('UsersAssign'),
-        DTColumnBuilder.newColumn('Type'),
-        DTColumnBuilder.newColumn('Priority'),
-        DTColumnBuilder.newColumn('Status'),  
+        DTColumnBuilder.newColumn('Type').renderWith(Type).withOption('className', 'text-center'),,
+        DTColumnBuilder.newColumn('Priority').renderWith(Priority).withOption('className', 'text-center'),,
+        DTColumnBuilder.newColumn('Status').renderWith(Status).withOption('className', 'text-center'),,  
         DTColumnBuilder.newColumn('LastUpdate')
     ];
     $scope.edit = function (id) {
@@ -1280,6 +1294,48 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     function createdRow(row, data, dataIndex) {
         $compile(angular.element(row).contents())($scope);
     }
+    function Type(data, type, full, meta) 
+    {
+      if(data == 1)
+      {
+        return $translate.instant('Incident');
+      }else
+      {
+        return $translate.instant('Request');
+      }
+    };
+    function Priority(data, type, full, meta) 
+    {
+      if(data==1)
+      {
+        return '<span class="label label-info">'+$translate.instant('Low')+'</span>';
+      } else if(data==2)
+      {
+        return '<span class="label label-primary">'+$translate.instant('Medium')+'</span>';
+      } else if(data==3)
+      {
+        return '<span class="label label-warning">'+$translate.instant('High')+'</span>';
+      } else
+      {
+        return '<span class="label label-danger">'+$translate.instant('Urgent')+'</span>';
+      }  
+    };    
+    function Status(data, type, full, meta) 
+    {
+      if(data==1)
+      {
+        return '<span class="label label-primary">'+$translate.instant('New')+'</span>';
+      } else if(data==2)
+      {
+        return '<span class="label label-warning">'+$translate.instant('Wait')+'</span>';
+      } else if(data==3)
+      {
+        return '<span class="label label-success">'+$translate.instant('Resolved')+'</span>';
+      } else
+      {
+        return '<span class="label label-danger">'+$translate.instant('Close')+'</span>';
+      }  
+    }; 
     function actionsHtml(data, type, full, meta) {
         vm.datas[data.Id] = data;
         return '<button type="button" class="btn btn-success" ng-click="edit('+data.Id+')">'+
@@ -1316,17 +1372,14 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
 
 };
 function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {
-    $scope.person = {};
-
+    $scope.person       = {};
+    $scope.departament  = {};
+    $http.get('ticket/data').success(function(response){
+        $scope.departament=response.Department;
+    });
     $http.get('user/list').success(function(response){
         $scope.person=response;
     });
-
-
-
-
-
-
     $scope.message = {};
     $scope.Ticket  = {};
     $scope.ticket  = {};
@@ -1342,7 +1395,7 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
       $scope.ticket.Title       = response.Title;
       $scope.Photo              = response.Photo;
       $scope.ticket.Description = response.Description;
-      $scope.ticket.Department  = response.Department;
+      $scope.ticket.Departament = response.Departament;
       $scope.ticket.Type        = response.Type;
       $scope.ticket.Priority    = response.Priority;
       $scope.ticket.Status      = response.Status;
@@ -1352,6 +1405,7 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
       $scope.message            = response.Message;
       $scope.User               = response.User;
       $scope.Ticket             = {IdTicket:response.Id};
+      $scope.ticket.IdTicket    = response.Id;
       $scope.loading = 'no';
       $scope.viewticket = 'yes';
       
@@ -1385,7 +1439,27 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
                 sweetAlert("Oops...", "Something went wrong!", "error");
           }); 
 
-   }
+   };
+    $scope.update = function()
+    {
+          id = $scope.ticket.IdTicket;
+         $http({
+          method  : 'POST',
+          url     : 'ticket/'+id+'/update',
+          data    : $scope.ticket,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+                // ticket();
+                // $scope.open = 'yes';
+                // $scope.openresponde = 'no';
+                // sweetAlert('Correctamente', "", "success");
+
+          }, function errorCallback(response) {
+
+                // sweetAlert("Oops...", "Something went wrong!", "error");
+          }); 
+
+   };   
 
 };
 

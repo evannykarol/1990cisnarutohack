@@ -39,6 +39,7 @@
                              <% csrf_field() %>
                              <div class="col-sm-12">            
                                 <div class="form-group">
+                                    <input type="hidden" ng-model="ticket.IdTicket">
                                     <label class="col-sm-2 control-label">{{'TITLE' | translate}}:</label>
                                     <div class="col-sm-4"><input type="text" class="form-control" ng-model='Ticket.Title' required></div>
                                     <label class="col-sm-2 control-label">{{'DEPARTMENT' | translate}}:</label>
