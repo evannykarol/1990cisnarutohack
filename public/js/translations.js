@@ -156,7 +156,11 @@ function config($translateProvider) {
             View_Message:'View Message',
             Click_Ticket:'Click here to reply to this ticket.',
             From:'From',
-            Processing_ticket:'Processing ticket',            
+            Processing_ticket:'Processing ticket',
+            CURRENT:'CURRENT',
+            NEW:'NEW',
+            REPEAT_NEW:'REPEAT NEW',
+            CHANGE_OF_PASSWORD:'CHANGE OF PASSWORD',            
         })
         .translations('es', {
             WELCOME:'BIENVEDIDO',
@@ -315,7 +319,10 @@ function config($translateProvider) {
             Click_Ticket:'Haz clic aquí para responder a este ticket.',
             From:'De',
             Processing_ticket:'Procesando el ticket',
-
+            CURRENT:'ACTUAL',
+            NEW:'NUEVO',
+            REPEAT_NEW:'REPETIR NUEVO',
+            CHANGE_OF_PASSWORD:'CAMBIO DE CONTRASEÑA',  
         });
     $translateProvider.preferredLanguage('es');
 }

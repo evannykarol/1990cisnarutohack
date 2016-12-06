@@ -110,24 +110,23 @@
                             </uib-tab>
                             <uib-tab>
                                 <uib-tab-heading>
-                                    <i class="fa fa-lock"></i> Cambio de Contraseña
+                                    <i class="fa fa-lock"></i> {{ 'CHANGE_OF_PASSWORD' | translate }}
                                 </uib-tab-heading>
-                                <form  class="form-horizontal" ng-submit="submit()">
+                                <form  class="form-horizontal" ng-submit="password()">
                                  <br>                             
                                  <div class="row">
-                                    <div class="col-lg-12">
-                                     <input type="hidden" ng-model='user.Id'>          
+                                    <div class="col-lg-12">         
                                      <div class="form-group">
-                                        <label class="col-sm-3 control-label">{{ 'PASSWORD' | translate }}:</label>
-                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model='user.Password'></div>
+                                        <label class="col-sm-3 control-label">{{ 'CURRENT' | translate }}:</label>
+                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model='Current'></div>
                                      </div>
                                      <div class="form-group">
-                                        <label class="col-sm-3 control-label">{{ 'PASSWORD' | translate }}:</label>
-                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model='user.Password'></div>
+                                        <label class="col-sm-3 control-label">{{ 'NEW' | translate }}:</label>
+                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model='New'></div>
                                      </div>
                                      <div class="form-group">
-                                        <label class="col-sm-3 control-label">{{ 'PASSWORD' | translate }}:</label>
-                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model='user.Password'></div>
+                                        <label class="col-sm-3 control-label">{{ 'REPEAT_NEW' | translate }}:</label>
+                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model='RepeatNew'></div>
                                      </div>  
                                      </div>
                                      <div class="col-lg-9 col-lg-offset-3">

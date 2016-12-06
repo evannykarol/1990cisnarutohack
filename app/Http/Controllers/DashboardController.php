@@ -67,7 +67,7 @@ class DashboardController extends Controller
         $user       = User::get()->Count();
         $moduls     = Moduls::get()->Count();
         $id = Auth::id();
-        $messages   = Messages::where('for_users','=',$id)->get()->Count();
+        $messages   = Messages::where('for_users','=',$id)->where('is_read','=',0)->get()->Count();
         $ticket = [
                     dataTicket(1, $years), 
                     dataTicket(2, $years), 

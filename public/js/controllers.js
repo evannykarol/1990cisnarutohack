@@ -507,6 +507,17 @@ function PerfilCtrl($scope,$http)
                 $scope.btnloading = false;  
                 sweetAlert("Oops...", "Something went wrong!", "error");
           });          
+    };
+    $scope.password =function()
+    {
+      Current   = $scope.Current;
+      New       = $scope.New; 
+      RepeatNew = $scope.RepeatNew;
+      if(New === RepeatNew){
+        console.log('correctos');
+      }else{
+        console.log('incorrectos');
+      }
     };        
 }; 
 

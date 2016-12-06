@@ -33,21 +33,19 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="m-b-md">
-                <h2><b>Ticket #0001 <button type="submit" class="btn btn-primary pull-right">Actualizar</button></b></h2>
+                <h2><b>Ticket # {{ticket.IdTicket}} <button type="submit" class="btn btn-primary pull-right">Actualizar</button></b></h2>
             </div>
         </div>
     </div>        
     <div class="row">   
         <div class="col-lg-6">
             <div class="form-group">
-                <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'TITLE' | translate }}:</label>
                 <div class="col-sm-8"><input type="text" class="form-control" ng-model='ticket.Title' required ng-disabled="disable"></div>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'DEPARTAMENT' | translate }}:</label>
                 <div class="col-sm-8">
                     <select class="form-control" ng-model='ticket.Departament' convert-to-number required>
@@ -60,7 +58,6 @@
     <div class="row">   
         <div class="col-lg-6">
             <div class="form-group">
-                <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'TYPE' | translate }}:</label>
                 <div class="col-sm-8">
                     <select class="form-control" ng-disabled="disable" ng-model='ticket.Type'>
@@ -72,7 +69,6 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'PRIORITY' | translate }}:</label>
                 <div class="col-sm-8">
                     <select class="form-control" ng-disabled="disable" ng-model='ticket.Priority'>
@@ -88,7 +84,6 @@
     <div class="row">   
         <div class="col-lg-6">
             <div class="form-group">
-                <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'CLIENT' | translate }}:</label>
                 <div class="col-sm-8">
                     <ui-select ng-model="ticket.Client" theme="bootstrap">
@@ -103,7 +98,6 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'ASSIGNED_TO_TECHNICIAN' | translate }}:</label>
                 <div class="col-sm-8">
                     <ui-select ng-model="ticket.Technician" theme="bootstrap">
@@ -120,7 +114,6 @@
     <div class="row">   
         <div class="col-lg-6">
             <div class="form-group">
-                <input type="hidden" ng-model='roles.Id'>
                 <label class="col-sm-4 control-label">{{ 'STATUS' | translate }}:</label>
                 <div class="col-sm-8">
                     <select class="form-control" ng-disabled="disable" ng-model='ticket.Status'>
