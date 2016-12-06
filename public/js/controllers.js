@@ -474,25 +474,30 @@ function PerfilCtrl($scope,$http)
     $.get("http://ipinfo.io", function (response) {
     $scope.location = response.city + ", " + response.region;
     }, "jsonp");
-    $scope.navperfilload = true;    
-    $http.get('profile/show')
-    .success(function(response){
-        $scope.loading ="no";
-        $scope.view ="yes";
-        $scope.navperfil = "yes";
-        $scope.navperfilload = false;
-        $scope.user.User              = response.User;
-        $scope.user.Name              = response.Name;
-        $scope.user.FirstName         = response.FirstName;        
-        $scope.user.Email             = response.Email;
-        $scope.user.Area              = response.Area;
-        $scope.user.Roles             = response.Roles;
-        $scope.user.Language          = response.Language;
-        //esta datos actualizad no funciona nada 
-        $scope.Name                   = response.Name;
-        $scope.Area                   = response.Area;
-        $scope.Photo                  = response.Photo;        
-    });
+    $scope.navperfilload = true; 
+    function perfil(){   
+      $http.get('profile/show')
+      .success(function(response){
+          $scope.loading ="no";
+          $scope.view ="yes";
+          $scope.navperfil = "yes";
+          $scope.navperfilload = false;
+          $scope.user.User              = response.User;
+          $scope.user.Name              = response.Name;
+          $scope.user.FirstName         = response.FirstName;        
+          $scope.user.Email             = response.Email;
+          $scope.user.Area              = response.Area;
+          $scope.user.Roles             = response.Roles;
+          $scope.user.Language          = response.Language;
+          $scope.user.textaboutme       = response.Aboutme;
+          //esta datos actualizad no funciona nada 
+          $scope.Name                   = response.Name;
+          $scope.Area                   = response.Area;
+          $scope.Photo                  = response.Photo;
+          $scope.aboutme                = response.Aboutme;        
+      });
+    };
+    perfil();
     $scope.submit = function() {
          $scope.btnloading = true;      
          $http({
@@ -500,7 +505,8 @@ function PerfilCtrl($scope,$http)
           url     : 'profile/update',
           data    : $scope.user,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
-         }).then(function successCallback(response) {                              
+         }).then(function successCallback(response) { 
+                perfil()                             
                 $scope.btnloading = false;  
                 sweetAlert('Correctamente', "", "success");
           }, function errorCallback(response) {
@@ -508,16 +514,15 @@ function PerfilCtrl($scope,$http)
                 sweetAlert("Oops...", "Something went wrong!", "error");
           });          
     };
+    $scope.aboutme = function()
+    {
+      alert($scope.user.textaboutme);
+    };
     $scope.password =function()
     {
       Current   = $scope.Current;
       New       = $scope.New; 
       RepeatNew = $scope.RepeatNew;
-      if(New === RepeatNew){
-        console.log('correctos');
-      }else{
-        console.log('incorrectos');
-      }
     };        
 }; 
 

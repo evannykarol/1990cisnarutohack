@@ -137,7 +137,8 @@ class UsersController extends Controller
                 "Area"          =>  $User->area,                
                 "Roles"         =>  $User->id_roles,
                 "Language"      =>  $User->language,
-                "Photo"         =>  $User->photo                
+                "Photo"         =>  $User->photo, 
+                "Aboutme"       =>  $User->about_me                
               ];
         return response()->json($data);
     }
@@ -150,7 +151,8 @@ class UsersController extends Controller
             $User->email        = $data->Email;
             $User->area         = $data->Area;
             $User->language     = $data->Language;
-            $User->id_roles     = $data->Roles;            
+            $User->id_roles     = $data->Roles;
+            $User->about_me     = $data->textaboutme;            
             if(@$data->Password){
                $User->password          = Hash::make($data->Password); 
             }

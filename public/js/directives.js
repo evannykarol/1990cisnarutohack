@@ -188,8 +188,6 @@ function convertToNumber(){
   };
 };
 
-
-
 /**
  *
  * Pass all functions into module

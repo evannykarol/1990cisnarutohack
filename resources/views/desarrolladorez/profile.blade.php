@@ -36,13 +36,13 @@
                     <div class="ibox-content profile-content">
                         <h4><strong>{{Name}}</strong></h4>
 
-                        <p><i class="fa fa-map-marker"></i> Ubicacion en {{location}}</p>
+                        <p><i class="fa fa-map-marker"></i> {{'Location_is'|translate}} {{location}}</p>
                         <h5>
-                            About me
+                            {{'About_me'|translate}}
                         </h5>
 
                         <p>
-                            Soy guapo ser dearrolllo web
+                            {{aboutme}}
                         </p>
 
                     </div>
@@ -110,6 +110,23 @@
                             </uib-tab>
                             <uib-tab>
                                 <uib-tab-heading>
+                                    <i class="fa fa-book"></i> {{ 'ABOUT_ME' | translate }}
+                                </uib-tab-heading>
+                                <form  class="form-horizontal">
+                                 <br>                             
+                                 <div class="row">
+                                    <div class="col-lg-12">         
+                                     <div class="form-group">
+                                        <div class="col-sm-8 col-sm-offset-2">
+                                            <textarea class="form-control" ng-model="user.textaboutme"></textarea>
+                                        </div>
+                                     </div>  
+                                     </div>
+                                 </div> 
+                                </form>
+                            </uib-tab>
+                            <uib-tab>
+                                <uib-tab-heading>
                                     <i class="fa fa-lock"></i> {{ 'CHANGE_OF_PASSWORD' | translate }}
                                 </uib-tab-heading>
                                 <form  class="form-horizontal" ng-submit="password()">
@@ -118,15 +135,15 @@
                                     <div class="col-lg-12">         
                                      <div class="form-group">
                                         <label class="col-sm-3 control-label">{{ 'CURRENT' | translate }}:</label>
-                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model='Current'></div>
+                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model="Current"></div>
                                      </div>
                                      <div class="form-group">
                                         <label class="col-sm-3 control-label">{{ 'NEW' | translate }}:</label>
-                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model='New'></div>
+                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model="New"></div>
                                      </div>
                                      <div class="form-group">
                                         <label class="col-sm-3 control-label">{{ 'REPEAT_NEW' | translate }}:</label>
-                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model='RepeatNew'></div>
+                                        <div class="col-sm-7"><input type="text" class="form-control" ng-model="RepeatNew"></div>
                                      </div>  
                                      </div>
                                      <div class="col-lg-9 col-lg-offset-3">

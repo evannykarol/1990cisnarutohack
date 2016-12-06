@@ -160,7 +160,10 @@ function config($translateProvider) {
             CURRENT:'CURRENT',
             NEW:'NEW',
             REPEAT_NEW:'REPEAT NEW',
-            CHANGE_OF_PASSWORD:'CHANGE OF PASSWORD',            
+            CHANGE_OF_PASSWORD:'CHANGE OF PASSWORD',
+            ABOUT_ME:'ABOUT ME',
+            Location_is:'Location is',
+            About_me:'About me',             
         })
         .translations('es', {
             WELCOME:'BIENVEDIDO',
@@ -322,7 +325,10 @@ function config($translateProvider) {
             CURRENT:'ACTUAL',
             NEW:'NUEVO',
             REPEAT_NEW:'REPETIR NUEVO',
-            CHANGE_OF_PASSWORD:'CAMBIO DE CONTRASEÑA',  
+            CHANGE_OF_PASSWORD:'CAMBIO DE CONTRASEÑA',
+            ABOUT_ME:'SOBRE MI',  
+            Location_is:'Ubicacion en',
+            About_me:'Sobre mí', 
         });
     $translateProvider.preferredLanguage('es');
 }
