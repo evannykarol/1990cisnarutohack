@@ -4,7 +4,7 @@ function config($translateProvider) {
       suffix: '.json'
     });
     // $translateProvider.useLocalStorage();
-    $translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage('es');
 
 
 }

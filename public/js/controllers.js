@@ -998,8 +998,8 @@ function SettingsCtrl($scope,$http)
 function translateCtrl($translate, $scope,$http, $controller,$rootScope) 
 {
     $scope.changeLanguage = function (langKey) {
-        // $translate.use(langKey);
-        $translateProvider.preferredLanguage(langKey);
+        $translate.use(langKey);
+        // $translateProvider.preferredLanguage(langKey);
         $scope.language = langKey;
         $http.get('user/translate/'+langKey)
     };
