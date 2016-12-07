@@ -98,6 +98,11 @@ class DashboardController extends Controller
     }
     public function getfile()
     {
-         return File::getRequire(base_path()."/public/js/languages/en.json");
+        // $response =  File::getRequire(base_path()."/public/js/languages/en.json");
+        $response =  base_path()."/public/js/languages/en.json";
+        $json = File::get($response);
+        
+
+        return json_encode($json);
     }
 }
