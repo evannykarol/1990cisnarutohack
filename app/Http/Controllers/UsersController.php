@@ -11,6 +11,8 @@ use App\Models\Roles;
 use App\Models\Moduls;
 use App\Models\RolesPrivileges;
 use App\Models\Language;
+use App\Models\Menus;
+use App\Models\MenusPrivileges;
 use App\FunctionData\Data;
 use Hash;
 use Auth;
@@ -265,39 +267,59 @@ class UsersController extends Controller
         $collection = $request->json()->all();     
         $id_roles =  Roles::insertGetId(["name"=> $collection['Name']]);;
         $collection = collect($collection);
-        $collection = $collection->get('Permission');
+        $collectionM = collect($collection);
+        $collection     = $collection->get('Permission');
+        $collectionMenus = $collectionM->get('PermissionMenus');
         foreach ($collection as $datos){
                     $id_roles   =   $id_roles;                    
                     $id_modulos =   $datos['Id'];
                     $name       =   $datos['Name'];
-                    $Create     =   $datos['Create'];
-                    $Read       =   $datos['Read'];
-                    $Update     =   $datos['Update'];
+                    $View       =   $datos['View'];
+                    $Add        =   $datos['Add'];
+                    $Edit       =   $datos['Edit'];
                     $Delete     =   $datos['Delete'];
                         RolesPrivileges::insert([
                             "id_roles"      => $id_roles, 
                             "id_moduls"     => $id_modulos, 
-                            "is_create"     => $Create, 
-                            "is_read"       => $Read,
-                            "is_update"     => $Update,
+                            "is_view"       => $View,
+                            "is_add"        => $Add,                            
+                            "is_edit"       => $Edit,
                             "is_delete"     => $Delete,
                             ]);
 
         }
+        foreach ($collectionMenus as $datos){
+                    $id_roles   =   $id_roles;                    
+                    $id_menus   =   $datos['Id'];
+                    $name       =   $datos['Name'];
+                    $View       =   $datos['View'];
+                    $Add        =   $datos['Add'];
+                    $Edit       =   $datos['Edit'];
+                    $Delete     =   $datos['Delete'];
+                        Menusprivileges::insert([
+                            "id_roles"      => $id_roles, 
+                            "id_menus"      => $id_menus, 
+                            "is_view"       => $View,
+                            "is_add"        => $Add,                            
+                            "is_edit"       => $Edit,
+                            "is_delete"     => $Delete,
+                            ]);
+
+        }        
         return "insertados";
     }      
     public function rolesedit($id)
     {
-        function create($id_roles, $id_moduls){
-            $contar = RolesPrivileges::where("id_roles","=",$id_roles)->where("id_moduls","=",$id_moduls)->where("is_create","=",1)->get();
+        function Add($id_roles, $id_moduls){
+            $contar = RolesPrivileges::where("id_roles","=",$id_roles)->where("id_moduls","=",$id_moduls)->where("is_add","=",1)->get();
             return $contar->Count();
         }
-        function read($id_roles, $id_moduls){
-            $contar = RolesPrivileges::where("id_roles","=",$id_roles)->where("id_moduls","=",$id_moduls)->where("is_read","=",1)->get();
+        function view($id_roles, $id_moduls){
+            $contar = RolesPrivileges::where("id_roles","=",$id_roles)->where("id_moduls","=",$id_moduls)->where("is_view","=",1)->get();
             return $contar->Count();
         }
-        function update($id_roles, $id_moduls){
-            $contar = RolesPrivileges::where("id_roles","=",$id_roles)->where("id_moduls","=",$id_moduls)->where("is_update","=",1)->get();
+        function edit($id_roles, $id_moduls){
+            $contar = RolesPrivileges::where("id_roles","=",$id_roles)->where("id_moduls","=",$id_moduls)->where("is_edit","=",1)->get();
             return $contar->Count();
         }
         function delete($id_roles, $id_moduls){
@@ -305,9 +327,9 @@ class UsersController extends Controller
             return $contar->Count();
         }
         $dato = array();
-        $CreateStatus = array();
-        $ReadStatus = array();
-        $UpdateStatus = array();
+        $AddStatus = array();
+        $ViewStatus = array();
+        $EditStatus = array();
         $DeleteStatus = array();
         $Name= array();
         $idMenus        = array();
@@ -315,48 +337,48 @@ class UsersController extends Controller
         $MenuCargardo   = Moduls::get();
         foreach($MenuCargardo as $Menu)
         {
-            $is_create = create($id,$Menu->id);
-            $is_read   = read($id,$Menu->id);
-            $is_update = update($id,$Menu->id);
+            $is_view   = view($id,$Menu->id);
+            $is_add = Add($id,$Menu->id);
+            $is_edit = edit($id,$Menu->id);
             $is_delete = delete($id,$Menu->id);
-            $CreateStatus[$CountPermiso]    = array();
-            $ReadStatus[$CountPermiso]      = array();
-            $UpdateStatus[$CountPermiso]      = array();
+            $AddStatus[$CountPermiso]    = array();
+            $ViewStatus[$CountPermiso]      = array();
+            $EditStatus[$CountPermiso]      = array();
             $DeleteStatus[$CountPermiso]      = array();
             $Name[$CountPermiso] = array();
             $idMenus[$CountPermiso]         = array();
-            $CreateStatus[$CountPermiso]    = $is_create;
-            $ReadStatus[$CountPermiso]      = $is_read;
-            $UpdateStatus[$CountPermiso]    = $is_update;
+            $AddStatus[$CountPermiso]       = $is_add;
+            $ViewStatus[$CountPermiso]      = $is_view;
+            $EditStatus[$CountPermiso]      = $is_edit;
             $DeleteStatus[$CountPermiso]    = $is_delete;
             $Name[$CountPermiso]            = $Menu->name;
             $idMenus[$CountPermiso]         = $Menu->id;
             $CountPermiso = $CountPermiso + 1;
         }
-      $estatus_create       = $CreateStatus;
-      $estatus_read         = $ReadStatus;
-      $estatus_update       = $UpdateStatus;
+      $estatus_add          = $AddStatus;
+      $estatus_view         = $ViewStatus;
+      $estatus_edit         = $EditStatus;
       $estatus_delete       = $DeleteStatus;
       $Name                 = $Name;
       $id_menu              = $idMenus;
-      for($i=0;$i<=count($estatus_create)-1;$i++)
+      for($i=0;$i<=count($estatus_add)-1;$i++)
       {
         $booleano   = false;
-        $CheckCreate  = false;
-        $CheckRead  = false;
-        $CheckUpdate  = false;
+        $CheckAdd  = false;
+        $CheckView  = false;
+        $CheckEdit = false;
         $CheckDelete  = false;
-        if($estatus_create[$i]=="1"){
+        if($estatus_add[$i]=="1"){
             $booleano = true;
-            $CheckCreate= true;
+            $CheckAdd= true;
         }
-        if($estatus_read[$i]=="1"){
+        if($estatus_view[$i]=="1"){
             $booleano = true;
-            $CheckRead= true;
+            $CheckView= true;
         }
-        if($estatus_update[$i]=="1"){
+        if($estatus_edit[$i]=="1"){
             $booleano = true;
-            $CheckUpdate= true;
+            $CheckEdit= true;
         }
         if($estatus_delete[$i]=="1"){
             $booleano = true;
@@ -365,73 +387,180 @@ class UsersController extends Controller
             $dato[]=[
                     "Id"        =>  $id_menu[$i],
                     "Name"      =>  $Name[$i],
-                    "Create"    =>  $CheckCreate,
-                    "Read"      =>  $CheckRead,
-                    "Update"    =>  $CheckUpdate,
+                    "View"      =>  $CheckView,
+                    "Add"       =>  $CheckAdd,
+                    "Edit"      =>  $CheckEdit,
                     "Delete"    =>  $CheckDelete
                     ];
       }
+
+        function AddM($id_roles, $id_menus){
+            $contar = Menusprivileges::where("id_roles","=",$id_roles)->where("id_menus","=",$id_menus)->where("is_add","=",1)->get();
+            return $contar->Count();
+        }
+        function viewM($id_roles, $id_menus){
+            $contar = Menusprivileges::where("id_roles","=",$id_roles)->where("id_menus","=",$id_menus)->where("is_view","=",1)->get();
+            return $contar->Count();
+        }
+        function editM($id_roles, $id_menus){
+            $contar = Menusprivileges::where("id_roles","=",$id_roles)->where("id_menus","=",$id_menus)->where("is_edit","=",1)->get();
+            return $contar->Count();
+        }
+        function deleteM($id_roles, $id_menus){
+            $contar = Menusprivileges::where("id_roles","=",$id_roles)->where("id_menus","=",$id_menus)->where("is_delete","=",1)->get();
+            return $contar->Count();
+        }
+
+        $datomenus = array();
+        $AddStatusM = array();
+        $ViewStatusM = array();
+        $EditStatusM = array();
+        $DeleteStatusM = array();
+        $NameM= array();
+        $idMenusM        = array();
+        $CountPermisoM   = 0;
+        $MenuCargardoM   = Menus::get();
+        foreach($MenuCargardoM as $MenuM)
+        {
+            $is_viewM   = viewM($id,$MenuM->id);
+            $is_addM = AddM($id,$MenuM->id);
+            $is_editM = editM($id,$MenuM->id);
+            $is_deleteM = deleteM($id,$MenuM->id);
+            $AddStatusM[$CountPermisoM]    = array();
+            $ViewStatusM[$CountPermisoM]      = array();
+            $EditStatusM[$CountPermisoM]      = array();
+            $DeleteStatusM[$CountPermisoM]      = array();
+            $NameM[$CountPermisoM] = array();
+            $idMenusM[$CountPermisoM]         = array();
+            $AddStatusM[$CountPermisoM]       = $is_addM;
+            $ViewStatusM[$CountPermisoM]      = $is_viewM;
+            $EditStatusM[$CountPermisoM]      = $is_editM;
+            $DeleteStatusM[$CountPermisoM]    = $is_deleteM;
+            $NameM[$CountPermisoM]            = $MenuM->name;
+            $idMenusM[$CountPermisoM]         = $MenuM->id;
+            $CountPermisoM = $CountPermisoM + 1;
+        }
+      $estatus_addM          = $AddStatusM;
+      $estatus_viewM         = $ViewStatusM;
+      $estatus_editM         = $EditStatusM;
+      $estatus_deleteM       = $DeleteStatusM;
+      $NameM                 = $NameM;
+      $id_menuM              = $idMenusM;
+      for($i=0;$i<=count($estatus_addM)-1;$i++)
+      {
+        $booleanoM   = false;
+        $CheckAddM  = false;
+        $CheckViewM  = false;
+        $CheckEditM = false;
+        $CheckDeleteM  = false;
+        if($estatus_addM[$i]=="1"){
+            $booleanoM = true;
+            $CheckAddM= true;
+        }
+        if($estatus_viewM[$i]=="1"){
+            $booleanoM = true;
+            $CheckViewM= true;
+        }
+        if($estatus_editM[$i]=="1"){
+            $booleanoM = true;
+            $CheckEditM= true;
+        }
+        if($estatus_deleteM[$i]=="1"){
+            $booleanoM = true;
+            $CheckDeleteM= true;
+        }
+            $datomenus[]=[
+                    "Id"        =>  $id_menuM[$i],
+                    "Name"      =>  $NameM[$i],
+                    "View"      =>  $CheckViewM,
+                    "Add"       =>  $CheckAddM,
+                    "Edit"      =>  $CheckEditM,
+                    "Delete"    =>  $CheckDeleteM
+                    ];
+      }
+
         $Roles  = Roles::where('id','=',$id)->first();  
             $data = [
-                    "Id"            =>  $Roles->id,
-                    "Name"          =>  $Roles->name,
-                    "Description"   =>  $Roles->description,
-                    "Isticket"      =>  $Roles->is_ticket ? true : false  ,
-                    "Permission"    =>  $dato
+                    "Id"                 =>  $Roles->id,
+                    "Name"               =>  $Roles->name,
+                    "Description"        =>  $Roles->description,
+                    "IsAdmin"            =>  $Roles->is_admin_ticket ? true : false,
+                    "Isticket"           =>  $Roles->is_ticket ? true : false,                    
+                    "Permission"         =>  $dato,
+                    "PermissionMenus"    =>  $datomenus
                     ];
         return response()->json($data);
     }
     public function rolesupdate(Request $request, $id)
     {
-        $collection = $request->json()->all();
+        $collection = $request->json()->all();        
         $id_roles = $collection['Id'];
-        $collection = collect($collection);
-        $collection = $collection->get('Permission');
+        Roles::where('id','=',$id_roles)->update([
+                        'name'=>$collection['Name'],
+                        'description'=>$collection['Description'],
+                        'is_admin_ticket'=>$collection['IsAdmin'],
+                        'is_ticket'=>$collection['IsTicket']
+                        ]);
+        $collection      = collect($collection);
+        $collection      = $collection->get('Permission');
+        $collectionMenus = $collection->get('PermissionMenus');
         foreach ($collection as $datos){
                     $id_roles   =   $id_roles;                    
                     $id_modulos =   $datos['Id'];
                     $name       =   $datos['Name'];
-                    $Create     =   $datos['Create'];
-                    $Read       =   $datos['Read'];
-                    $Update     =   $datos['Update'];
-                    $Delete     =   $datos['Delete'];
+                    $View       =   $datos['View'];
+                    $Add        =   $datos['Add'];                    
+                    $Edit       =   $datos['Edit'];
+                    $Delete     =   $datos['Delete'];                    
                     $verficar = RolesPrivileges::where("id_roles",'=',$id_roles)->where("id_moduls",'=',$id_modulos);     
                     if($verficar->count()!=0){
                         RolesPrivileges::where("id_roles",'=',$id_roles)->where("id_moduls",'=',$id_modulos)
                         ->update([
-                            'is_create'     => $Create, 
-                            'is_read'       => $Read,
-                            'is_update'     => $Update,
+                            'is_view'       => $View,
+                            'is_add'        => $Add, 
+                            'is_edit'       => $Edit,
                             'is_delete'     => $Delete,
                             ]);
                     }else{
                         RolesPrivileges::insert([
                             "id_roles"      => $id_roles, 
                             "id_moduls"     => $id_modulos, 
-                            "is_create"     => $Create, 
-                            "is_read"       => $Read,
-                            "is_update"     => $Update,
+                            "is_view"       => $View,
+                            "is_add"        => $Add, 
+                            "is_edit"       => $Edit,
                             "is_delete"     => $Delete,
                             ]);
                     } 
         }
-        return "actualizado";
+        return "Actualizar";
     }
     public function listmoduls()
     {
         $Moduls = Moduls::get();
-            $data=[];
+        $Menus   = Menus::get();
+        $data=[];
+        $dataM=[];
         foreach ($Moduls as $Modul) {
             $data[] = [
                         "Id"=>$Modul->id,
                         "Name"=>$Modul->name,
-                        "Create"=>false,
-                        "Read"=>false,
-                        "Update"=>false,
+                        "View"=>false,
+                        "Add"=>false,
+                        "Edit"=>false,
                         "Delete"=>false
                       ];
         }
-            $datas = ["Permission"=>$data];        
+        foreach ($Menus as $Menu) {
+            $dataM[] = [
+                        "Id"=>$Menu->id,
+                        "Name"=>$Menu->name,
+                        "View"=>false,
+                        "Add"=>false,
+                        "Edit"=>false,
+                        "Delete"=>false
+                      ];
+        }        
+            $datas = ["Permission"=>$data,"PermissionMenus"=>$dataM];        
         return response()->json($datas); 
     }
     public function rolesdestroy($id)

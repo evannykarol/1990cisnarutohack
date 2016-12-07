@@ -27,7 +27,7 @@
                  <uib-tabset>
                     <uib-tab>
                         <uib-tab-heading>
-                            <i class="fa fa-block"></i> {{'CRUD' | translate}} 
+                            <i class="fa fa-table"></i>{{'CRUD' | translate}} 
                         </uib-tab-heading>
                         <div class="panel-body">
                          <div class="form-group">
@@ -35,18 +35,18 @@
                              <thead>
                                 <tr>
                                     <td>{{ 'NAME' | translate }}</td>
-                                    <td class="text-center">{{ 'CREATE' | translate }}</td>
-                                    <td class="text-center">{{ 'READ' | translate }}</td>
-                                    <td class="text-center">{{ 'UPDATE' | translate }}</td>
+                                    <td class="text-center">{{ 'VIEW' | translate }}</td>
+                                    <td class="text-center">{{ 'ADD' | translate }}</td>
+                                    <td class="text-center">{{ 'EDIT' | translate }}</td>
                                     <td class="text-center">{{ 'DELETE' | translate }}</td>
                                 </tr>
                              </thead>
                              <tbody>
                                 <tr ng-repeat="n in roles.Permission">
                                     <td>{{n.Name}}</td>
-                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Create"></td>
-                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Read"></td>
-                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Update"></td>
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.View"></td>
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Add"></td>                                    
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Edit"></td>
                                     <td class="text-center"><input icheck type="checkbox" ng-model="n.Delete"></td>
                                 </tr>
                              </tbody>
@@ -64,21 +64,20 @@
                              <thead>
                                 <tr>
                                     <td>{{ 'NAME' | translate }}</td>
-                                    <td class="text-center">{{ 'CREATE' | translate }}</td>
-                                    <td class="text-center">{{ 'READ' | translate }}</td>
-                                    <td class="text-center">{{ 'UPDATE' | translate }}</td>
+                                    <td class="text-center">{{ 'VIEW' | translate }}</td>
+                                    <td class="text-center">{{ 'ADD' | translate }}</td>
+                                    <td class="text-center">{{ 'EDIT' | translate }}</td>
                                     <td class="text-center">{{ 'DELETE' | translate }}</td>
                                 </tr>
                              </thead>
                              <tbody>
-                                <tr>
-                                    <td>Usuarios</td>
-                                    <td class="text-center"><input  type="checkbox"></td>
-                                    <td class="text-center"><input  type="checkbox"></td>
-                                    <td class="text-center"><input  type="checkbox"></td>
-                                    <td class="text-center"><input  type="checkbox"></td>
+                                <tr ng-repeat="n in roles.PermissionMenus">
+                                    <td>{{ n.Name | translate }}</td>
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.View"></td>
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Add"></td>                                    
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Edit"></td>
+                                    <td class="text-center"><input icheck type="checkbox" ng-model="n.Delete"></td>
                                 </tr>
-
                              </tbody>
                             </table>
                          </div>  
@@ -123,7 +122,7 @@
                     </uib-tab>                                       
                  </uib-tabset>
                 </div>  
-                <!-- <pre ng-bind="roles|json"></pre> -->
+                <pre ng-bind="roles|json"></pre>
              </div>
         </div>
     </div>    

@@ -216,7 +216,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             }              
         })
         .state('index.ticketcreate', {
-            url: "/ticket/create",
+            url: "/ticket/create/new",
             templateUrl: "ticket/form",
             data: { pageTitle: 'Formularios' },
             resolve: {

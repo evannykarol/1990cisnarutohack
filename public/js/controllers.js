@@ -374,6 +374,7 @@ function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translat
 {
     $scope.roles = {}; 
     $scope.roles.Permission = {};
+    $scope.roles.PermissionMenus = {};
     $scope.delete = 'yes';
     $scope.load = 'yes';
     $scope.view='no';
@@ -384,8 +385,10 @@ function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translat
         $scope.roles.Id                     = response.Id;
         $scope.roles.Name                   = response.Name;
         $scope.roles.Description            = response.Description;
+        $scope.roles.IsAdmin                = response.IsAdmin; 
         $scope.roles.IsTicket               = response.Isticket;                
         $scope.roles.Permission             = response.Permission;
+        $scope.roles.PermissionMenus        = response.PermissionMenus;
     });
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
@@ -436,10 +439,13 @@ function NewRolesController($scope, table, $http, $uibModalInstance)
   $scope.roles = {};
   $scope.roles.Permission = {};
   $scope.delete ='no';
-  $scope.view ='yes';
+  $scope.load = 'yes';
   $http.get('roles/list/moduls')
     .success(function(response){
         $scope.roles.Permission             = response.Permission;
+        $scope.roles.PermissionMenus        = response.PermissionMenus;
+        $scope.load = 'no';
+        $scope.view='yes';
     });
   $scope.cancel = function () {
           $uibModalInstance.dismiss('cancel');
@@ -1321,12 +1327,6 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
           DTColumnBuilder.newColumn('Status').renderWith(Status).withOption('className', 'text-center').withTitle($translate.instant('STATUS')),  
           DTColumnBuilder.newColumn('LastUpdate').withTitle($translate.instant('LAST_MODIFICATION'))
       ];
-      $scope.edit = function (id) {
-        $state.go('index.ticketdetall', {'qId': id});
-      };
-      $scope.add = function () {
-         $state.go('index.ticketcreate');
-      };
       function deleteRow(id) {
           vm.dtInstance.reloadData();
       }
@@ -1427,6 +1427,14 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
           DTColumnBuilder.newColumn('LastUpdate').withTitle($translate.instant('LAST_MODIFICATION'))
       ];
     }
+
+      $scope.edit = function (id) {
+        $state.go('index.ticketdetall', {'qId': id});
+      };
+      $scope.add = function () {
+         $state.go('index.ticketcreate');
+      };
+
 
 };
 function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {
