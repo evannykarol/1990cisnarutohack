@@ -9,6 +9,7 @@ use App\models\Moduls;
 use App\models\Ticket;
 use App\models\Roles;
 use Auth;
+use File;
 class DashboardController extends Controller
 {
     public function index()
@@ -94,5 +95,9 @@ class DashboardController extends Controller
                         "ticketCloses"    =>ticketCount(4,$years,$yearsFi),
                         ];               
         return response()->json($dashboard);
+    }
+    public function getfile()
+    {
+         return File::getRequire(base_path()."/public/js/languages/en.json");
     }
 }

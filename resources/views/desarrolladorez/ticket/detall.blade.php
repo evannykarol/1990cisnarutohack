@@ -157,7 +157,7 @@
 
                             <div class="media-body ">
                                 <small class="pull-right">2h ago</small>
-                                <strong>{{ticket.Client}}</strong><br>
+                                <strong>{{ticket.Name}}</strong><br>
                                 <small class="text-muted">{{Created}}</small>
                                 <div class="well" ng-bind-html="ticket.Description">
                                 </div>

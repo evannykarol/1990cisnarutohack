@@ -139,6 +139,7 @@ class TicketController extends Controller
         $data = [
                 "Id"            =>$Ticket->id,
                 "Client"        =>$Ticket->id_users,
+                "Name"          =>$App->UserName($Ticket->id_users),
                 "Photo"         =>$App->Photo($Ticket->id_users),
                 "Description"   =>$Ticket->description,
                 "Title"         =>$Ticket->title,

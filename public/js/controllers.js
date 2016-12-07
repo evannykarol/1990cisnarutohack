@@ -77,10 +77,6 @@ $scope.changeYears =  function(years){
   $scope.clickstatus =  function(status){
     $state.go('index.ticket', {'status': status});
   }
-
-
-
-
 };
 ///////////////////////
 function MessagesCtrl($scope, $http, $location)
@@ -1002,7 +998,8 @@ function SettingsCtrl($scope,$http)
 function translateCtrl($translate, $scope,$http, $controller,$rootScope) 
 {
     $scope.changeLanguage = function (langKey) {
-        $translate.use(langKey);
+        // $translate.use(langKey);
+        $translateProvider.preferredLanguage(langKey);
         $scope.language = langKey;
         $http.get('user/translate/'+langKey)
     };
@@ -1452,6 +1449,7 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
       $http.get('ticket/'+id+'/show')
       .success(function(response){
       $scope.Id                 = response.Id;
+      $scope.ticket.Name        = response.Name;
       $scope.ticket.Client      = response.Client;
       $scope.ticket.Title       = response.Title;
       $scope.Photo              = response.Photo;
