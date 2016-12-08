@@ -26,14 +26,14 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <div class="row">
-                        <div class="col-sm-6"><h2><b>{{ 'CREATE_NEW_CRUD' | translate }}</b></h2></div>                        
+                        <div class="col-sm-6"><h2><b>{{ 'NEW_MODULO' | translate }}</b></h2></div>                        
                     </div>    
                 </div>
                 <div class="ibox-content">
                     <form method="post" class="form-horizontal" ng-submit="submit()">
                         <% csrf_field() %>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">{{ 'NAMEOFTABLE' | translate }}</label>
+                            <label class="col-sm-2 control-label">{{ 'NAME_OF_TABLE' | translate }}</label>
                             <div class="col-sm-5"><input type="text" class="form-control" ng-model="generate.TableName" required="true"></div>
                             <div class="col-sm-5">
                                 <select class="form-control m-b" name="view" required="true">

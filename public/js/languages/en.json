@@ -64,7 +64,7 @@
             "LAYOUTS": "Layouts",
             "FIELDDBNAME": "Field DB Name",
             "FIELDVISUALTITLE": "Field Visual Title",
-            "NAMEOFTABLE": "NAME OF TABLE",
+            "NAME_OF_TABLE": "NAME OF TABLE",
             "OPTIONAL":"OPTIONAL",
             "REQUIRED":"REQUIRED",
             "REQUIREDUNIQUE":"REQUIRED UNIQUE",

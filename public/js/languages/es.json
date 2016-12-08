@@ -64,7 +64,7 @@
             "LAYOUTS": "Esquemas",
             "FIELDDBNAME": "Nombre del campo DB",
             "FIELDVISUALTITLE": "El campo visual Título",
-            "NAMEOFTABLE": "NOMBRE DE TABLA",
+            "NAME_OF_TABLE": "NOMBRE DE TABLA",
             "OPTIONAL":"OPCIONAL",
             "REQUIRED":"OBLIGATORIO",
             "REQUIREDUNIQUE":"OBLIGATORIO UNIQUE",

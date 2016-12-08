@@ -202,7 +202,7 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
                '</button>';
     }
 };
-function EditUserCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
+function EditUserCtrl($scope, editId, table, $http, $uibModalInstance,$translate,transformRequestAsFormPost) 
 {
     $scope.user = {};
     $scope.delete = 'yes';
@@ -257,12 +257,13 @@ function EditUserCtrl($scope, editId, table, $http, $uibModalInstance,$translate
         });
     };    
     $scope.submit = function() {
-         $scope.btnload = true;       
+         $scope.btnload = true;
          $http({
           method  : 'POST',
           url     : 'user/'+$scope.user.Id+'/update',
-          data    : $scope.user,
-          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+          data    : $scope.user ,
+          headers : { 'Content-Type': 'application/json' } ,
+          transformRequest: transformRequestAsFormPost
          }).then(function successCallback(response) {
                 table.reloadData();
                 $scope.btnload = false;
@@ -1437,7 +1438,7 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
 
 
 };
-function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {
+function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate,toaster) {
     $scope.person       = {};
     $scope.departament  = {};
     $http.get('ticket/data').success(function(response){
@@ -1490,6 +1491,7 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
     }
     $scope.submit = function()
     {
+      if($scope.Ticket.Description){
          $http({
           method  : 'POST',
           url     : 'ticket/comment',
@@ -1500,12 +1502,18 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
                 $scope.open = 'yes';
                 $scope.openresponde = 'no';
                 sweetAlert('Correctamente', "", "success");
-
           }, function errorCallback(response) {
-
                 sweetAlert("Oops...", "Something went wrong!", "error");
           }); 
-
+      }
+      else{
+        toaster.pop({
+            type: 'error',
+            title: 'Title example',
+            body: 'This is example of Toastr notification box.',
+            showCloseButton: true,
+        });
+      }
    };
     $scope.update = function()
     {
@@ -1587,8 +1595,7 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
     ];
 
     $scope.edit = function (id) {
-      // $location.path( 'index/createcrud' );
-      alert(id);
+      $state.go('index.edit_module', {'IdModule': id})
     };
     $scope.add = function (id) {
       $state.go('index.Create_module_generator', {'qId': id})
@@ -1605,6 +1612,11 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
                '<span class="fa fa-edit"></span>'+
                '</button>';
     }
+};
+function EditModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state) 
+{
+  var id =  $stateParams.IdModule;
+  
 };
 function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
 {
@@ -1712,7 +1724,6 @@ angular
     .controller('OptCtrl', OptCtrl)
     .controller('TicketCtrl', TicketCtrl)
     .controller('TicketEditCtrl', TicketEditCtrl)
-    
     .controller('UsersCtrl',UsersCtrl)
     .controller('RolesCtrl', RolesCtrl)
     .controller('hostingCtrl', hostingCtrl)
@@ -1723,6 +1734,7 @@ angular
     .controller('ServicehostingCtrl', ServicehostingCtrl)
     .controller('CrudCtrl', CrudCtrl)
     .controller('ModulsCtrl', ModulsCtrl)
+    .controller('EditModulsCtrl', EditModulsCtrl)    
     .controller('DashboardCtrl', DashboardCtrl)
     .controller('MessagesCtrl', MessagesCtrl)
     .controller('ListModulsCtrl', ListModulsCtrl)

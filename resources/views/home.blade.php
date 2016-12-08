@@ -68,6 +68,8 @@
     <script src="https://rawgit.com/angular-translate/bower-angular-translate-loader-static-files/2.6.1/angular-translate-loader-static-files.min.js"></script>
     <script src="https://rawgit.com/angular-translate/bower-angular-translate-storage-cookie/2.6.1/angular-translate-storage-cookie.min.js"></script>
     <script src="https://rawgit.com/angular-translate/bower-angular-translate-storage-local/2.6.1/angular-translate-storage-local.min.js"></script>
+    <!-- <script src='https://rawgit.com/ghostbar/angular-file-model/master/angular-file-model.js'></script> -->
+
 
 <!--
  You need to include this script on any page that has a Google Map.

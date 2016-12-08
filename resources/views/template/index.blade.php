@@ -9,7 +9,7 @@
                 <a ui-sref="index.module_generator">{{ 'Module_Generator ' | translate }}</a>
             </li>
             <li class="active">
-                <strong>{{ 'CRUD ' | translate }}</strong>
+                <strong>{{ 'MODULE ' | translate }}</strong>
             </li>
         </ol>
     </div>
@@ -22,7 +22,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <div class="row">
-                        <div class="col-sm-12"><h2><b>{{ 'CRUD ' | translate }}
+                        <div class="col-sm-12"><h2><b>{{ 'MODULE ' | translate }}
                         <button class="btn btn-primary pull-right" ng-click="add(Paramsid)"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button></b></h2>
                         </div>
                     </div>

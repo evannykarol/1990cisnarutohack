@@ -69,9 +69,20 @@ class ModuleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function showedit()
+    {
+        return view('template.moduleedit');
+    }
     public function edit($id)
     {
-        //
+        $Moduls = Moduls::find($id);
+        $data = [
+                "Name"=>$Moduls->name,
+                "Controller"=>$Moduls->controller,
+                "views"=>$Moduls->views,
+                "views"=>$Moduls->views,
+                ];
+        return response()->json($data);
     }
 
     /**

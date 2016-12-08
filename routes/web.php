@@ -52,6 +52,9 @@ Route::get('moduls/create', 'ModuleGroupController@create');
 
 
 Route::get('modul/{id}/query', 'ModuleController@querymoduls');
+Route::get('modul/edit', 'ModuleController@showedit');
+Route::get('modul/{id}/edit', 'ModuleController@edit');
+
 
 
 

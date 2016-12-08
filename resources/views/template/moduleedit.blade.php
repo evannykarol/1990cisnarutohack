@@ -6,10 +6,10 @@
                 <a ui-sref="index.main">{{ 'HOME ' | translate }}</a>
             </li>
             <li ui-sref="index.crud">
-                <a ui-sref="index.crud">{{ 'CRUD' | translate }}</a>                
+                <a ui-sref="index.module_generator">{{ 'MODULE' | translate }}</a>                
             </li>
             <li class="active">
-                <strong>{{ 'EDIT_CRUD' | translate }}</strong>
+                <strong>{{ 'EDIT_MODULE' | translate }}</strong>
             </li>
         </ol>
     </div>
@@ -17,7 +17,7 @@
 
     </div>
 </div>
-<div class="wrapper wrapper-content">
+<div class="wrapper wrapper-content" ng-controller="EditModulsCtrl">
     <div class="row">
         <div class="col-lg-12">
             <div class="tabs-container">
@@ -25,7 +25,7 @@
                 <uib-tabset>
                     <uib-tab>
                         <uib-tab-heading>
-                            <i class="fa fa-laptop"></i> {{'Info' | translate}} 
+                            <i class="fa fa-info"></i> {{'Info' | translate}} 
                         </uib-tab-heading>
                         <div class="panel-body" ng-if="'yes' == 'yes'">
 
@@ -34,19 +34,19 @@
                              <% csrf_field() %>
                              <div class="col-lg-8">            
                                 <div class="form-group">
-                                    <label class="col-sm-5 control-label">{{'Name' | translate}}:</label>
+                                    <label class="col-sm-5 control-label">{{'NAME' | translate}}:</label>
                                     <div class="col-sm-7"><input type="text" class="form-control" ng-model='Info.Name' required></div>
                                 </div> 
                                 <div class="form-group">
-                                    <label class="col-sm-5 control-label">{{'Module' | translate}}:</label>
+                                    <label class="col-sm-5 control-label">{{'MODULE' | translate}}:</label>
                                     <div class="col-sm-7"><input type="text" class="form-control" ng-model='Info.Module' required></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-5 control-label">{{'Class_Controller' | translate}}:</label>
+                                    <label class="col-sm-5 control-label">{{'CLASS_CONTROLLER' | translate}}:</label>
                                     <div class="col-sm-7"><input type="text" class="form-control" ng-model='Info.Controller' required></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-5 control-label">{{'Table_Master' | translate}}:</label>
+                                    <label class="col-sm-5 control-label">{{'TABLE_MASTER' | translate}}:</label>
                                     <div class="col-sm-7"><input type="text" class="form-control" ng-model='Info.Tabla' required></div>
                                 </div>
                              </div>
@@ -64,7 +64,7 @@
                     </uib-tab>
                     <uib-tab>
                         <uib-tab-heading>
-                            <i class="fa fa-laptop"></i> {{'Table' | translate}} 
+                            <i class="fa fa-table"></i> {{'TABLE' | translate}} 
                         </uib-tab-heading>
                         <div class="panel-body">
                             Aqui muestra la tablas               
@@ -72,7 +72,7 @@
                     </uib-tab>
                     <uib-tab>
                         <uib-tab-heading>
-                            <i class="fa fa-laptop"></i>Formularios
+                            <i class="fa fa-indent-increase"></i>Formularios
                         </uib-tab-heading>
                         <div class="panel-body">
                             Aqui editar formularios usar 4 columnas              
@@ -80,7 +80,7 @@
                     </uib-tab>
                     <uib-tab>
                         <uib-tab-heading>
-                            <i class="fa fa-laptop"></i>Permiso
+                            <i class="fa fa-code"></i>CODE
                         </uib-tab-heading>
                         <div class="panel-body">
                             aqui permiso la lista crudpermission tablas             

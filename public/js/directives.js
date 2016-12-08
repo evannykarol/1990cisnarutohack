@@ -200,4 +200,16 @@ angular
     .directive('minimalizaSidebar', minimalizaSidebar)
     .directive('iboxToolsFullScreen', iboxToolsFullScreen)
     .directive('convertToNumber', convertToNumber)
-    .directive('icheck', icheck);
+    .directive('icheck', icheck)
+    .directive('fileModel', [function() {
+        return {
+            controller: ['$parse', '$element', '$attrs', '$scope', function($parse, $element, $attrs, $scope){
+                var exp = $parse($attrs.fileModel);
+ 
+                $element.on('change', function(){
+                    exp.assign($scope, this.files);
+                    $scope.$apply();
+                });
+            }]
+        }
+    }]);

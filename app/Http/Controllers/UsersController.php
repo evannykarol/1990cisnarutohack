@@ -51,10 +51,7 @@ class UsersController extends Controller
         $validator = Validator::make($request->json()->all(), [
             'User' => 'required',
         ])->validate();
-
         return $validator;
-
-
         // $User = $request->json()->all();
         // User::insert([
         //     // "user"          =>$User['User'],
@@ -158,8 +155,8 @@ class UsersController extends Controller
             if(@$data->Password){
                $User->password          = Hash::make($data->Password); 
             }
-            $User->save();
-        return "Actualizacion"; 
+            $User->save(); 
+            return response()->json(['success'=>true]);
     }
     public function permission($id_users)
     {
@@ -502,37 +499,66 @@ class UsersController extends Controller
                         'is_ticket'=>$collection['IsTicket']
                         ]);
         $collection      = collect($collection);
+        $collectionMenus = collect($collection);
         $collection      = $collection->get('Permission');
-        $collectionMenus = $collection->get('PermissionMenus');
+        $collectionMenus = $collectionMenus->get('PermissionMenus');
         foreach ($collection as $datos){
-                    $id_roles   =   $id_roles;                    
-                    $id_modulos =   $datos['Id'];
-                    $name       =   $datos['Name'];
-                    $View       =   $datos['View'];
-                    $Add        =   $datos['Add'];                    
-                    $Edit       =   $datos['Edit'];
-                    $Delete     =   $datos['Delete'];                    
-                    $verficar = RolesPrivileges::where("id_roles",'=',$id_roles)->where("id_moduls",'=',$id_modulos);     
-                    if($verficar->count()!=0){
-                        RolesPrivileges::where("id_roles",'=',$id_roles)->where("id_moduls",'=',$id_modulos)
-                        ->update([
-                            'is_view'       => $View,
-                            'is_add'        => $Add, 
-                            'is_edit'       => $Edit,
-                            'is_delete'     => $Delete,
-                            ]);
-                    }else{
-                        RolesPrivileges::insert([
-                            "id_roles"      => $id_roles, 
-                            "id_moduls"     => $id_modulos, 
-                            "is_view"       => $View,
-                            "is_add"        => $Add, 
-                            "is_edit"       => $Edit,
-                            "is_delete"     => $Delete,
-                            ]);
-                    } 
+            $id_roles   =   $id_roles;                    
+            $id_modulos =   $datos['Id'];
+            $name       =   $datos['Name'];
+            $View       =   $datos['View'];
+            $Add        =   $datos['Add'];                    
+            $Edit       =   $datos['Edit'];
+            $Delete     =   $datos['Delete'];                    
+            $verficar = RolesPrivileges::where("id_roles",'=',$id_roles)->where("id_moduls",'=',$id_modulos);     
+            if($verficar->count()!=0){
+                RolesPrivileges::where("id_roles",'=',$id_roles)->where("id_moduls",'=',$id_modulos)
+                ->update([
+                    'is_view'       => $View,
+                    'is_add'        => $Add, 
+                    'is_edit'       => $Edit,
+                    'is_delete'     => $Delete,
+                    ]);
+            }else{
+                RolesPrivileges::insert([
+                    "id_roles"      => $id_roles, 
+                    "id_moduls"     => $id_modulos, 
+                    "is_view"       => $View,
+                    "is_add"        => $Add, 
+                    "is_edit"       => $Edit,
+                    "is_delete"     => $Delete,
+                    ]);
+            } 
         }
-        return "Actualizar";
+        foreach ($collectionMenus as $datos){
+            $id_roles   =   $id_roles;                    
+            $id_menus   =   $datos['Id'];
+            $name       =   $datos['Name'];
+            $View       =   $datos['View'];
+            $Add        =   $datos['Add'];                    
+            $Edit       =   $datos['Edit'];
+            $Delete     =   $datos['Delete'];                    
+            $verficar = Menusprivileges::where("id_roles",'=',$id_roles)->where("id_menus",'=',$id_menus);     
+            if($verficar->count()!=0){
+                Menusprivileges::where("id_roles",'=',$id_roles)->where("id_menus",'=',$id_menus)
+                ->update([
+                    'is_view'       => $View,
+                    'is_add'        => $Add, 
+                    'is_edit'       => $Edit,
+                    'is_delete'     => $Delete,
+                    ]);
+            }else{
+                Menusprivileges::insert([
+                    "id_roles"      => $id_roles, 
+                    "id_menus"     => $id_menus, 
+                    "is_view"       => $View,
+                    "is_add"        => $Add, 
+                    "is_edit"       => $Edit,
+                    "is_delete"     => $Delete,
+                    ]);
+            } 
+        }        
+        return response()->json(["success"=>true]);
     }
     public function listmoduls()
     {
@@ -560,7 +586,10 @@ class UsersController extends Controller
                         "Delete"=>false
                       ];
         }        
-            $datas = ["Permission"=>$data,"PermissionMenus"=>$dataM];        
+            $datas = [
+                    "Permission"=>$data,
+                    "PermissionMenus"=>$dataM
+                ];        
         return response()->json($datas); 
     }
     public function rolesdestroy($id)
@@ -574,7 +603,8 @@ class UsersController extends Controller
         $User->language = $lang;
         $User->save();
     }
-    public function listUser(){
+    public function listUser()
+    {
         $User = User::get();
             $data=[];
         foreach ($User as $Users) {
