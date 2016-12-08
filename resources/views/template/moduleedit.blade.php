@@ -35,19 +35,19 @@
                              <div class="col-lg-8">            
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label">{{'NAME' | translate}}:</label>
-                                    <div class="col-sm-7"><input type="text" class="form-control" ng-model='Info.Name' required></div>
+                                    <div class="col-sm-7"><input type="text" class="form-control" ng-model='module.Name' required></div>
                                 </div> 
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label">{{'MODULE' | translate}}:</label>
-                                    <div class="col-sm-7"><input type="text" class="form-control" ng-model='Info.Module' required></div>
+                                    <div class="col-sm-7"><input type="text" class="form-control" ng-model='module.Module' required></div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-5 control-label">{{'CLASS_CONTROLLER' | translate}}:</label>
-                                    <div class="col-sm-7"><input type="text" class="form-control" ng-model='Info.Controller' required></div>
+                                    <label class="col-sm-5 control-label">{{'CONTROLLER' | translate}}:</label>
+                                    <div class="col-sm-7"><input type="text" class="form-control" ng-model='module.Controller' required></div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label">{{'TABLE_MASTER' | translate}}:</label>
-                                    <div class="col-sm-7"><input type="text" class="form-control" ng-model='Info.Tabla' required></div>
+                                    <div class="col-sm-7"><input type="text" class="form-control" ng-model='module.Table_name' required></div>
                                 </div>
                              </div>
                             </div>
@@ -67,7 +67,14 @@
                             <i class="fa fa-table"></i> {{'TABLE' | translate}} 
                         </uib-tab-heading>
                         <div class="panel-body">
-                            Aqui muestra la tablas               
+                            <table class="table table-hover">
+                                <thead>
+                                    <th>action</th><th>Field</th><th>label</th>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="data in module.Config.grid"><td>No.</td> <td>{{data.field}}</td><td>{{data.label}}</td></tr>
+                                </tbody>
+                            </table>         
                         </div>
                     </uib-tab>
                     <uib-tab>

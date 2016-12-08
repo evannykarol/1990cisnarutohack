@@ -75,12 +75,46 @@ class ModuleController extends Controller
     }
     public function edit($id)
     {
+
+    function CF_encode_json($arr) {
+      $str = json_encode( $arr );
+      $enc = base64_encode($str );
+      $enc = strtr( $enc, 'poligamI123456', '123456poligamI');
+      return $enc;
+    }
+    
+    function CF_decode_json($str) {
+      $dec = strtr( $str , '123456poligamI', 'poligamI123456');
+      $dec = base64_decode( $dec );
+      $obj = json_decode( $dec ,true);
+      return $obj;
+    }   
+       $cisco =  ['grid'=>
+               [[
+               'table'=>'holas',
+               'field'=>'holas',
+               'label'=>'holas',
+               
+               ],
+               [
+               'table'=>'holas',
+               'field'=>'holas',
+               'label'=>'holas',
+               
+               ]]
+       ];
         $Moduls = Moduls::find($id);
         $data = [
                 "Name"=>$Moduls->name,
+                "Module"=>$Moduls->module,
+                "Icon"=>$Moduls->icon,
+                "Table_name"=>$Moduls->table_name,
+                "Model"=>$Moduls->model,
                 "Controller"=>$Moduls->controller,
-                "views"=>$Moduls->views,
-                "views"=>$Moduls->views,
+                "Views"=>$Moduls->views,
+                "is_softdelete"=>$Moduls->is_softdelete,
+                "id_moduls_group"=>$Moduls->id_moduls_group,
+                "Config"=>CF_decode_json($Moduls->config)
                 ];
         return response()->json($data);
     }

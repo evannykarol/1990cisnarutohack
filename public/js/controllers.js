@@ -1615,8 +1615,13 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
 };
 function EditModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state) 
 {
+  $scope.module ={};
   var id =  $stateParams.IdModule;
-  
+  $http.get('modul/'+id+'/edit')
+      .success(function(response){
+        $scope.module = response;
+  });
+
 };
 function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
 {
