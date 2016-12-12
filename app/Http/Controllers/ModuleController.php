@@ -89,20 +89,40 @@ class ModuleController extends Controller
       $obj = json_decode( $dec ,true);
       return $obj;
     }   
-       $cisco =  ['grid'=>
-               [[
-               'table'=>'holas',
-               'field'=>'holas',
-               'label'=>'holas',
-               
+       $Config =[
+               'tableDB'=>'holas',
+               'Formcolumn'=>2
+            ];
+        $Grid =[
+               ['field'=>'Columnas1',
+               'show'=>1,
+               'sortable'=>1,
+               'download'=>1
                ],
-               [
-               'table'=>'holas',
-               'field'=>'holas',
-               'label'=>'holas',
-               
-               ]]
-       ];
+               ['field'=>'Columnas2',
+               'show'=>1,
+               'sortable'=>1,
+               'download'=>1
+               ]
+            ];
+        $Form =[
+               ['field'=>'Columnas1',
+               'show'=>1,
+               'sortable'=>1,
+               'download'=>1
+               ],
+               ['field'=>'Columnas2',
+               'show'=>1,
+               'sortable'=>1,
+               'download'=>1
+               ]
+            ];            
+
+        // return response()->json(
+        //     [
+        //     'Config'=>$Config,
+        //     'Grid'=>$Grid,
+        //     ]);
         $Moduls = Moduls::find($id);
         $data = [
                 "Name"=>$Moduls->name,

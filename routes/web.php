@@ -275,4 +275,4 @@ Route::get('user/translate/{lang}','UsersController@getTranslate');
 Route::get('datosj','DashboardController@getfile');
 
 
-require('routes.php');
+// require('routes.php');

@@ -99,6 +99,8 @@
             "NEW_PASSWORD":"NUEVO CONTRASEÑA",
             "CONFIRM_PASSWORD":"CONFIR. CONTRASEÑA",
             "Module_Generator":"GENERADOR DE MÓDULOS",
+            "MODULE": "MODULO",
+            "EDIT_MODULE":"EDITAR MODULO",
             "IS_GROUP":"ES GRUPO",
             "FULLSCREEN":"PANTALLA COMPLETA",                   
             "CONFIRM_DELETE": "¿Esta seguro que desea eliminar?", 

@@ -46,9 +46,9 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">{{ 'CONFIGURATION' | translate }}<br/></label>
                             <div class="col-sm-6">
-                                <div><label> <input icheck type="checkbox" ng-model="generate.timestamps['on']">
+                                <div><label> <input icheck type="checkbox" ng-model="generate.timestamps">
                                     TIMESTAMPS </label></div>
-                                <div><label> <input icheck type="checkbox" ng-model="generate.softdeletes['on']">
+                                <div><label> <input icheck type="checkbox" ng-model="generate.softdeletes">
                                     SOFT DELETES </label></div>
                             </div>
                             <div class="col-sm-4 text-right"><button type="button" class="btn btn-primary" ng-click="increment()">{{ 'ADD_ONE_MORE_FIELD' | translate }}</button></div>
@@ -59,7 +59,7 @@
                         <div ng-repeat="item in generate.items" >
                             <div class="form-group animated fadeInRight" ng-model="item.id">
                              <div class="row">   
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="row">
                                         <div class="col-sm-2"><div class="rem btn btn-info handle"><span class="fa fa-arrows"></span></div></div>
                                         <div class="col-sm-10">                                    
@@ -77,13 +77,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <input type="text" class="form-control" ng-model="item.column" placeholder="{{ 'FIELDDBNAME' | translate }}" required="true">
                                 </div>
-                                <div class="col-sm-3">
-                                    <input type="text" class="form-control" ng-model="item.title" placeholder="{{ 'FIELDVISUALTITLE' | translate }}" required="true">
-                                </div> 
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="row">
                                         <div class="col-sm-10">
                                         <select class="form-control m-b" ng-model="item.Opcion" required>
@@ -126,7 +123,7 @@
                                 </div>                            
                             </div>
                         </div>
-                        <!-- <pre ng-bind="generate.items|json"></pre> -->
+                        <pre ng-bind="generate|json"></pre>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <button type="submit" class="ladda-button btn btn-primary" ladda="btnload" data-style="expand-right"><span><i class="fa fa-save"></i> {{ 'SAVE' | translate }}</span></button>

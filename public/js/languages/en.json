@@ -99,6 +99,8 @@
             "NEW_PASSWORD":"NEW PASSWORD",
             "CONFIRM_PASSWORD":"CONFIRM PASSWORD",  
             "Module_Generator":"MODULE GENERATOR",
+            "MODULE": "MODULE",
+            "EDIT_MODULE":"EDIT MODULE",
             "IS_GROUP":"IS GROUP",
             "FULLSCREEN":"FULLSCREEN",
             "CONFIRM_DELETE": "Are you sure you want to delete?",
@@ -161,5 +163,6 @@
             "CHANGE_OF_PASSWORD":"CHANGE OF PASSWORD",
             "ABOUT_ME":"ABOUT ME",
             "Location_is":"Location is",
-            "About_me":"About me"
+            "About_me":"About me",
+            "FORMULARIOS":"FORMULARIOS",
 }          

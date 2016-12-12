@@ -5181,6 +5181,12 @@ table.issue-tracker tbody tr td {
 }
 /* AGILE BOARD */
 .sortable-list {
+  background-color: #fff; 
+  border: 1px solid #ddd;
+  list-style: none;
+  margin: 0;
+  min-height: 60px;
+  /*revisando*/
   padding: 10px 0;
 }
 .agile-list {

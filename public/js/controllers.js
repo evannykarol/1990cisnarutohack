@@ -1095,10 +1095,10 @@ function DataServicehostingCtrl($scope, editId, table, $http, $uibModalInstance)
 function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) 
 { 
   $scope.generate = {'template':'bootstrap'};
-  $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
+  $scope.generate.items = [{'id':0,'type':'text','column':null, 'Opcion':'optional','table':null,'tcolumn':null}];
   $scope.colum =[];
   $scope.increment = function () {
-        $scope.generate.items.push({'id':$scope.generate.items.length,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null});
+        $scope.generate.items.push({'id':$scope.generate.items.length,'type':'text','column':null,'Opcion':'optional','table':null,'tcolumn':null});
     };
   $scope.remove = function( row ) {
         $scope.generate.items.splice( $scope.generate.items.indexOf( row ), 1 );
@@ -1621,7 +1621,33 @@ function EditModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
       .success(function(response){
         $scope.module = response;
   });
+  $scope.sortableOptions = {
+        cursor: "move",
+        revert: 'invalid',
+        handle: ".handle",
+        forceHelperSize: true,
+        connectWith: ".apps-container"
+  };
+  $scope.list2a = [{'id':1,'name':'version 1','isgrup':1},
+                  {'id':2,'name':'version 2','isgrup':2},
+                  {'id':3,'name':'version 3','isgrup':2}
 
+                  ];
+$scope.lista = {};
+// $scope.lista.group1= [{'id':1,'name':'version 1','isgrup':1},{'id':2,'name':'version 2','isgrup':1}];
+// $scope.lista.group2=[{'id':2,'name':'version 2','isgrup':2}];
+// $scope.lista.group3= {};
+// $scope.lista.group4= {};
+
+$scope.lista.group= [
+[{'id':1,'name':'version 1','isgrup':1},{'id':2,'name':'version 2','isgrup':1}],
+[{'id':1,'name':'version 1','isgrup':1},{'id':2,'name':'version 2','isgrup':1}],
+[],
+[]
+];
+  $scope.getNumber = function(num) {
+        return new Array(num);   
+    }
 };
 function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
 {
