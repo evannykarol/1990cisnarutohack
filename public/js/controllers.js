@@ -1458,6 +1458,7 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
       $http.get('ticket/'+id+'/show')
       .success(function(response){
       $scope.Id                 = response.Id;
+      $scope.ticket             = response;
       $scope.ticket.Name        = response.Name;
       $scope.ticket.Client      = response.Client;
       $scope.ticket.Title       = response.Title;
@@ -1492,17 +1493,20 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
     $scope.submit = function()
     {
       if($scope.Ticket.Description){
+        $scope.btnloadingreplay = true;  
          $http({
           method  : 'POST',
           url     : 'ticket/comment',
           data    : $scope.Ticket,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
+                $scope.btnloadingreplay = false;  
                 ticket();
                 $scope.open = 'yes';
                 $scope.openresponde = 'no';
                 sweetAlert('Correctamente', "", "success");
           }, function errorCallback(response) {
+                $scope.btnloadingreplay = false;  
                 sweetAlert("Oops...", "Something went wrong!", "error");
           }); 
       }
@@ -1518,20 +1522,18 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
     $scope.update = function()
     {
           id = $scope.ticket.IdTicket;
+          $scope.btnload = true;
          $http({
           method  : 'POST',
           url     : 'ticket/'+id+'/update',
           data    : $scope.ticket,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
-                // ticket();
-                // $scope.open = 'yes';
-                // $scope.openresponde = 'no';
-                // sweetAlert('Correctamente', "", "success");
-
+                $scope.btnload = false;
+                sweetAlert('Correctamente', "", "success");
           }, function errorCallback(response) {
-
-                // sweetAlert("Oops...", "Something went wrong!", "error");
+                $scope.btnload = false;
+                sweetAlert("Oops...", "Something went wrong!", "error");
           }); 
 
    };   

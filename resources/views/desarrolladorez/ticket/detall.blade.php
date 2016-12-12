@@ -34,7 +34,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="m-b-md">
-                <h2><b>Ticket # {{ticket.IdTicket}} <button type="submit" class="btn btn-primary pull-right">Actualizar</button></b></h2>
+                <h2><b>Ticket # {{ticket.IdTicket}} <button type="submit" class="btn btn-primary pull-right ladda-button" ladda="btnload" ng-if="ticket.is_admin_ticket == false">Actualizar</button> 
+                     <button type="button" class="btn btn-danger pull-right" ng-if="ticket.is_delete_ticket == true">DELETE</button>
+                </b></h2>
             </div>
         </div>
     </div>        
@@ -42,14 +44,14 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="col-sm-4 control-label">{{ 'TITLE' | translate }}:</label>
-                <div class="col-sm-8"><input type="text" class="form-control" ng-model='ticket.Title' required ng-disabled="disable"></div>
+                <div class="col-sm-8"><input type="text" class="form-control" ng-model='ticket.Title' required ng-disabled="ticket.is_admin_ticket"></div>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
                 <label class="col-sm-4 control-label">{{ 'DEPARTAMENT' | translate }}:</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-model='ticket.Departament' convert-to-number required>
+                    <select class="form-control" ng-model='ticket.Departament' convert-to-number required ng-disabled="ticket.is_admin_ticket">
                         <option ng-repeat="option in departament" value="{{option.id}}">{{option.name}}</option>
                     </select>
                 </div>
@@ -61,7 +63,7 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">{{ 'TYPE' | translate }}:</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Type'>
+                    <select class="form-control" ng-model='ticket.Type' ng-disabled="ticket.is_admin_ticket">
                         <option value="1">{{'Incident' | translate}}</option>
                         <option value="2">{{'Request' | translate}}</option>
                     </select>
@@ -72,7 +74,7 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">{{ 'PRIORITY' | translate }}:</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Priority'>
+                    <select class="form-control" ng-model='ticket.Priority' ng-disabled="ticket.is_admin_ticket">
                         <option value="1">{{'Low' | translate}}</option>
                         <option value="2">{{'Medium' | translate}}</option>
                         <option value="3">{{'High' | translate}}</option>
@@ -87,7 +89,7 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">{{ 'CLIENT' | translate }}:</label>
                 <div class="col-sm-8">
-                    <ui-select ng-model="ticket.Client" theme="bootstrap">
+                    <ui-select ng-model="ticket.Client" theme="bootstrap" ng-disabled="true">
                         <ui-select-match>{{$select.selected.Name}}</ui-select-match>
                         <ui-select-choices repeat="item.Id as item in person  | filter: $select.search">
                             <div ng-bind-html="item.Name | highlight: $select.search"></div>
@@ -101,7 +103,7 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">{{ 'ASSIGNED_TO_TECHNICIAN' | translate }}:</label>
                 <div class="col-sm-8">
-                    <ui-select ng-model="ticket.Technician" theme="bootstrap">
+                    <ui-select ng-model="ticket.Technician" theme="bootstrap" ng-disabled="ticket.is_admin_ticket">
                         <ui-select-match>{{$select.selected.Name}}</ui-select-match>
                         <ui-select-choices repeat="item.Id as item in person  | filter: $select.search">
                             <div ng-bind-html="item.Name | highlight: $select.search"></div>
@@ -117,7 +119,7 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">{{ 'STATUS' | translate }}:</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-disabled="disable" ng-model='ticket.Status'>
+                    <select class="form-control" ng-model='ticket.Status' ng-disabled="ticket.is_admin_ticket">
                         <option value="1">{{ 'New' | translate }}</option>
                         <option value="2">{{ 'Wait' | translate }}</option>
                         <option value="3">{{ 'Resolved' | translate }}</option>
@@ -191,7 +193,7 @@
                                     <div ng-if="openresponde == 'yes'">
                                      <form  class="form-horizontal" ng-submit="submit()">
                                         <textarea  class="form-control" ng-model="Ticket.Description" ckeditor required></textarea>
-                                        <button type="submit" class="btn btn-primary">{{ 'REPLAY' | translate }}</button>
+                                        <button type="submit" class="ladda-button btn btn-success" ladda="btnloadingreplay">{{ 'REPLAY' | translate }}</button>
                                         <button type="button" ng-click="Close()" class="btn btn-danger">{{ 'CANCEL' | translate }}</button>
                                      </form> 
                                     </div>

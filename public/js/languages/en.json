@@ -115,7 +115,7 @@
             "TICKET_SYSTEM":"TICKET SYSTEM",
             "NEW_TICKET":"NEW TICKET",
             "TITLE":"TITLE",
-            "DEPARTMENT":"DEPARTMENT",
+            "DEPARTAMENT":"DEPARTAMENT",
             "TYPE":"TYPE",
             "PRIORITY":"PRIORITY",
             "MESSAGE":"MESSAGE",
@@ -165,4 +165,5 @@
             "Location_is":"Location is",
             "About_me":"About me",
             "FORMULARIOS":"FORMULARIOS",
+            "DETALL":"DETALL"
 }          

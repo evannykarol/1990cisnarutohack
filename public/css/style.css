@@ -774,7 +774,8 @@ fieldset[disabled] .btn-default:hover,
 fieldset[disabled] .btn-default:focus,
 fieldset[disabled] .btn-default:active,
 fieldset[disabled] .btn-default.active {
-  color: #cacaca;
+  /*color: #cacaca;*/
+  color: #040404;
 }
 .btn-warning {
   background-color: #f8ac59;

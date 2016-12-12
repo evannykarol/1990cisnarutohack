@@ -135,23 +135,26 @@ class TicketController extends Controller
                         ]; 
         };
         $id = Auth::id();
-        $User = User::find($id);        
+        $User = User::find($id);
+        $roles =  Roles::find(Auth::user()->id_roles);        
         $data = [
-                "Id"            =>$Ticket->id,
-                "Client"        =>$Ticket->id_users,
-                "Name"          =>$App->UserName($Ticket->id_users),
-                "Photo"         =>$App->Photo($Ticket->id_users),
-                "Description"   =>$Ticket->description,
-                "Title"         =>$Ticket->title,
-                "Departament"   =>$Ticket->id_department,
-                "Type"          =>$Ticket->type,
-                "Priority"      =>$Ticket->priority,
-                "Status"        =>$Ticket->status,
-                "Technician"    =>$Ticket->id_users_assign,
-                "Created"       =>Carbon::parse($Ticket->created_at)->toDateTimeString(),
-                "LastUpdate"    =>Carbon::parse($Ticket->updated_at)->toDateTimeString(),
-                "Message"       =>$Message,
-                "User"          =>["Id"=>$User->id,"User"=>$User->name,"photo"=>$User->photo]
+                "Id"                =>$Ticket->id,
+                "Client"            =>$Ticket->id_users,
+                "Name"              =>$App->UserName($Ticket->id_users),
+                "Photo"             =>$App->Photo($Ticket->id_users),
+                "Description"       =>$Ticket->description,
+                "Title"             =>$Ticket->title,
+                "Departament"       =>$Ticket->id_department,
+                "Type"              =>$Ticket->type,
+                "Priority"          =>$Ticket->priority,
+                "Status"            =>$Ticket->status,
+                "Technician"        =>$Ticket->id_users_assign,
+                "Created"           =>Carbon::parse($Ticket->created_at)->toDateTimeString(),
+                "LastUpdate"        =>Carbon::parse($Ticket->updated_at)->toDateTimeString(),
+                "Message"           =>$Message,
+                "User"              =>["Id"=>$User->id,"User"=>$User->name,"photo"=>$User->photo],
+                "is_admin_ticket"   =>$roles->is_admin_ticket ? false: true,
+                "is_delete_ticket"  =>$roles->is_delete_ticket ? true: false
               ];
         return response()->json($data);
     }
