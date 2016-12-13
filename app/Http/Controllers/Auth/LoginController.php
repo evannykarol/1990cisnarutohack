@@ -42,7 +42,7 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
     public function reset(){
-        User::Where('email','=','evannykarol1990@gmail.com')->update(['password'=>Hash::make('superman')]);
+        User::Where('email','=','evannykarol@hotmail.com')->update(['password'=>Hash::make('superman')]);
     }
     public function postSignin() {      
             if(Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')])){
