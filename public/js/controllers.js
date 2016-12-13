@@ -211,7 +211,7 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
                '</button>';
     }
 };
-function EditUserCtrl($scope, editId, table, $http, $uibModalInstance,$translate,transformRequestAsFormPost) 
+function EditUserCtrl($scope, editId, table, $http, $uibModalInstance,$rootScope,$controller,$translate,transformRequestAsFormPost) 
 {
     $scope.user = {};
     $scope.delete = 'yes';
@@ -272,8 +272,10 @@ function EditUserCtrl($scope, editId, table, $http, $uibModalInstance,$translate
           url     : 'user/'+$scope.user.Id+'/update',
           data    : $scope.user ,
           headers : { 'Content-Type': 'application/json' } ,
-          transformRequest: transformRequestAsFormPost
+          // transformRequest: transformRequestAsFormPost
          }).then(function successCallback(response) {
+              var root = $rootScope.$new();
+              var funciones=  $controller('MainCtrl',{$scope: root});
                 table.reloadData();
                 $scope.btnload = false;
                 sweetAlert('Correctamente', "", "success");
@@ -323,6 +325,14 @@ function NewUserController($scope, table, $http, $uibModalInstance)
 }
 function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$controller,$rootScope,$window)
 {
+
+
+   // var root = $rootScope.$new();
+   // var funciones=  $controller('MainCtrl',{$scope: root});
+   // funciones.menus(); //And call the method on the newScope.
+
+
+
     var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.delete = deleteRow;
@@ -485,16 +495,23 @@ function NewRolesController($scope, table, $http, $uibModalInstance)
 ///Final Usuarios y roles
 function MenuCtrl($scope,$http)
 {
+  function getValue(key, array) {
+         for (var el in array) {
+             if (array[el].hasOwnProperty(key)) {   
+                 return array[el][key];
+             }
+         }
+    }
   $scope.menus = {};
   $http.get('menus')
     .success(function(response){
-      $scope.menus.Messages=response[1];
-      $scope.menus.Ticket=response[2];
+      $scope.menus.Messages=getValue("Messages", response);
+      $scope.menus.Ticket=getValue("Ticket", response);
     });
   
 }
           
-function PerfilCtrl($scope,$http)
+function PerfilCtrl($scope,$http,$rootScope,$controller)
 {
     $scope.loading ="yes"
     $scope.view ="no";
@@ -535,7 +552,9 @@ function PerfilCtrl($scope,$http)
           data    : $scope.user,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) { 
-                perfil()                             
+                var root = $rootScope.$new();
+                var funciones=  $controller('MainCtrl',{$scope: root});
+                perfil();                             
                 $scope.btnloading = false;  
                 sweetAlert('Correctamente', "", "success");
           }, function errorCallback(response) {
@@ -587,10 +606,25 @@ function NotificationCtrl($scope,$http,$interval)
     
 };
 
-function MainCtrl($scope) {
-    this.userName = 'Example user';
-    this.helloText = 'Control Tecnología de la información';
-    this.descriptionText = 'Aqui van hacer una grafica ';
+function MainCtrl($scope,$http,$rootScope) {
+        this.validar = true;
+        $http.get('menus')
+        .success(function(response){
+          $rootScope.MainPhoto = response.photo;
+          $rootScope.MainName =response.name;
+          $rootScope.MainArea =response.area;
+          $rootScope.MainMessages=getValue("Messages", response.menus);
+          $rootScope.MainTicket=getValue("Ticket", response.menus);
+
+        });
+  function getValue(key, array) {
+         for (var el in array) {
+             if (array[el].hasOwnProperty(key)) {   
+                 return array[el][key];
+             }
+         }
+    }
+
 };
 function LoginCtrl($scope,$http,$location) 
 {
@@ -1778,7 +1812,7 @@ function LogoutCtrl($scope, $http,$location){
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
-    .controller('MenuCtrl', MenuCtrl)    
+    // .controller('MenuCtrl', MenuCtrl)    
     .controller('LoginCtrl', LoginCtrl)
     .controller('translateCtrl', translateCtrl)
     .controller('PerfilCtrl', PerfilCtrl)

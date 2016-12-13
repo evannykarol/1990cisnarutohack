@@ -1,22 +1,16 @@
-<nav class="navbar-default navbar-static-side" role="navigation" ng-controller="PerfilCtrl">
-    <div class="sidebar-collapse" ng-controller="MenuCtrl">
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse" >
         <ul side-navigation class="nav metismenu" id="side-menu">
             <li class="nav-header">
              <center>
-                <div class="spiner-example" ng-if="navperfilload">
-                    <div class="sk-spinner sk-spinner-chasing-dots">
-                        <div class="sk-dot1"></div>
-                        <div class="sk-dot2"></div>
-                    </div>
-                </div>
-                <div class="profile-element" uib-dropdown ng-if="navperfil == 'yes'">
-                    <img alt="image" class="img-circle" ng-src="img/perfil/{{Photo}}" width="70px" />
+                <div class="profile-element" uib-dropdown>
+                    <img alt="image" class="img-circle" ng-src="img/perfil/{{MainPhoto}}" width="70px" />
                     <a uib-dropdown-toggle href>
                             <span class="clear">
                                 <span class="block m-t-xs">
-                                    <strong class="font-bold">{{Name}}</strong>
+                                    <strong class="font-bold">{{MainName}}</strong>
                              </span>
-                                <span class="text-muted text-xs block">{{Area}}<b class="caret"></b></span>
+                                <span class="text-muted text-xs block">{{MainArea}}<b class="caret"></b></span>
                             </span>
                     </a>
                     <ul uib-dropdown-menu="" class="animated fadeInRight m-t-xs">
@@ -25,7 +19,7 @@
                     </ul>
                 </div>
                 <div class="logo-element">
-                    <img class="img-circle" ng-src="img/perfil/{{Photo}}" width="40px">
+                    <img class="img-circle" ng-src="img/perfil/{{MainPhoto}}" width="40px">
                 </div>
              </center>
             </li>
@@ -60,14 +54,14 @@
                 <a ui-sref="<% $catalogsss->viewcatalog %>"><i class="fa <% $catalogsss->icon %>" title="<% $catalogsss->catalogs %>"></i> <span class="nav-label"><% $catalogsss->description %></span> </a>
             </li>
             @endforeach            
-            <li ui-sref-active="active" ng-if="menus.Messages">
+            <li ui-sref-active="active" ng-if="MainMessages">
                 <a ui-sref="index.messages">
                     <i class="fa fa-envelope"></i> 
                     <span class="nav-label">{{ 'Message' | translate }}</span>
                     <span class="label label-warning pull-right">16/24</span>
                 </a>
             </li>
-            <li ui-sref-active="active" ng-if="menus.Ticket">
+            <li ui-sref-active="active" ng-if="MainTicket">
                 <a ui-sref="index.ticket">
                     <i class="fa fa-ticket"></i> 
                     <span class="nav-label">{{ 'Ticket_System' | translate }}</span>

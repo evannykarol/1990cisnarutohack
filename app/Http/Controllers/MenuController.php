@@ -20,7 +20,12 @@ class MenuController extends Controller
     		$idroles =  MenusPrivileges::where('id_roles','=',$id)->where("id_menus","=",$menu->id)->first();
     		$men[] = [$menu->key_name =>$idroles->is_view ? true : false];
     	};
-    	// $data = ['menus' => $men];				
-    	return response()->json($men);
+    	$data = [
+    			'photo' => Auth::user()->photo,
+    			'name' => Auth::user()->name,
+    			'area' => Auth::user()->area,
+    			'menus' => $men
+    	];				
+    	return response()->json($data);
     }
 }
