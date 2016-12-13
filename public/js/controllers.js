@@ -392,7 +392,7 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
                '</button>';
     }
 };
-function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translate) 
+function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translate,$rootScope,$controller) 
 {
     $scope.roles = {}; 
     $scope.roles.Permission = {};
@@ -448,6 +448,8 @@ function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translat
           data    : $scope.roles,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
+              var root = $rootScope.$new();
+              var funciones=  $controller('MainCtrl',{$scope: root});
                 table.reloadData();
                 $scope.btnload = false;
                 sweetAlert('Correctamente', "", "success");
