@@ -483,6 +483,17 @@ function NewRolesController($scope, table, $http, $uibModalInstance)
 }
 
 ///Final Usuarios y roles
+function MenuCtrl($scope,$http)
+{
+  $scope.menus = {};
+  $http.get('menus')
+    .success(function(response){
+      $scope.menus.Messages=response[1];
+      $scope.menus.Ticket=response[2];
+    });
+  
+}
+          
 function PerfilCtrl($scope,$http)
 {
     $scope.loading ="yes"
@@ -511,7 +522,8 @@ function PerfilCtrl($scope,$http)
           $scope.Name                   = response.Name;
           $scope.Area                   = response.Area;
           $scope.Photo                  = response.Photo;
-          $scope.aboutme                = response.Aboutme;        
+          $scope.aboutme                = response.Aboutme;
+     
       });
     };
     perfil();
@@ -1766,6 +1778,7 @@ function LogoutCtrl($scope, $http,$location){
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
+    .controller('MenuCtrl', MenuCtrl)    
     .controller('LoginCtrl', LoginCtrl)
     .controller('translateCtrl', translateCtrl)
     .controller('PerfilCtrl', PerfilCtrl)

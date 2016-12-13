@@ -1,5 +1,5 @@
 <nav class="navbar-default navbar-static-side" role="navigation" ng-controller="PerfilCtrl">
-    <div class="sidebar-collapse">
+    <div class="sidebar-collapse" ng-controller="MenuCtrl">
         <ul side-navigation class="nav metismenu" id="side-menu">
             <li class="nav-header">
              <center>
@@ -60,9 +60,19 @@
                 <a ui-sref="<% $catalogsss->viewcatalog %>"><i class="fa <% $catalogsss->icon %>" title="<% $catalogsss->catalogs %>"></i> <span class="nav-label"><% $catalogsss->description %></span> </a>
             </li>
             @endforeach            
-            <li ui-sref-active="active">
-                <a ui-sref="index.messages"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'Message' | translate }}</span><span class="label label-warning pull-right">16/24</span></a></li>
-            <li ui-sref-active="active"><a ui-sref="index.ticket"><i class="fa fa-ticket"></i> <span class="nav-label">{{ 'Ticket_System' | translate }}</span> </a></li>                  
+            <li ui-sref-active="active" ng-if="menus.Messages">
+                <a ui-sref="index.messages">
+                    <i class="fa fa-envelope"></i> 
+                    <span class="nav-label">{{ 'Message' | translate }}</span>
+                    <span class="label label-warning pull-right">16/24</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" ng-if="menus.Ticket">
+                <a ui-sref="index.ticket">
+                    <i class="fa fa-ticket"></i> 
+                    <span class="nav-label">{{ 'Ticket_System' | translate }}</span>
+                </a>
+            </li>                  
         </ul>
     </div>
 </nav>
