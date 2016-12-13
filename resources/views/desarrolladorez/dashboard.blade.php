@@ -94,9 +94,7 @@
                     </div>
                     <div class="col-md-3">
                      <select class="form-control" ng-model="Years" ng-change="changeYears(Years)" convert-to-number>
-                        <option>2015</option>
-                        <option>2016</option>
-                        <option>2017</option>
+                        <option ng-repeat="i in year">{{i}}</option>
                      </select>
                     </div>
                 </div>

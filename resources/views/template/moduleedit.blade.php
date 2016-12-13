@@ -1,12 +1,15 @@
-<div class="row wrapper border-bottom white-bg page-heading">
+<div class="row wrapper border-bottom white-bg page-heading" ng-controller="EditModulsCtrl">
     <div class="col-lg-10">
         <h2>Modulo</h2>
         <ol class="breadcrumb">
             <li>
                 <a ui-sref="index.main">{{ 'HOME ' | translate }}</a>
             </li>
+            <li>
+                <a ui-sref="index.module_generator">{{ 'Module_Generator ' | translate }}</a>
+            </li>
             <li ui-sref="index.crud">
-                <a ui-sref="index.module_generator">{{ 'MODULE' | translate }}</a>                
+                <a ui-sref="index.Edit_module_generator({ qId: module.id_moduls_group})">{{ 'MODULE' | translate }}</a>                
             </li>
             <li class="active">
                 <strong>{{ 'EDIT_MODULE' | translate }}</strong>

@@ -18,14 +18,17 @@ class ModuleController extends Controller
 
     public function querymoduls($id)
     {
+        $App = app()->make('Data');
         $Modul = Moduls::where('id_moduls_group','=',$id)->get();
         $data = [];
         foreach ($Modul as $Moduls) {
             $data[] = [
                         "id"            => $Moduls->id,
                         "name"          => $Moduls->name,
+                        "controller"    => $Moduls->controller,
+                        "tablename"    => $Moduls->table_name,
                         "icon"          => '<i class="'.$Moduls->icon.'"></i>',
-                        "is_active"     => $Moduls->is_active
+                        "is_active"     => $App->Status($Moduls->is_active)
                       ];
         }
         return response()->json($data);

@@ -36,9 +36,6 @@ $scope.changeYears =  function(years){
 
   $scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October","November","December"];
   $scope.series = ['Ticket'];
-  // $scope.data = [
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-  // ;
   $scope.onClickd = function () {
      $scope.labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October","November","December"];
   };
@@ -59,6 +56,34 @@ $scope.changeYears =  function(years){
   $scope.clickstatus =  function(status){
     $state.go('index.ticket', {'status': status});
   }
+    $scope.getNumber = function(num) {
+        return new Array(num);   
+    }
+    // var start = 2015;
+    // var d = new Date();
+    // var n = d.getFullYear();
+    // num = n-start ;
+    // da = new Array(num);
+    // for (var i = da.length ; i >= 0; i--) {
+    //    // data.Array = [start++];
+    //    alert(data.push(start++));
+    // };
+    // $scope.year = data;
+
+    function generate_year_range(start, end){
+        var years = [];
+        for(var year = start; year <= end; year++){
+            years.push(year)
+        }
+        return years;
+    }
+    var d = new Date();
+    var n = d.getFullYear();
+    var my_years = generate_year_range(2016,n);
+    $scope.year = my_years;
+
+
+
 };
 ///////////////////////
 function MessagesCtrl($scope, $http, $location)
@@ -1581,8 +1606,10 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
         .renderWith(actionsHtml).withOption('width','10px')
         .withOption('className', 'text-center').withTitle('ACTION'),
         DTColumnBuilder.newColumn('name').withTitle($translate.instant('NAME')),
-        DTColumnBuilder.newColumn('icon').withTitle($translate.instant('ICON')),
-        DTColumnBuilder.newColumn('is_active').withTitle($translate.instant('STATUS')),
+        DTColumnBuilder.newColumn('controller').withTitle($translate.instant('CONTROLLER')),
+        DTColumnBuilder.newColumn('tablename').withTitle($translate.instant('TABLE_NAME')),
+        DTColumnBuilder.newColumn('icon').withTitle($translate.instant('ICON')).withOption('className', 'text-center'),
+        DTColumnBuilder.newColumn('is_active').withTitle($translate.instant('STATUS')).withOption('className', 'text-center'),
      
     ];
 
