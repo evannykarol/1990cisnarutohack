@@ -1,30 +1,12 @@
-function type(id)
+function translateCtrl($translate, $scope,$http, $controller,$rootScope) 
 {
-    if(id === 1)
-    {
-      return 'Incident';    
-    } else
-    {
-      return 'Request';
-    }
-
-};
-function priority(id)
-{
-    if(id === 1)
-    {
-      return 'Low';
-    } else if(id === 2)
-    {
-      return 'Medium';
-    } else if(id === 3)
-    {
-      return 'High';
-    } else
-    {
-      return 'Urgent';
-    }
-};
+    $scope.changeLanguage = function (langKey) {
+        $translate.use(langKey);
+        // $translateProvider.preferredLanguage(langKey);
+        $scope.language = langKey;
+        $http.get('user/translate/'+langKey)
+    };
+}
 function DashboardCtrl($scope, $http, $location,$state)
 {
   var years = new Date().getFullYear();
@@ -128,8 +110,9 @@ function MessagesCtrl($scope, $http, $location)
 
 ///Usuarios y roles
 
-function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location)
+function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$window)
 {
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -138,6 +121,7 @@ function UsersCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)        
         .withOption('processing', true);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).notSortable()
             .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
@@ -312,8 +296,9 @@ function NewUserController($scope, table, $http, $uibModalInstance)
       });          
     };
 }
-function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$controller,$rootScope)
+function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$controller,$rootScope,$window)
 {
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -322,6 +307,7 @@ function RolesCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilde
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)      
         .withOption('processing', true);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).notSortable()
         .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
@@ -630,9 +616,9 @@ function OptCtrl($scope)
 //     };
 // };
 
-function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuilder, DTColumnBuilder)
+function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuilder, DTColumnBuilder, $window)
 {
-
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -641,6 +627,7 @@ function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuild
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
         .withOption('processing', true);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');    
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).notSortable()
             .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
@@ -691,9 +678,9 @@ function PermissionCtrl($scope, $uibModal, $compile,$stateParams, DTOptionsBuild
 };
 
 
-function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder)
+function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$window)
 {
-
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -703,6 +690,7 @@ function CatalogCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuil
         .withOption('createdRow', createdRow)
         .withOption('responsive', true) 
         .withOption('processing', true);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');    
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).notSortable()
             .renderWith(actionsHtml).withOption('className', 'text-center').withOption('width', '10px'),
@@ -788,9 +776,9 @@ function hostingCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder)
     }
 };
 
-function AccessRemoteCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder)
+function AccessRemoteCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$window)
 {
-
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -798,6 +786,7 @@ function AccessRemoteCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColum
     vm.dtOptions = DTOptionsBuilder.fromSource('hosting/showacessremote')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');        
     vm.dtColumns = [
         DTColumnBuilder.newColumn('Users'),
         DTColumnBuilder.newColumn('Password'),
@@ -888,9 +877,9 @@ function DataCatalogsCtrl($scope, editId, table, $http, $uibModalInstance)
           });          
     };
 };
-function DomainCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder)
+function DomainCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder,$window)
 {
-
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.edit = edit;
     vm.delete = deleteRow;
@@ -899,6 +888,7 @@ function DomainCtrl($scope, $compile, DTOptionsBuilder, DTColumnBuilder)
     vm.dtOptions = DTOptionsBuilder.fromSource('hosting/showacessremote')
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');        
     vm.dtColumns = [
         DTColumnBuilder.newColumn('Id'),
         DTColumnBuilder.newColumn('Name'),
@@ -1003,18 +993,9 @@ function SettingsCtrl($scope,$http)
           }); 
     }        
 } 
-function translateCtrl($translate, $scope,$http, $controller,$rootScope) 
+function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$window)
 {
-    $scope.changeLanguage = function (langKey) {
-        $translate.use(langKey);
-        // $translateProvider.preferredLanguage(langKey);
-        $scope.language = langKey;
-        $http.get('user/translate/'+langKey)
-    };
-}
-function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder)
-{
-
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -1023,6 +1004,7 @@ function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTCol
         .withPaginationType('full_numbers')
         .withOption('createdRow', createdRow)
         .withOption('processing', true);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');        
     vm.dtColumns = [
         DTColumnBuilder.newColumn(null).notSortable()
             .renderWith(actionsHtml),
@@ -1093,7 +1075,7 @@ function DataServicehostingCtrl($scope, editId, table, $http, $uibModalInstance)
           });          
     };
 };
-function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) 
+function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$window) 
 { 
   $scope.generate = {'template':'bootstrap'};
   $scope.generate.items = [{'id':0,'type':'text','column':null, 'Opcion':'optional','table':null,'tcolumn':null}];
@@ -1127,7 +1109,7 @@ function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnB
     };
 
       ////////////////////////////es para databases de datos
-
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -1137,6 +1119,7 @@ function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnB
         .withOption('createdRow', createdRow)
         .withOption('responsive', true)         
         .withOption('processing', true);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');        
     vm.dtColumns = [
       DTColumnBuilder.newColumn(null).notSortable()
         .renderWith(actionsHtml).withOption('width','10px')
@@ -1181,7 +1164,7 @@ function CrudCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnB
 
 
 ////////////////////////////modulos
-function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location) 
+function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$window) 
 { 
     $scope.generate = {'template':'bootstrap'};
     $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
@@ -1215,7 +1198,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
     };
 
       //////////////////////////////es para databases de datos
-
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -1225,6 +1208,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         .withOption('createdRow', createdRow)
         .withOption('responsive', true)         
         .withOption('processing', true);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');        
     vm.dtColumns = [
       DTColumnBuilder.newColumn(null).notSortable()
         .renderWith(actionsHtml).withOption('width','100px')
@@ -1280,7 +1264,7 @@ function ModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
                '</button>';
     } 
 };
-function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate) {
+function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate,$window) {
       if($stateParams.status=='New')
       {
         status=1;
@@ -1306,6 +1290,7 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
       }
       
       $scope.load = 'yes';
+      var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";      
       var vm = this;
       vm.delete = deleteRow;
       vm.dtInstance = {};
@@ -1315,6 +1300,7 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
           .withPaginationType('full_numbers')
           .withOption('createdRow', createdRow)        
           .withOption('processing', true);
+      vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');          
       vm.dtColumns = [
         DTColumnBuilder.newColumn(null).notSortable()
           .renderWith(actionsHtml).withOption('width','10px')
@@ -1543,7 +1529,7 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
 };
 
 
-function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state) 
+function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$translate,$stateParams,$state,$window) 
 { 
   $scope.generate = {'template':'bootstrap'};
   $scope.generate.items = [{'id':0,'type':'text','column':null,'title':null,'Opcion':'optional','table':null,'tcolumn':null}];
@@ -1579,6 +1565,7 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
         //////////////////////////////es para databases de datos
     var id =  $stateParams.qId;
     $scope.Paramsid = id;
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";    
     var vm = this;
     vm.delete = deleteRow;
     vm.dtInstance = {};
@@ -1588,13 +1575,14 @@ function ListModulsCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
         .withOption('createdRow', createdRow)
         .withOption('responsive', true)         
         .withOption('processing', true);
+    vm.dtOptions.withLanguageSource('http://cdn.datatables.net/plug-ins/1.10.11/i18n/'+(translate == 'en' ? 'English' : 'Spanish')+'.json');    
     vm.dtColumns = [
       DTColumnBuilder.newColumn(null).notSortable()
         .renderWith(actionsHtml).withOption('width','10px')
         .withOption('className', 'text-center').withTitle('ACTION'),
-        DTColumnBuilder.newColumn('name').withTitle('name'),
-        DTColumnBuilder.newColumn('icon').withTitle('icon'),
-        DTColumnBuilder.newColumn('is_active').withTitle('is_active'),
+        DTColumnBuilder.newColumn('name').withTitle($translate.instant('NAME')),
+        DTColumnBuilder.newColumn('icon').withTitle($translate.instant('ICON')),
+        DTColumnBuilder.newColumn('is_active').withTitle($translate.instant('STATUS')),
      
     ];
 
@@ -1714,7 +1702,7 @@ function EditGroupModulsCtrl($scope, editId, table, $http, $uibModalInstance,$tr
 };
 function NewGroupModulsCtrl($scope, table, $http, $uibModalInstance)
 {
-    $scope.moduls = {};
+    $scope.moduls = {'Group':0};
     $scope.delete ='no';
     $scope.view ='yes';
     $scope.cancel = function () {

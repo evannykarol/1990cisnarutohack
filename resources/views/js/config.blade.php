@@ -825,7 +825,9 @@ angular
     .run(function($rootScope, $state) {
         $rootScope.$state = $state;
     })
-    .run(function(amMoment,$window) {
+    .run(function(amMoment,$window,$translate) {
     lang = $window.navigator.language;
+    var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";
+    $translate.use(translate);
     amMoment.changeLocale(lang);
     });

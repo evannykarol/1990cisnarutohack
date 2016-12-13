@@ -30,8 +30,8 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{ 'IS_GROUP' | translate }}:</label>
                 <div class="col-sm-7">
-                    <label class="checkbox-inline"> <input icheck type="radio" ng-model="moduls.Group" value="1" ng-required="!moduls.Group"> {{ 'ACTIVE' | translate }}</label>
-                    <label class="checkbox-inline"> <input icheck type="radio" ng-model="moduls.Group" value="0" ng-required="!moduls.Group"> {{ 'INACTIVE' | translate }}</label> 
+                    <label class="checkbox-inline"> <input icheck type="radio" ng-model="moduls.Group" value="1" convert-to-number> {{ 'ACTIVE' | translate }}</label>
+                    <label class="checkbox-inline"> <input icheck type="radio" ng-model="moduls.Group" value="0" convert-to-number> {{ 'INACTIVE' | translate }}</label> 
                 </div>
             </div>  
          </div>                  

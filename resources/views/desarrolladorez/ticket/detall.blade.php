@@ -49,7 +49,7 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <label class="col-sm-4 control-label">{{ 'DEPARTAMENT' | translate }}:</label>
+                <label class="col-sm-4 control-label">{{ 'DEPARTMENT' | translate }}:</label>
                 <div class="col-sm-8">
                     <select class="form-control" ng-model='ticket.Departament' convert-to-number required ng-disabled="ticket.is_admin_ticket">
                         <option ng-repeat="option in departament" value="{{option.id}}">{{option.name}}</option>
