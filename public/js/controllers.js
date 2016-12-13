@@ -617,6 +617,10 @@ function MainCtrl($scope,$http,$rootScope) {
           $rootScope.MainArea =response.area;
           $rootScope.MainMessages=getValue("Messages", response.menus);
           $rootScope.MainTicket=getValue("Ticket", response.menus);
+          $rootScope.MainUser=getValue("User", response.menus);
+          $rootScope.MainModule=getValue("Module", response.menus);
+          $rootScope.MainConfiguracion=getValue("Configuracion", response.menus);
+          
 
         });
   function getValue(key, array) {

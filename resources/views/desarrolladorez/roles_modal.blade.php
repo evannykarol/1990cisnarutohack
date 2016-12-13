@@ -136,7 +136,7 @@
                     </uib-tab>                                       
                  </uib-tabset>
                 </div>  
-                <pre ng-bind="roles|json"></pre>
+                <!-- <pre ng-bind="roles|json"></pre> -->
              </div>
         </div>
     </div>    
