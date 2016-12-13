@@ -159,7 +159,7 @@
                             </a>
 
                             <div class="media-body ">
-                                <small class="pull-right">2h ago</small>
+                                <small class="pull-right"><span am-time-ago="Created"></span></small>
                                 <strong>{{ticket.Name}}</strong><br>
                                 <small class="text-muted">{{Created}}</small>
                                 <div class="well" ng-bind-html="ticket.Description">
@@ -173,7 +173,7 @@
                             </a>
 
                             <div class="media-body ">
-                                <small class="pull-right">2h ago</small>
+                                <small class="pull-right"><span am-time-ago="data.created"></span></small>
                                 <strong>{{data.users}}</strong><br>
                                 <small class="text-muted">{{data.created}}</small>
                                 <div class="well" ng-bind-html="data.comment">

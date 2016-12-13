@@ -388,6 +388,7 @@ function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translat
         $scope.roles.Description            = response.Description;
         $scope.roles.IsAdmin                = response.IsAdmin; 
         $scope.roles.IsTicket               = response.Isticket;                
+        $scope.roles.IsdeleteTicket         = response.IsdeleteTicket;  
         $scope.roles.Permission             = response.Permission;
         $scope.roles.PermissionMenus        = response.PermissionMenus;
     });
@@ -1438,7 +1439,8 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
 
 
 };
-function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate,toaster) {
+function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$location,$stateParams,$state,$translate,toaster,$window) {
+
     $scope.person       = {};
     $scope.departament  = {};
     $http.get('ticket/data').success(function(response){
@@ -1447,6 +1449,7 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
     $http.get('user/list').success(function(response){
         $scope.person=response;
     });
+    $scope.time = new Date();
     $scope.message = {};
     $scope.Ticket  = {};
     $scope.ticket  = {};
@@ -1537,7 +1540,6 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
           }); 
 
    };   
-
 };
 
 

@@ -824,4 +824,8 @@ angular
     .config(config)
     .run(function($rootScope, $state) {
         $rootScope.$state = $state;
+    })
+    .run(function(amMoment,$window) {
+    lang = $window.navigator.language;
+    amMoment.changeLocale(lang);
     });

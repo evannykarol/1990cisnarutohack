@@ -12,7 +12,8 @@
         'ngSanitize',
         'ng-mfb',                    // ngSanitize
         'angularScreenfull',
-        'chart.js'
+        'chart.js',
+        'angularMoment'
     ])
 
         .factory(

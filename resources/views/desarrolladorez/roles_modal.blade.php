@@ -117,6 +117,20 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="setings-item">
+                                    <span>
+                                         Ticket Delete
+                                    </span>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" class="onoffswitch-checkbox" id="IsdeleteTicket" ng-model='roles.IsdeleteTicket'>
+                                        <label class="onoffswitch-label" for="IsdeleteTicket">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>                            
                          </div>  
                         </div>
                     </uib-tab>                                       

@@ -152,7 +152,7 @@ class TicketController extends Controller
                 "Created"           =>Carbon::parse($Ticket->created_at)->toDateTimeString(),
                 "LastUpdate"        =>Carbon::parse($Ticket->updated_at)->toDateTimeString(),
                 "Message"           =>$Message,
-                "User"              =>["Id"=>$User->id,"User"=>$User->name,"photo"=>$User->photo],
+                "User"              =>["Id"=>$User->id,"User"=>$User->name." ".$User->first_name,"photo"=>$User->photo],
                 "is_admin_ticket"   =>$roles->is_admin_ticket ? false: true,
                 "is_delete_ticket"  =>$roles->is_delete_ticket ? true: false
               ];

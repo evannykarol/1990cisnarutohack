@@ -11,7 +11,7 @@ class Data
     public function UserName($id){
         $User = User::find($id);
         if(@$User->name){
-            return $User->name;
+            return $User->name." ".$User->first_name;
         }else{
             return null;    
         }

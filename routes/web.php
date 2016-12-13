@@ -24,7 +24,7 @@ Route::get('logout', function(){
 
 // Route::get('/home', 'HomeController@index');
 
-///
+/// 
 Route::get('/common/content', function () {
     return view('common.content');
 });
