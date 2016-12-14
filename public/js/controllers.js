@@ -409,7 +409,6 @@ function EditRolesCtrl($scope, editId, table, $http, $uibModalInstance,$translat
         $scope.roles.Description            = response.Description;
         $scope.roles.IsAdmin                = response.IsAdmin; 
         $scope.roles.IsTicket               = response.Isticket;                
-        $scope.roles.IsdeleteTicket         = response.IsdeleteTicket;  
         $scope.roles.Permission             = response.Permission;
         $scope.roles.PermissionMenus        = response.PermissionMenus;
     });
@@ -591,20 +590,20 @@ function NotificationCtrl($scope,$http,$interval)
     //       });
     // }
 
-    //  $scope.messagescount = 0;
-    //  $scope.callAtInterval = function() {
-    //     var url = "messages/query";
-    //      $http.get(url)
-    //      .success(function(response){
-    //         // Push.create('hay mensaje'+response.count)
+     $scope.messagescount = 0;
+     $scope.callAtInterval = function() {
+        var url = "messages/query";
+         $http.get(url)
+         .success(function(response){
+            // Push.create('hay mensaje'+response.count)
             
-    //         $scope.messagescount = response.count;
-    //         $scope.messagesdetall = response.detall;
-    //         m
+            $scope.messagescount = response.count;
+            $scope.messagesdetall = response.detall;
+            
 
-    //       });
-    // }    
-    // $interval( function(){ $scope.callAtInterval(); }, 5000);
+          });
+    }    
+    $interval( function(){ $scope.callAtInterval(); }, 5000);
     
 };
 
@@ -1365,9 +1364,12 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         status=1;
         $scope.OptionStatus = 1;
       }
+      $scope.loading="yes";
       $http.get('menusval/Ticket')
       .success(function(response){
         $scope.privilegios = response;
+        $scope.loading="no";
+        $scope.view="yes";
       });
       
       $scope.load = 'yes';

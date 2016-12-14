@@ -33,9 +33,10 @@
                             </a>
 
                             <div>
-                                <small class="pull-right"> 46 horas</small>
-                                <strong></strong> {{datos.subject}} <strong>{{datos.name}}</strong>. <br>
-                                <small class="text-muted">{{datos.created}}</small>
+                                <small class="pull-right" am-time-ago="datos.created"></small>
+                                {{datos.subject}}<br> 
+                                <strong>{{datos.name}}</strong>. <br>
+                                <small class="text-muted"> {{datos.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}} </small>
                             </div>
                         </div>
                     </li>

@@ -14,7 +14,15 @@
     </div>
 </div>
 <div class="wrapper wrapper-content animated fadeInRight" ng-controller="TicketCtrl as showCase">
-    <div class="row">
+    <div class="row" ng-if="'yes'==loading">
+        <div class="spiner-example">
+            <div class="sk-spinner sk-spinner-chasing-dots">
+                <div class="sk-dot1"></div>
+                <div class="sk-dot2"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="'yes'==view">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">

@@ -482,8 +482,7 @@ class UsersController extends Controller
                     "Name"               =>  $Roles->name,
                     "Description"        =>  $Roles->description,
                     "IsAdmin"            =>  $Roles->is_admin_ticket ? true : false,
-                    "Isticket"           =>  $Roles->is_ticket ? true : false,  
-                    "IsdeleteTicket"     =>  $Roles->is_delete_ticket ? true : false,                    
+                    "Isticket"           =>  $Roles->is_ticket ? true : false,                    
                     "Permission"         =>  $dato,
                     "PermissionMenus"    =>  $datomenus
                     ];
@@ -498,7 +497,6 @@ class UsersController extends Controller
                         'description'=>$collection['Description'],
                         'is_admin_ticket'=>$collection['IsAdmin'],
                         'is_ticket'=>$collection['IsTicket'],
-                        'is_delete_ticket'=>$collection['IsdeleteTicket']
                         ]);
         $collection      = collect($collection);
         $collectionMenus = collect($collection);
