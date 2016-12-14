@@ -31,7 +31,7 @@
                             </select>
                         </div>
                         <div class="col-sm-9">
-                            <button class="btn btn-primary pull-right" ng-click="add()"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button>
+                            <button class="btn btn-primary pull-right" ng-click="add()" ng-if="privilegios.is_add"><i class="fa fa-plus"></i> {{ 'CREATE ' | translate }}</button>
                         </div>
                     </div>
                 </div>

@@ -1365,6 +1365,10 @@ function TicketCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTColum
         status=1;
         $scope.OptionStatus = 1;
       }
+      $http.get('menusval/Ticket')
+      .success(function(response){
+        $scope.privilegios = response;
+      });
       
       $scope.load = 'yes';
       var translate  = ($window.navigator.UserLanguage || $window.navigator.language).indexOf("en") == 0 ? "en" : "es";      
@@ -1544,6 +1548,10 @@ function TicketEditCtrl($scope,$http, $uibModal, $compile, DTOptionsBuilder, DTC
       $scope.loading = 'no';
       $scope.viewticket = 'yes';
       
+      });
+      $http.get('menusval/Ticket')
+      .success(function(response){
+        $scope.privilegios = response;
       });
     }
     ticket();

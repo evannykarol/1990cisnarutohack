@@ -34,8 +34,8 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="m-b-md">
-                <h2><b>Ticket # {{ticket.IdTicket}} <button type="submit" class="btn btn-primary pull-right ladda-button" ladda="btnload" ng-if="ticket.is_admin_ticket == false">Actualizar</button> 
-                     <button type="button" class="btn btn-danger pull-right" ng-if="ticket.is_delete_ticket == true">DELETE</button>
+                <h2><b>Ticket # {{ticket.IdTicket}} <button type="submit" class="btn btn-primary pull-right ladda-button" ladda="btnload" ng-if="privilegios.is_edit">Actualizar</button> 
+                     <button type="button" class="btn btn-danger pull-right" ng-if="privilegios.is_delete">DELETE</button>
                 </b></h2>
             </div>
         </div>

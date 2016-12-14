@@ -28,4 +28,11 @@ class MenuController extends Controller
     	];				
     	return response()->json($data);
     }
+    public function menusval($menus)
+    {
+            $menus = Menus::where('key_name','=',$menus)->first();
+            $id = Auth::user()->id_roles;
+            $menu = MenusPrivileges::where('id_roles','=',$id)->where("id_menus","=",$menus->id)->first();
+            return response()->json($menu);
+    }
 }

@@ -1,4 +1,3 @@
-<!-- Wrapper-->
 <div id="wrapper">
 
     <!-- Navigation -->
@@ -15,7 +14,7 @@
         <div ui-view></div>
 
         <!-- Footer -->
-        <!-- <div ng-include="'/common/footer'"></div> -->
+        <div ng-include="'common/footer'"></div>
         <div ng-include="'views/common/right_sidebar.html'"></div>
     </div>
     <!-- End page wrapper-->
@@ -23,4 +22,4 @@
     <!-- Right Sidebar -->
     
 </div>
-<!-- End wrapper-->
+<!-- End wrapper
