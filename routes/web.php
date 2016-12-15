@@ -239,6 +239,15 @@ Route::get('settings','SettingsController@index');
 Route::get('settings/show','SettingsController@show');
 Route::post('settings/update','SettingsController@update');
 Route::get('settings/clearcache','SettingsController@clearcache');
+Route::post('settings/storedepartment','SettingsController@storeDespartment');
+Route::get('settings/edit/{id}/department','SettingsController@EditDespartment');
+Route::post('settings/update/{id}/department','SettingsController@UpdateDespartment');
+Route::get('settings/destroy/{id}/department','SettingsController@DestroyDespartment');
+Route::get('settings/translate','SettingsController@translate');
+Route::post('settings/store/translate','SettingsController@storetranslate');
+
+Route::get('settings/opcion/translate','SettingsController@langOption');
+
 
 
 

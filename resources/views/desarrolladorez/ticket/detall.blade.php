@@ -175,7 +175,7 @@
                             <div class="media-body ">
                                 <small class="pull-right"><span am-time-ago="data.created"></span></small>
                                 <strong>{{data.users}}</strong><br>
-                                <small class="text-muted">{{data.created}}</small>
+                                <small class="text-muted">{{data.created | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</small>
                                 <div class="well" ng-bind-html="data.comment">
                                 </div>
                             </div>

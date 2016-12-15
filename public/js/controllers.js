@@ -590,20 +590,20 @@ function NotificationCtrl($scope,$http,$interval)
     //       });
     // }
 
-     $scope.messagescount = 0;
-     $scope.callAtInterval = function() {
-        var url = "messages/query";
-         $http.get(url)
-         .success(function(response){
-            // Push.create('hay mensaje'+response.count)
+    //  $scope.messagescount = 0;
+    //  $scope.callAtInterval = function() {
+    //     var url = "messages/query";
+    //      $http.get(url)
+    //      .success(function(response){
+    //         // Push.create('hay mensaje'+response.count)
             
-            $scope.messagescount = response.count;
-            $scope.messagesdetall = response.detall;
+    //         $scope.messagescount = response.count;
+    //         $scope.messagesdetall = response.detall;
             
 
-          });
-    }    
-    $interval( function(){ $scope.callAtInterval(); }, 5000);
+    //       });
+    // }    
+    // $interval( function(){ $scope.callAtInterval(); }, 5000);
     
 };
 
@@ -1025,20 +1025,33 @@ function hostinguserCtrl($scope,DTOptionsBuilder)
  * translateCtrl - Controller for translate
  */
 
-function SettingsCtrl($scope,$http)
+function SettingsCtrl($scope,$http,$translate)
 {
+    function getValue(key, array) {
+         for (var el in array) {
+             if (array[el].hasOwnProperty(key)) {   
+                 return array[el][key];
+             }
+         }
+    }
     $scope.settings = {};
+    $scope.Department ={};
     $scope.load= 'yes'; 
     $http.get('settings/show')
     .success(function(response){
-        $scope.settings.ApplicationName =  response[0].ApplicationName;
-        $scope.settings.ApplicationDesc =  response[1].ApplicationDesc;
-        $scope.settings.CompanyName     =  response[2].CompanyName;
-        $scope.settings.EmailSystem     =  response[3].EmailSystem;
-        $scope.settings.MainLanguaje    =  response[4].MainLanguaje;
-        $scope.settings.DateFormat      =  response[5].DateFormat;
+        $scope.settings.ApplicationName =  getValue('ApplicationName',response.Config);
+        $scope.settings.ApplicationDesc =  getValue('ApplicationDesc',response.Config);
+        $scope.settings.CompanyName     =  getValue('CompanyName',response.Config);
+        $scope.settings.EmailSystem     =  getValue('EmailSystem',response.Config);
+        $scope.settings.MainLanguaje    =  getValue('MainLanguaje',response.Config);
+        $scope.settings.DateFormat      =  getValue('DateFormat',response.Config);
+        $scope.Department               =  response.Department;
         $scope.load= 'no';
         $scope.view = 'yes';      
+    });
+    $http.get('settings/translate')
+    .success(function(response){
+      $scope.languages = response;
     });
     $scope.submit = function() {
          $scope.btnloading= true;      
@@ -1067,7 +1080,91 @@ function SettingsCtrl($scope,$http)
                 $scope.btnloading = false;  
                 sweetAlert("Oops...", "Something went wrong!", "error");
           }); 
-    }        
+    };
+    $scope.AddDepartment = function(data){ 
+         $scope.btnloadingDepart = true;
+         $http({
+          method  : 'POST',
+          url     : 'settings/storedepartment',
+          data    :  {'Department':data},
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+              $http.get('settings/show')
+              .success(function(response){
+                $scope.Department               =  response.Department; 
+                $scope.btnloadingDepart = false;   
+                sweetAlert('Correctamente', "", "success");
+              });              
+          }, function errorCallback(response) {
+                $scope.btnloadingDepart = false;
+                sweetAlert("Oops...", "Something went wrong!", "error");
+          }); 
+    }
+    $scope.editingData = {};
+    for (var i = 0, length = $scope.Department.length; i < length; i++) {
+      $scope.editingData[$scope.Department[i].Id] = false;
+    }
+    $scope.EditDepartment = function(tableData)
+    { 
+        $scope.editingData[tableData.Id] = true;
+    }
+    $scope.SaveDepartment = function(tableData)
+    {
+          var Id = tableData.Id;
+          var Name = tableData.Name;
+         $http({
+          method  : 'POST',
+          url     : 'settings/update/'+Id+'/department',
+          data    :  {'Department':Name},
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+           $scope.editingData[tableData.Id] = false;
+          }, function errorCallback(response) {
+                sweetAlert("Oops...", "Something went wrong!", "error");
+          }); 
+    }
+    $scope.DeleteDepartment =  function(tableData)
+    {
+        var Id = tableData.Id;
+        swal({
+        title: $translate.instant('CONFIRM_DELETE'),
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: $translate.instant('YES'),
+        cancelButtonText: $translate.instant('NO'),
+        closeOnConfirm: false,
+        closeOnCancel: true
+        },
+        function(isConfirm){
+          if(isConfirm){
+          $http.get('settings/destroy/'+Id+'/department')
+            .then(function successCallback(response) {
+                    sweetAlert('Correctamente', "", "success");
+                    $http.get('settings/show')
+                      .success(function(response){
+                        $scope.Department  =  response.Department; 
+                      });  
+              }, function errorCallback(response) {
+                    sweetAlert("Oops...", "", "error");
+              });
+            }
+        });
+    }
+    $scope.translatePost = function()
+    {
+      // $scope.languages;
+      $http({
+          method  : 'POST',
+          url     : 'settings/store/translate',
+          data    :  $scope.languages,
+          headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+         }).then(function successCallback(response) {
+
+          }, function errorCallback(response) {
+                sweetAlert("Oops...", "Something went wrong!", "error");
+          }); 
+    }         
 } 
 function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$window)
 {

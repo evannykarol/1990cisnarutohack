@@ -58,6 +58,7 @@
 
 <!-- Main Angular scripts-->
 <script src="js/angular/angular.min.js"></script>
+
 <script src="js/angular/angular-sanitize.js"></script>
 <script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
 <script src="js/angular-translate/angular-translate.min.js"></script>
