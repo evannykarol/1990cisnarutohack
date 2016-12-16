@@ -243,10 +243,10 @@ Route::post('settings/storedepartment','SettingsController@storeDespartment');
 Route::get('settings/edit/{id}/department','SettingsController@EditDespartment');
 Route::post('settings/update/{id}/department','SettingsController@UpdateDespartment');
 Route::get('settings/destroy/{id}/department','SettingsController@DestroyDespartment');
-Route::get('settings/translate','SettingsController@translate');
-Route::post('settings/store/translate','SettingsController@storetranslate');
+Route::get('settings/{trans}/translate','SettingsController@translate');
+Route::post('settings/{trans}/store/translate','SettingsController@storetranslate');
 
-Route::get('settings/opcion/translate','SettingsController@langOption');
+Route::get('settings/opcion/translates','SettingsController@langOption');
 
 
 

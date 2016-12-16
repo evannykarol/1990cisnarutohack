@@ -105,8 +105,36 @@
                         <div class="panel-body">
                            <div class="row">
                             <div class="col-sm-7">
-                            <button class="btn btn-success" ng-click="translatePost()"><i class="fa fa-save"></i> {{ 'SAVE' | translate }}</button> 
-                            <table class="table">
+                            <div ng-hide="Translation">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                         <th>{{'NAME' | translate}}</th>
+                                         <th>Folder</th>
+                                         <th>{{'AUTOR' | translate}}</th>
+                                         <th>{{'ACTION' | translate}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr  ng-repeat="Translates in Translate">
+                                         <td>{{Translates.name}}</td>
+                                         <td>{{Translates.folder}}</td>
+                                         <td>{{Translates.author}}</td>
+                                         <td>
+                                            <button ng-if="'en' != Translates.folder" class="btn btn-success ladda-button" ladda="Translates.loading" ng-click="translateEdit($index,Translates)">
+                                                <i class="fa fa-save"></i> {{ 'EDIT' | translate }}
+                                            </button>
+                                            <button ng-if="'en' != Translates.folder" class="btn btn-danger ladda-button" ladda="Translates.loadingD" ng-click="translateDelete($index)">
+                                                <i class="fa fa-trash"></i> {{ 'DELETE' | translate }}
+                                            </button>
+                                         </td>
+                                        </tr>                                     
+                                    </tbody>
+                                </table>
+                                
+                            </div>
+                            <div ng-show="Translation">
+                                <table class="table">
                                     <thead>
                                         <tr>
                                             <th>Pharse</th>
@@ -127,10 +155,15 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                            </table>
+                                </table>
+                            </div>                              
                             </div>
                             <div class="col-sm-5">
-                                <pre ng-bind="languages|json"></pre>
+                             <div ng-show="Translation">
+                                <button class="btn btn-success ladda-button" ladda="SaveTranslation" ng-click="translatePost(modeltranslate)"><i class="fa fa-save"></i> {{ 'SAVE' | translate }}</button> 
+                                <button class="btn btn-danger" ng-click="translateCancel()"><i class="fa fa-save"></i>{{ 'CANCEL' | translate }}</button> 
+                                <!-- <pre ng-bind="languages|json"></pre> -->
+                             </div>   
                             </div>
                            </div>              
                         </div>

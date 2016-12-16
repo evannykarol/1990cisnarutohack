@@ -15,21 +15,39 @@ class SettingsController extends Controller
     }   
     public function show()
     {
-    	$Settings = Settings::get();
-		$data = [];
+    	$Settings     = Settings::get();
+        $DepartmentD  = [];
+		$TranslateD   = [];
+        $SettingD     = [];
 		foreach ($Settings as $Setting) {
-			$data[] = [
+			$SettingD[] = [
 						$Setting->name => $Setting->value
 					  ];
 		};
         $Departments = Department::get();
-        $DepartmentD = [];
         foreach ($Departments as $Department) {
             $DepartmentD[] = [
                         "Id"=>$Department->id,"Name"=>$Department->name
                       ];
         }
-        $query = ["Config"=>$data, "Department"=>$DepartmentD];
+        $dir = base_path().'/public/js/languages/info/';
+        if (is_dir($dir)){
+          if ($dh = opendir($dir)){
+            while (($file = readdir($dh)) !== false){
+                if(substr($file, 0, 4) == "info"){
+                    $fp = file_get_contents($dir.$file);
+                    $fp = json_decode($fp,true);
+                    $TranslateD[] =  $fp ;
+                }
+            }
+            closedir($dh);
+          }
+        }
+        $query = [
+                    "Config"        =>  $SettingD, 
+                    "Department"    =>  $DepartmentD,
+                    "Translate"     =>  $TranslateD,
+                    ];
 		return response()->json($query);
     } 
     public function update(Request $request)
@@ -95,41 +113,55 @@ class SettingsController extends Controller
             'status'    =>'success'
         ));
     }
-    public function translate()
+    public function translate($trans)
     {
-        $data_lang = file_get_contents(base_path()."/public/js/languages/es.json");
+        $data_lang = file_get_contents(base_path()."/public/js/languages/translate/".$trans.".json");
         $json_lang = json_decode($data_lang, true);
         foreach ($json_lang as $key => $var) {
             $data[] = [$key=>$var];
         }
         return response()->json($data);
     }
-    public function storetranslate(Request $request)
+    public function storetranslate($trans,Request $request)
     {
         $collection = collect($request->json()->all());
         $form = $collection->map(function ($item, $key) {
                 return $item;
         });
-        $filename = base_path()."/public/js/languages/es.json";
+        $filename = base_path()."/public/js/languages/translate/".$trans.".json";
         $fp=fopen($filename,"w+"); 
         fwrite($fp,json_encode($form->collapse()->all())); 
         fclose($fp);
     }
-    public static function langOption()
+    public  function langOption()
     {
-        $path = base_path().'/public/js/languages/';
-        $lang = scandir($path);
-
+        // $path = base_path().'/public/js/languages/';
+        // $lang = scandir($path);
+        // $t = array();
+        // foreach($lang as $value) {
+        //     if($value === '.' || $value === '..') {continue;} 
+        //         if(is_dir($path . $value))
+        //         {
+        //             $fp = file_get_contents($path . $value.'/info.json');
+        //             $fp = json_decode($fp,true);
+        //             $t[] =  $fp ;
+        //         }            
+        // }   
+        // return $t;
         $t = array();
-        foreach($lang as $value) {
-            if($value === '.' || $value === '..') {continue;} 
-                if(is_dir($path . $value))
-                {
-                    $fp = file_get_contents($path . $value.'/info.json');
+        $dir = base_path().'/public/js/languages/info/';
+        if (is_dir($dir)){
+          if ($dh = opendir($dir)){
+            while (($file = readdir($dh)) !== false){
+                if(substr($file, 0, 4) == "info"){
+                    $fp = file_get_contents($dir.$file);
                     $fp = json_decode($fp,true);
                     $t[] =  $fp ;
-                }            
-        }   
+                }
+            }
+            closedir($dh);
+          }
+        }
         return $t;
 
     }           

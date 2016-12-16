@@ -2,7 +2,6 @@
 <html ng-app="inspinia">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,25 +9,15 @@
     <link rel="shortcut icon" type="image/png" href="<% URL::asset('img/favicon.png') %>"/>
     <!-- Page title set in pageTitle directive -->
     <title page-title></title>
-
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Font awesome -->
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-
     <!-- Main Inspinia CSS files -->
     <link href="css/animate.css" rel="stylesheet">
     <link id="loadBefore" href="css/style.css" rel="stylesheet">
-
-
-
     <link href="css/mfb.css" rel="stylesheet"/>
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
-
-
-
 </head>
 
 <!-- ControllerAs syntax -->
@@ -37,25 +26,19 @@
 
 <!-- Main view  -->
 <div ui-view></div>
-
 <!-- jQuery and Bootstrap -->
 <script src="js/jquery/jquery-2.1.1.min.js"></script>
 <script src="js/plugins/jquery-ui/jquery-ui.js"></script>
 <script src="js/bootstrap/bootstrap.min.js"></script>
-
 <!-- MetsiMenu -->
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
 <!-- SlimScroll -->
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
 <!-- Peace JS -->
 <script src="js/plugins/pace/pace.min.js"></script>
 <script src="js/plugins/push/push.min.js"></script>
-
 <!-- Custom and plugin javascript -->
 <script src="js/inspinia.js"></script>
-
 <!-- Main Angular scripts-->
 <script src="js/angular/angular.min.js"></script>
 
@@ -66,10 +49,11 @@
 <script src="js/bootstrap/ui-bootstrap-tpls-1.1.2.min.js"></script>
 <script src="js/plugins/angular-idle/angular-idle.js"></script>
 
-    <script src="https://rawgit.com/angular-translate/bower-angular-translate-loader-static-files/2.6.1/angular-translate-loader-static-files.min.js"></script>
-    <script src="https://rawgit.com/angular-translate/bower-angular-translate-storage-cookie/2.6.1/angular-translate-storage-cookie.min.js"></script>
-    <script src="https://rawgit.com/angular-translate/bower-angular-translate-storage-local/2.6.1/angular-translate-storage-local.min.js"></script>
-    <!-- <script src='https://rawgit.com/ghostbar/angular-file-model/master/angular-file-model.js'></script> -->
+<script src="js/angular-translate/angular-translate-loader-static-files.min.js"></script>
+<script src="js/angular-translate/angular-translate-storage-cookie.min.js"></script>
+<script src="js/angular-translate/angular-translate-storage-local.min.js"></script>
+<script src="js/angular-translate/angular-translate-loader-partial.js"></script>
+<!-- <script src='https://rawgit.com/ghostbar/angular-file-model/master/angular-file-model.js'></script> -->
 <script src="js/plugins/moment/moment.min.js"></script>
 <!-- load angular-moment -->
 <script src="js/plugins/moment/angular-moment.min.js"></script>

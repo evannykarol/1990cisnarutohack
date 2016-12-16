@@ -1,12 +1,9 @@
-function config($translateProvider) {
+function config($translateProvider,$translatePartialLoaderProvider ) {
     $translateProvider.useStaticFilesLoader({
-      prefix: '/js/languages/',
+      prefix: '/js/languages/translate/',
       suffix: '.json'
     });
-    // $translateProvider.useLocalStorage();
-    // $translateProvider.preferredLanguage('es');
-
-
+    $translateProvider.preferredLanguage('es');
 }
 angular
     .module('inspinia')

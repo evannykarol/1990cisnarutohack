@@ -1,8 +1,8 @@
-function translateCtrl($translate, $scope,$http, $controller,$rootScope) 
+function translateCtrl($translate,$translatePartialLoader, $scope,$http, $controller,$rootScope) 
 {
     $scope.changeLanguage = function (langKey) {
         $translate.use(langKey);
-        // $translateProvider.preferredLanguage(langKey);
+        $translate.refresh();
         $scope.language = langKey;
         $http.get('user/translate/'+langKey)
     };
@@ -1000,7 +1000,6 @@ function datatablesCtrl($scope,DTOptionsBuilder)
             {extend: 'csv'},
             {extend: 'excel', title: 'ExampleFile'},
             {extend: 'pdf', title: 'ExampleFile'},
-
             {extend: 'print',
                 customize: function (win){
                     $(win.document.body).addClass('white-bg');
@@ -1034,8 +1033,9 @@ function SettingsCtrl($scope,$http,$translate)
              }
          }
     }
-    $scope.settings = {};
-    $scope.Department ={};
+    $scope.settings   = {};
+    $scope.Department = {};
+    $scope.Translate  = {};
     $scope.load= 'yes'; 
     $http.get('settings/show')
     .success(function(response){
@@ -1046,13 +1046,11 @@ function SettingsCtrl($scope,$http,$translate)
         $scope.settings.MainLanguaje    =  getValue('MainLanguaje',response.Config);
         $scope.settings.DateFormat      =  getValue('DateFormat',response.Config);
         $scope.Department               =  response.Department;
+        $scope.Translate                =  response.Translate;
         $scope.load= 'no';
         $scope.view = 'yes';      
     });
-    $http.get('settings/translate')
-    .success(function(response){
-      $scope.languages = response;
-    });
+
     $scope.submit = function() {
          $scope.btnloading= true;      
          $http({
@@ -1100,8 +1098,8 @@ function SettingsCtrl($scope,$http,$translate)
                 sweetAlert("Oops...", "Something went wrong!", "error");
           }); 
     }
-    $scope.editingData = {};
-    for (var i = 0, length = $scope.Department.length; i < length; i++) {
+      $scope.editingData = {};
+      for (var i = 0, length = $scope.Department.length; i < length; i++) {
       $scope.editingData[$scope.Department[i].Id] = false;
     }
     $scope.EditDepartment = function(tableData)
@@ -1112,15 +1110,18 @@ function SettingsCtrl($scope,$http,$translate)
     {
           var Id = tableData.Id;
           var Name = tableData.Name;
+          $scope.SaveTranslation = true;
          $http({
           method  : 'POST',
           url     : 'settings/update/'+Id+'/department',
           data    :  {'Department':Name},
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
-           $scope.editingData[tableData.Id] = false;
+            $scope.SaveTranslation = false;
+            $scope.editingData[tableData.Id] = false;
           }, function errorCallback(response) {
-                sweetAlert("Oops...", "Something went wrong!", "error");
+              $scope.SaveTranslation = false;
+              sweetAlert("Oops...", "Something went wrong!", "error");
           }); 
     }
     $scope.DeleteDepartment =  function(tableData)
@@ -1151,20 +1152,39 @@ function SettingsCtrl($scope,$http,$translate)
             }
         });
     }
-    $scope.translatePost = function()
+    $scope.translatePost = function(trans)
     {
-      // $scope.languages;
       $http({
           method  : 'POST',
-          url     : 'settings/store/translate',
+          url     : 'settings/'+trans+'/store/translate',
           data    :  $scope.languages,
           headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
          }).then(function successCallback(response) {
-
+            $translate.refresh();
           }, function errorCallback(response) {
                 sweetAlert("Oops...", "Something went wrong!", "error");
           }); 
-    }         
+    }
+    $scope.translateEdit = function(loading,trans)
+    {
+      var trans = trans.folder;
+      $scope.Translate[loading].loading = true;
+      $scope.modeltranslate = trans;
+      $http.get('settings/'+trans+'/translate')
+      .success(function(response){
+        $scope.Translate[loading].loading= false;
+        $scope.languages = response;
+        $scope.Translation =true;
+      });
+    }
+    $scope.translateCancel = function(){
+      $scope.languages = {};
+      $scope.modeltranslate = null;
+      $scope.Translation =false;
+    }
+    $scope.translateDelete = function(){
+      alert("eliminar");
+    }           
 } 
 function ServicehostingCtrl($scope, $uibModal, $compile, DTOptionsBuilder, DTColumnBuilder,$window)
 {
