@@ -817,7 +817,61 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
                     ]);
                 }
             }
-        })       
+        })
+        .state('reset', {
+            url: "/reset",
+            templateUrl: "password/reset",
+            data: { pageTitle: 'Login two columns', specialClass: 'gray-bg' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                        }
+                    ]);
+                }
+            }
+        })
+        .state('install', {
+            url: "/install",
+            templateUrl: "install",
+            data: { pageTitle: 'Login two columns', specialClass: 'gray-bg' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                        },
+                        {
+                            files: ['css/plugins/steps/jquery.steps.css']
+                        }
+                    ]);
+                }
+            }
+        })
+        .state('install.wizard.step_one', {
+            url: '/step_one',
+            templateUrl: 'views/wizard/step_one.html',
+            data: { pageTitle: 'Wizard form' }
+        })
+        .state('install.wizard.step_two', {
+            url: '/step_two',
+            templateUrl: 'views/wizard/step_two.html',
+            data: { pageTitle: 'Wizard form' }
+        })
+        .state('install.wizard.step_three', {
+            url: '/step_three',
+            templateUrl: 'views/wizard/step_three.html',
+            data: { pageTitle: 'Wizard form' }
+        })                         
 }
 angular
     .module('inspinia')

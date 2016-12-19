@@ -1,14 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Mail\Message;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use Response;
 use App\User;
 use Hash;
+use Illuminate\Http\Request as Request;
 
 class LoginController extends Controller
 {
@@ -41,9 +44,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
-    public function reset(){
-        User::Where('email','=','evannykarol@hotmail.com')->update(['password'=>Hash::make('superman')]);
-    }
+    // public function reset(){
+    //     User::Where('email','=','evannykarol@hotmail.com')->update(['password'=>Hash::make('superman')]);
+    // }
     public function postSignin() {      
             if(Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')])){
                 return Response::json(['success' => true], 200);

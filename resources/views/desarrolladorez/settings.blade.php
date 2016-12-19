@@ -106,11 +106,11 @@
                            <div class="row">
                             <div class="col-sm-7">
                             <div ng-hide="Translation">
-                                <table class="table">
+                                <table class="table table-hover">
                                     <thead>
                                         <tr>
                                          <th>{{'NAME' | translate}}</th>
-                                         <th>Folder</th>
+                                         <th>{{'FOLDER' | translate}}</th>
                                          <th>{{'AUTOR' | translate}}</th>
                                          <th>{{'ACTION' | translate}}</th>
                                         </tr>
@@ -134,11 +134,11 @@
                                 
                             </div>
                             <div ng-show="Translation">
-                                <table class="table">
+                                <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Pharse</th>
-                                            <th>Translation</th>
+                                            <th>PHARSE</th>
+                                            <th>TRANSLATION</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -160,9 +160,14 @@
                             </div>
                             <div class="col-sm-5">
                              <div ng-show="Translation">
+                                <div class="form-group">
+                                  <label class=" control-label">ACTION</label>
+                                 </div>
+                                <div class="form-group">
                                 <button class="btn btn-success ladda-button" ladda="SaveTranslation" ng-click="translatePost(modeltranslate)"><i class="fa fa-save"></i> {{ 'SAVE' | translate }}</button> 
-                                <button class="btn btn-danger" ng-click="translateCancel()"><i class="fa fa-save"></i>{{ 'CANCEL' | translate }}</button> 
+                                <button class="btn btn-danger" ng-click="translateCancel()"><i class="fa fa-save"></i> {{ 'CANCEL' | translate }}</button> 
                                 <!-- <pre ng-bind="languages|json"></pre> -->
+                                </div>
                              </div>   
                             </div>
                            </div>              
@@ -170,10 +175,15 @@
                     </uib-tab>
                     <uib-tab>
                         <uib-tab-heading>
-                            <i class="fa fa-trash"></i>Clear Cache & logs
+                            <i class="fa fa-trash"></i> Clear Cache & logs
                         </uib-tab-heading>
                         <div class="panel-body">
-                            <strong><button type="button" class="ladda-button btn btn-success" ladda="btnloading" ng-click="Cache()"><i class="fa fa-trash"></i> Clear cache and logs</button></strong>               
+                         <div class="form-group">
+                          <label class=" control-label"> Template Cache</label>
+                         </div>
+                         <div class="form-group">
+                          <button type="button" class="ladda-button btn btn-success" ladda="btnloading" ng-click="Cache()"><strong><i class="fa fa-trash"></i></strong> Clear cache and logs</button>               
+                         </div>
                         </div>
                     </uib-tab>
                     <uib-tab>

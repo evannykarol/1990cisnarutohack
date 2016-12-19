@@ -14,8 +14,11 @@ Blade::setEscapedContentTags('<%%', '%%>');
 Route::get('/', 'HomeController@index');
 Route::get('/session', 'HomeController@session');
 Route::post('/signin', 'Auth\LoginController@postSignin');
-Route::get('/recuperar', 'Auth\LoginController@reset');
+// Route::get('password/reset', 'Auth\LoginController@reset');
 Route::get('/notification', 'HomeController@notification');
+Route::get('install',function(){
+    return view('install.install');
+});
 
 Auth::routes();
 Route::get('logout', function(){

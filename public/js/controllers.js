@@ -1942,6 +1942,77 @@ function LogoutCtrl($scope, $http,$location){
       });
   }
 }
+////////////////////
+function ResetCtrl($scope,$http,$translate)
+{
+  $scope.reset =  function()
+  {
+    var email = $scope.email;
+       $http({
+        method  : 'POST',
+        url     : 'password/email',
+        data    : {email:email},
+        headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+       }).then(function successCallback(response) {
+          if(response.data.status == true){
+            $scope.email= null;
+            sweetAlert('Enviado', response.data.message, "success");
+          }else{
+            sweetAlert('Error', response.data.message, "error");
+          }   
+        }, function errorCallback(response) {
+            sweetAlert("Oops...", "Something went wrong!", "error");
+        });  
+  }
+}
+function wizardCtrl($scope)
+{
+    var vm = this;
+        
+        //Model
+        vm.currentStep = 1;
+        vm.steps = [
+          {
+            step: 1,
+            name: "First step",
+            template: "views/wizard/step_one.html"
+          },
+          {
+            step: 2,
+            name: "Second step",
+            template: "views/wizard/step_two.html"
+          },   
+          {
+            step: 3,
+            name: "Third step",
+            template: "views/wizard/step_three.html"
+          },             
+        ];
+        vm.user = {};
+        
+        //Functions
+        vm.gotoStep = function(newStep) {
+          vm.currentStep = newStep;
+        }
+        
+        vm.getStepTemplate = function(){
+          for (var i = 0; i < vm.steps.length; i++) {
+                if (vm.currentStep == vm.steps[i].step) {
+                    return vm.steps[i].template;
+                }
+            }
+        }
+        
+        vm.save = function() {
+          alert(
+            "Saving form... \n\n" + 
+            "Name: " + vm.user.name + "\n" + 
+            "Email: " + vm.user.email + "\n" + 
+            "Age: " + vm.user.age);
+        }
+        $scope.formData = {};       
+}
+
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
@@ -1971,6 +2042,8 @@ angular
     .controller('SettingsCtrl', SettingsCtrl)
     .controller('NotificationCtrl', NotificationCtrl)
     .controller('LogoutCtrl', LogoutCtrl)
+    .controller('ResetCtrl', ResetCtrl)
+    .controller('wizardCtrl', wizardCtrl)
     
     
     
